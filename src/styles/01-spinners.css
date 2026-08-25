@@ -1,0 +1,132 @@
+/* ===================== Family: spinners (rings & arcs) ===================== */
+
+/* aurora — multi-color conic sweep with a soft glow */
+.ldr--aurora {
+  border-radius: 50%;
+  background: conic-gradient(from 0turn, var(--c1), var(--c2), var(--c3), var(--c1));
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 15%), #000 calc(100% - 14%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 15%), #000 calc(100% - 14%));
+  animation: ldr-spin var(--speed) linear infinite;
+}
+.ldr--aurora::after {
+  content: ""; position: absolute; inset: 0;
+  border-radius: inherit; background: inherit;
+  filter: blur(calc(var(--size) / 8)); opacity: .55;
+  animation: ldr-breathe calc(var(--speed) * 2) ease-in-out infinite;
+}
+
+/* spiral — two arcs spinning opposite directions */
+.ldr--spiral::before, .ldr--spiral::after {
+  content: ""; position: absolute; border-radius: 50%;
+  border: calc(var(--size) / 14) solid transparent;
+}
+.ldr--spiral::before {
+  inset: 0; border-top-color: var(--c1); border-right-color: var(--c2);
+  animation: ldr-spin var(--speed) cubic-bezier(.5,.1,.5,.9) infinite;
+}
+.ldr--spiral::after {
+  inset: 28%; border-bottom-color: var(--c3); border-left-color: var(--c2);
+  animation: ldr-spin calc(var(--speed) * .75) linear infinite reverse;
+}
+
+/* ring-dash — a dashed ring drawing itself */
+.ldr--ring-dash {
+  border-radius: 50%;
+  border: calc(var(--size) / 12) dashed var(--c1);
+  border-right-color: var(--c2);
+  border-bottom-color: var(--c3);
+  animation: ldr-spin calc(var(--speed) * 1.6) linear infinite;
+}
+
+/* ring-gap — solid ring with a travelling gap */
+.ldr--ring-gap {
+  border-radius: 50%;
+  background: conic-gradient(var(--c1) 0 75%, #0000 75% 100%);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 13%), #000 calc(100% - 12%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 13%), #000 calc(100% - 12%));
+  animation: ldr-spin var(--speed) cubic-bezier(.55,.1,.45,.9) infinite;
+}
+
+/* comet — gradient tail chasing a bright head */
+.ldr--comet {
+  border-radius: 50%;
+  background: conic-gradient(from 0turn, #0000 0deg, var(--c1) 120deg, var(--c2) 300deg, var(--c3) 360deg);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 14%), #000 calc(100% - 13%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 14%), #000 calc(100% - 13%));
+  animation: ldr-spin var(--speed) linear infinite;
+}
+.ldr--comet span {
+  position: absolute; top: 0; left: 50%;
+  width: 14%; aspect-ratio: 1; margin-left: -7%;
+  border-radius: 50%; background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 6) var(--c3);
+}
+
+/* arc-trio — three nested arcs at different speeds */
+.ldr--arc-trio span {
+  position: absolute; border-radius: 50%;
+  border: calc(var(--size) / 16) solid transparent;
+}
+.ldr--arc-trio span:nth-child(1) { inset: 0;   border-top-color: var(--c1); animation: ldr-spin var(--speed) linear infinite; }
+.ldr--arc-trio span:nth-child(2) { inset: 22%; border-top-color: var(--c2); animation: ldr-spin calc(var(--speed) * .8) linear infinite reverse; }
+.ldr--arc-trio span:nth-child(3) { inset: 44%; border-top-color: var(--c3); animation: ldr-spin calc(var(--speed) * .6) linear infinite; }
+
+/* halo — still ring with a glow orbiting it */
+.ldr--halo {
+  border-radius: 50%;
+  border: calc(var(--size) / 14) solid var(--track);
+}
+.ldr--halo span {
+  position: absolute; inset: calc(var(--size) / -14);
+  border-radius: 50%;
+  border: calc(var(--size) / 14) solid transparent;
+  border-top-color: var(--c2);
+  filter: drop-shadow(0 0 calc(var(--size) / 8) var(--c2));
+  animation: ldr-spin var(--speed) cubic-bezier(.6,.1,.4,.9) infinite;
+}
+
+/* sweep — radar-style cone sweeping a disc */
+.ldr--sweep {
+  border-radius: 50%;
+  background: var(--track);
+  overflow: hidden;
+}
+.ldr--sweep::after {
+  content: ""; position: absolute; inset: 0;
+  background: conic-gradient(from 0turn, var(--c1), color-mix(in oklab, var(--c2) 60%, transparent) 60deg, #0000 90deg);
+  animation: ldr-spin var(--speed) linear infinite;
+}
+
+/* dot-ring — eight dots fading around a circle */
+.ldr--dot-ring span {
+  position: absolute; top: 0; left: 50%;
+  width: 17%; aspect-ratio: 1; margin-left: -8.5%;
+  border-radius: 50%; background: var(--c1);
+  transform-origin: 50% calc(var(--size) / 2);
+  animation: ldr-fade calc(var(--speed) * 1.2) linear infinite;
+}
+.ldr--dot-ring span:nth-child(1) { transform: rotate(0deg);   animation-delay: calc(var(--speed) * -.00); }
+.ldr--dot-ring span:nth-child(2) { transform: rotate(45deg);  animation-delay: calc(var(--speed) * -.15); background: color-mix(in oklab, var(--c1), var(--c2)); }
+.ldr--dot-ring span:nth-child(3) { transform: rotate(90deg);  animation-delay: calc(var(--speed) * -.30); background: var(--c2); }
+.ldr--dot-ring span:nth-child(4) { transform: rotate(135deg); animation-delay: calc(var(--speed) * -.45); background: var(--c2); }
+.ldr--dot-ring span:nth-child(5) { transform: rotate(180deg); animation-delay: calc(var(--speed) * -.60); background: color-mix(in oklab, var(--c2), var(--c3)); }
+.ldr--dot-ring span:nth-child(6) { transform: rotate(225deg); animation-delay: calc(var(--speed) * -.75); background: var(--c3); }
+.ldr--dot-ring span:nth-child(7) { transform: rotate(270deg); animation-delay: calc(var(--speed) * -.90); background: var(--c3); }
+.ldr--dot-ring span:nth-child(8) { transform: rotate(315deg); animation-delay: calc(var(--speed) * -1.05); background: color-mix(in oklab, var(--c3), var(--c1)); }
+
+/* petal — radiating rounded blades, iOS-style but colorful */
+.ldr--petal span {
+  position: absolute; top: 4%; left: 50%;
+  width: 11%; height: 30%; margin-left: -5.5%;
+  border-radius: 99px; background: var(--c1);
+  transform-origin: 50% calc(var(--size) / 2 - 4%);
+  animation: ldr-fade calc(var(--speed) * 1.1) linear infinite;
+}
+.ldr--petal span:nth-child(1) { transform: rotate(0deg);   animation-delay: calc(var(--speed) * -.00); }
+.ldr--petal span:nth-child(2) { transform: rotate(45deg);  animation-delay: calc(var(--speed) * -.14); }
+.ldr--petal span:nth-child(3) { transform: rotate(90deg);  animation-delay: calc(var(--speed) * -.28); background: var(--c2); }
+.ldr--petal span:nth-child(4) { transform: rotate(135deg); animation-delay: calc(var(--speed) * -.42); background: var(--c2); }
+.ldr--petal span:nth-child(5) { transform: rotate(180deg); animation-delay: calc(var(--speed) * -.56); background: var(--c2); }
+.ldr--petal span:nth-child(6) { transform: rotate(225deg); animation-delay: calc(var(--speed) * -.70); background: var(--c3); }
+.ldr--petal span:nth-child(7) { transform: rotate(270deg); animation-delay: calc(var(--speed) * -.84); background: var(--c3); }
+.ldr--petal span:nth-child(8) { transform: rotate(315deg); animation-delay: calc(var(--speed) * -.98); background: var(--c3); }

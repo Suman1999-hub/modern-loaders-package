@@ -1,0 +1,37 @@
+/* ============================================================
+   Base — every loader reads these custom properties.
+   Set by <Loader />, overridable in your own CSS.
+   ============================================================ */
+.ldr {
+  --size: 48px;
+  --speed: 1s;
+  --c1: #6366f1;
+  --c2: #ec4899;
+  --c3: #22d3ee;
+  --track: color-mix(in oklab, var(--c1) 18%, transparent);
+  --grad: linear-gradient(135deg, var(--c1), var(--c2) 50%, var(--c3));
+
+  width: var(--size);
+  height: var(--size);
+  flex: none;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+}
+.ldr *, .ldr *::before, .ldr *::after { box-sizing: border-box; }
+
+/* Shared keyframes used across several families. */
+@keyframes ldr-spin     { to { transform: rotate(1turn); } }
+@keyframes ldr-spin-rev { to { transform: rotate(-1turn); } }
+@keyframes ldr-fade     { 0%, 100% { opacity: .18; } 40% { opacity: 1; } }
+@keyframes ldr-pulse    { 0%, 100% { transform: scale(.55); opacity: .45; } 50% { transform: scale(1); opacity: 1; } }
+@keyframes ldr-shimmer  { to { background-position: -250% 0; } }
+@keyframes ldr-breathe  { 0%, 100% { opacity: .35; } 50% { opacity: .75; } }
+
+/* A stopped loader reads as a broken app, so reduced-motion slows rather than freezes. */
+@media (prefers-reduced-motion: reduce) {
+  .ldr, .ldr::before, .ldr::after, .ldr span, .ldr span::before, .ldr span::after {
+    animation-duration: 4s !important;
+    animation-timing-function: linear !important;
+  }
+}

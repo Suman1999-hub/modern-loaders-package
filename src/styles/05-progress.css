@@ -1,0 +1,106 @@
+/* ===================== Family: progress ===================== */
+/* These are wide by nature: width is derived from --size, height stays slim. */
+
+.ldr--bar, .ldr--bar-stripes, .ldr--bar-dual, .ldr--bar-pill,
+.ldr--bar-glow, .ldr--bar-wave, .ldr--bar-snake, .ldr--bar-fill {
+  width: calc(var(--size) * 3.4);
+  height: calc(var(--size) / 6);
+  border-radius: 99px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+/* bar — indeterminate runner */
+.ldr--bar::after {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 40%;
+  border-radius: inherit; background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+  animation: ldr-slide calc(var(--speed) * 1.5) cubic-bezier(.65,.05,.35,.95) infinite;
+}
+@keyframes ldr-slide { 0% { left: -40%; width: 40%; } 50% { left: 25%; width: 55%; } 100% { left: 100%; width: 40%; } }
+
+/* bar-stripes — barber-pole fill */
+.ldr--bar-stripes::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: repeating-linear-gradient(115deg, var(--c1) 0 8%, var(--c2) 8% 16%, var(--c3) 16% 24%);
+  background-size: 200% 100%;
+  animation: ldr-stripes calc(var(--speed) * 1.2) linear infinite;
+}
+@keyframes ldr-stripes { to { background-position: -200% 0; } }
+
+/* bar-dual — two runners passing each other */
+.ldr--bar-dual::before, .ldr--bar-dual::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 35%; border-radius: inherit;
+  animation: ldr-slide calc(var(--speed) * 1.6) cubic-bezier(.6,0,.4,1) infinite;
+}
+.ldr--bar-dual::before { background: var(--c1); }
+.ldr--bar-dual::after  { background: var(--c3); animation-delay: calc(var(--speed) * -.8); }
+
+/* bar-segments — discrete blocks filling in turn */
+.ldr--bar-segments {
+  display: inline-flex; align-items: center;
+  width: calc(var(--size) * 3); height: calc(var(--size) / 5);
+  gap: calc(var(--size) / 14);
+}
+.ldr--bar-segments span { flex: 1; height: 100%; border-radius: calc(var(--size) / 16); background: var(--grad); animation: ldr-fade calc(var(--speed) * 1.5) ease-in-out infinite; }
+.ldr--bar-segments span:nth-child(2) { animation-delay: calc(var(--speed) * .15); }
+.ldr--bar-segments span:nth-child(3) { animation-delay: calc(var(--speed) * .3); }
+.ldr--bar-segments span:nth-child(4) { animation-delay: calc(var(--speed) * .45); }
+.ldr--bar-segments span:nth-child(5) { animation-delay: calc(var(--speed) * .6); }
+
+/* bar-pill — a pill bouncing wall to wall */
+.ldr--bar-pill::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 28%;
+  border-radius: inherit; background: var(--grad);
+  animation: ldr-pingpong calc(var(--speed) * 1.4) cubic-bezier(.6,0,.4,1) infinite alternate;
+}
+@keyframes ldr-pingpong { from { left: 0; } to { left: 72%; } }
+
+/* bar-glow — runner with a light bloom */
+.ldr--bar-glow::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 30%;
+  border-radius: inherit; background: var(--c2);
+  box-shadow: 0 0 calc(var(--size) / 4) var(--c2);
+  animation: ldr-slide calc(var(--speed) * 1.6) ease-in-out infinite;
+}
+
+/* bar-wave — gradient sliding under a fixed window */
+.ldr--bar-wave::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c2), var(--c1));
+  background-size: 250% 100%;
+  animation: ldr-stripes calc(var(--speed) * 1.8) linear infinite;
+}
+
+/* bar-dots — dots marching along a rail */
+.ldr--bar-dots {
+  display: inline-flex; align-items: center; justify-content: space-between;
+  width: calc(var(--size) * 2.4); height: calc(var(--size) / 4);
+}
+.ldr--bar-dots span { width: 14%; aspect-ratio: 1; border-radius: 50%; background: var(--c1); animation: ldr-march calc(var(--speed) * 1.4) ease-in-out infinite; }
+.ldr--bar-dots span:nth-child(2) { background: color-mix(in oklab, var(--c1), var(--c2)); animation-delay: calc(var(--speed) * .1); }
+.ldr--bar-dots span:nth-child(3) { background: var(--c2); animation-delay: calc(var(--speed) * .2); }
+.ldr--bar-dots span:nth-child(4) { background: color-mix(in oklab, var(--c2), var(--c3)); animation-delay: calc(var(--speed) * .3); }
+.ldr--bar-dots span:nth-child(5) { background: var(--c3); animation-delay: calc(var(--speed) * .4); }
+@keyframes ldr-march { 0%, 100% { transform: scale(.5); opacity: .35; } 50% { transform: scale(1.15); opacity: 1; } }
+
+/* bar-snake — thin runner that stretches and contracts */
+.ldr--bar-snake { height: calc(var(--size) / 9); }
+.ldr--bar-snake::after {
+  content: ""; position: absolute; top: 0; bottom: 0; border-radius: inherit;
+  background: var(--grad);
+  animation: ldr-snakebar calc(var(--speed) * 2) cubic-bezier(.65,0,.35,1) infinite;
+}
+@keyframes ldr-snakebar {
+  0%   { left: 0;   right: 100%; }
+  40%  { left: 0;   right: 25%; }
+  60%  { left: 25%; right: 0; }
+  100% { left: 100%; right: 0; }
+}
+
+/* bar-fill — repeatedly filling left to right */
+.ldr--bar-fill::after {
+  content: ""; position: absolute; inset: 0 auto 0 0; border-radius: inherit;
+  background: var(--grad);
+  animation: ldr-fill calc(var(--speed) * 1.8) cubic-bezier(.5,0,.3,1) infinite;
+}
+@keyframes ldr-fill { 0% { width: 0; opacity: 1; } 70% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }

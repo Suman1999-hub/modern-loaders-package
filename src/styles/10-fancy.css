@@ -1,0 +1,136 @@
+/* ===================== Family: dimensional ===================== */
+
+/* helix — two strands weaving past each other */
+.ldr--helix { display: inline-flex; align-items: center; justify-content: space-between; width: calc(var(--size) * 1.7); }
+.ldr--helix span {
+  width: 9%; aspect-ratio: 1; border-radius: 50%; background: var(--grad);
+  animation: ldr-helix calc(var(--speed) * 1.6) ease-in-out infinite;
+}
+.ldr--helix span:nth-child(1) { animation-delay: calc(var(--speed) * -.0); }
+.ldr--helix span:nth-child(2) { animation-delay: calc(var(--speed) * -.2); }
+.ldr--helix span:nth-child(3) { animation-delay: calc(var(--speed) * -.4); }
+.ldr--helix span:nth-child(4) { animation-delay: calc(var(--speed) * -.6); }
+.ldr--helix span:nth-child(5) { animation-delay: calc(var(--speed) * -.8); }
+.ldr--helix span:nth-child(6) { animation-delay: calc(var(--speed) * -1.0); }
+.ldr--helix span:nth-child(7) { animation-delay: calc(var(--speed) * -1.2); }
+.ldr--helix span:nth-child(8) { animation-delay: calc(var(--speed) * -1.4); }
+@keyframes ldr-helix {
+  0%, 100% { transform: translateY(-90%) scale(.5); opacity: .4; }
+  50%      { transform: translateY(90%)  scale(1);  opacity: 1; }
+}
+
+/* pendulum — a Newton's cradle */
+.ldr--pendulum { display: inline-flex; align-items: flex-start; justify-content: center; gap: 2%; }
+.ldr--pendulum span {
+  width: 18%; aspect-ratio: 1; border-radius: 50%;
+  background: var(--grad); transform-origin: 50% -100%;
+}
+.ldr--pendulum span:first-child { animation: ldr-swing-l calc(var(--speed) * 1.2) cubic-bezier(.4,0,.6,1) infinite; }
+.ldr--pendulum span:last-child  { animation: ldr-swing-r calc(var(--speed) * 1.2) cubic-bezier(.4,0,.6,1) infinite; }
+@keyframes ldr-swing-l { 0%, 50%, 100% { transform: rotate(0); } 25% { transform: rotate(-42deg); } }
+@keyframes ldr-swing-r { 0%, 50%, 100% { transform: rotate(0); } 75% { transform: rotate(42deg); } }
+
+/* atom — electron shells around a nucleus */
+.ldr--atom::after {
+  content: ""; position: absolute; inset: 40%; border-radius: 50%;
+  background: var(--c1); box-shadow: 0 0 calc(var(--size) / 8) var(--c1);
+}
+.ldr--atom span {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: calc(var(--size) / 26) solid transparent;
+  border-top-color: var(--c2); border-bottom-color: var(--c3);
+}
+.ldr--atom span:nth-child(1) { animation: ldr-spin var(--speed) linear infinite; }
+.ldr--atom span:nth-child(2) { animation: ldr-spin calc(var(--speed) * 1.3) linear infinite reverse; transform: rotate(60deg); }
+.ldr--atom span:nth-child(3) { animation: ldr-spin calc(var(--speed) * 1.6) linear infinite; transform: rotate(120deg); }
+
+/* gyro — nested rings turning on different axes */
+.ldr--gyro { perspective: calc(var(--size) * 3); transform-style: preserve-3d; }
+.ldr--gyro span { position: absolute; border-radius: 50%; border: calc(var(--size) / 20) solid transparent; }
+.ldr--gyro span:nth-child(1) { inset: 0;   border-top-color: var(--c1); border-bottom-color: var(--c1); animation: ldr-gyro-x calc(var(--speed) * 1.4) linear infinite; }
+.ldr--gyro span:nth-child(2) { inset: 16%; border-left-color: var(--c2); border-right-color: var(--c2); animation: ldr-gyro-y calc(var(--speed) * 1.1) linear infinite; }
+.ldr--gyro span:nth-child(3) { inset: 32%; border-top-color: var(--c3); border-bottom-color: var(--c3); animation: ldr-gyro-z calc(var(--speed) * .9) linear infinite; }
+@keyframes ldr-gyro-x { to { transform: rotateX(1turn); } }
+@keyframes ldr-gyro-y { to { transform: rotateY(1turn); } }
+@keyframes ldr-gyro-z { to { transform: rotateZ(1turn); } }
+
+/* coil — stacked rings travelling down a spring */
+.ldr--coil { display: flex; flex-direction: column; justify-content: space-between; }
+.ldr--coil span {
+  height: 14%; border-radius: 50%;
+  border: calc(var(--size) / 28) solid var(--c1);
+  animation: ldr-coil calc(var(--speed) * 1.4) ease-in-out infinite;
+}
+.ldr--coil span:nth-child(2) { border-color: var(--c2); animation-delay: calc(var(--speed) * -.15); }
+.ldr--coil span:nth-child(3) { border-color: var(--c2); animation-delay: calc(var(--speed) * -.3); }
+.ldr--coil span:nth-child(4) { border-color: var(--c3); animation-delay: calc(var(--speed) * -.45); }
+.ldr--coil span:nth-child(5) { border-color: var(--c3); animation-delay: calc(var(--speed) * -.6); }
+@keyframes ldr-coil { 0%, 100% { transform: scaleX(.45); opacity: .4; } 50% { transform: scaleX(1); opacity: 1; } }
+
+/* vortex — arcs drawn into a funnel */
+.ldr--vortex span {
+  position: absolute; border-radius: 50%;
+  border: calc(var(--size) / 22) solid transparent;
+  border-top-color: var(--c1);
+  animation: ldr-spin var(--speed) cubic-bezier(.6,.1,.4,.9) infinite;
+}
+.ldr--vortex span:nth-child(1) { inset: 0;   border-top-color: var(--c1); animation-duration: calc(var(--speed) * 1.6); }
+.ldr--vortex span:nth-child(2) { inset: 14%; border-top-color: var(--c2); animation-duration: calc(var(--speed) * 1.2); }
+.ldr--vortex span:nth-child(3) { inset: 28%; border-top-color: var(--c2); animation-duration: calc(var(--speed) * .9); }
+.ldr--vortex span:nth-child(4) { inset: 42%; border-top-color: var(--c3); animation-duration: calc(var(--speed) * .65); }
+
+/* prism — three gradient triangles orbiting a centre */
+.ldr--prism { animation: ldr-spin calc(var(--speed) * 2.4) linear infinite; }
+.ldr--prism span {
+  position: absolute; top: 0; left: 50%;
+  width: 40%; height: 40%; margin-left: -20%;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  transform-origin: 50% calc(var(--size) / 2);
+  animation: ldr-breathe calc(var(--speed) * 1.5) ease-in-out infinite;
+}
+.ldr--prism span:nth-child(1) { background: var(--c1); transform: rotate(0deg);   animation-delay: calc(var(--speed) * -.0); }
+.ldr--prism span:nth-child(2) { background: var(--c2); transform: rotate(120deg); animation-delay: calc(var(--speed) * -.5); }
+.ldr--prism span:nth-child(3) { background: var(--c3); transform: rotate(240deg); animation-delay: calc(var(--speed) * -1.0); }
+
+/* torus — a ring tumbling in 3D */
+.ldr--torus {
+  border-radius: 50%;
+  border: calc(var(--size) / 9) solid transparent;
+  border-top-color: var(--c1); border-bottom-color: var(--c3);
+  animation: ldr-torus calc(var(--speed) * 1.8) linear infinite;
+}
+@keyframes ldr-torus {
+  0%   { transform: rotateX(60deg) rotateZ(0deg); }
+  100% { transform: rotateX(60deg) rotateZ(360deg); }
+}
+
+/* cylinder — stacked ellipses rolling downward */
+.ldr--cylinder { display: flex; flex-direction: column; justify-content: space-between; perspective: calc(var(--size) * 3); }
+.ldr--cylinder span {
+  height: 20%; border-radius: 50%;
+  background: var(--grad);
+  animation: ldr-cyl calc(var(--speed) * 1.5) ease-in-out infinite;
+}
+.ldr--cylinder span:nth-child(2) { animation-delay: calc(var(--speed) * -.18); }
+.ldr--cylinder span:nth-child(3) { animation-delay: calc(var(--speed) * -.36); }
+.ldr--cylinder span:nth-child(4) { animation-delay: calc(var(--speed) * -.54); }
+@keyframes ldr-cyl { 0%, 100% { transform: scaleX(.4); opacity: .35; } 50% { transform: scaleX(1); opacity: 1; } }
+
+/* galaxy — dots spiralling out from the core */
+.ldr--galaxy { animation: ldr-spin calc(var(--speed) * 3) linear infinite; }
+.ldr--galaxy span {
+  position: absolute; top: 50%; left: 50%;
+  width: 13%; aspect-ratio: 1; margin: -6.5% 0 0 -6.5%;
+  border-radius: 50%;
+  animation: ldr-orbit-out calc(var(--speed) * 2) ease-in-out infinite;
+}
+.ldr--galaxy span:nth-child(1) { background: var(--c1); --a: 0deg;   animation-delay: calc(var(--speed) * -.0); }
+.ldr--galaxy span:nth-child(2) { background: var(--c1); --a: 60deg;  animation-delay: calc(var(--speed) * -.33); }
+.ldr--galaxy span:nth-child(3) { background: var(--c2); --a: 120deg; animation-delay: calc(var(--speed) * -.66); }
+.ldr--galaxy span:nth-child(4) { background: var(--c2); --a: 180deg; animation-delay: calc(var(--speed) * -1.0); }
+.ldr--galaxy span:nth-child(5) { background: var(--c3); --a: 240deg; animation-delay: calc(var(--speed) * -1.33); }
+.ldr--galaxy span:nth-child(6) { background: var(--c3); --a: 300deg; animation-delay: calc(var(--speed) * -1.66); }
+@keyframes ldr-orbit-out {
+  0%, 100% { transform: rotate(var(--a)) translateX(0) scale(.4); opacity: .3; }
+  50%      { transform: rotate(var(--a)) translateX(160%) scale(1); opacity: 1; }
+}

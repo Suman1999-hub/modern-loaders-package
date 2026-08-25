@@ -1,0 +1,107 @@
+/* ===================== Family: dots ===================== */
+
+/* wave — rainbow dots riding a sine */
+.ldr--wave { display: inline-flex; align-items: center; justify-content: space-between; width: calc(var(--size) * 1.6); }
+.ldr--wave span { width: 15%; aspect-ratio: 1; border-radius: 50%; animation: ldr-wave calc(var(--speed) * 1.1) cubic-bezier(.4,0,.6,1) infinite; }
+.ldr--wave span:nth-child(1) { background: var(--c1); }
+.ldr--wave span:nth-child(2) { background: color-mix(in oklab, var(--c1), var(--c2)); animation-delay: calc(var(--speed) * .1); }
+.ldr--wave span:nth-child(3) { background: var(--c2); animation-delay: calc(var(--speed) * .2); }
+.ldr--wave span:nth-child(4) { background: color-mix(in oklab, var(--c2), var(--c3)); animation-delay: calc(var(--speed) * .3); }
+.ldr--wave span:nth-child(5) { background: var(--c3); animation-delay: calc(var(--speed) * .4); }
+@keyframes ldr-wave { 0%, 60%, 100% { transform: translateY(0); opacity: .55; } 30% { transform: translateY(-80%); opacity: 1; } }
+
+/* orbit — three-color comet trail */
+.ldr--orbit span {
+  position: absolute; top: 0; left: 50%;
+  width: 24%; height: 24%; margin-left: -12%;
+  border-radius: 50%; transform-origin: 50% calc(var(--size) / 2);
+  animation: ldr-spin var(--speed) cubic-bezier(.6,.1,.4,.9) infinite;
+}
+.ldr--orbit span:nth-child(1) { background: var(--c1); }
+.ldr--orbit span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * -.08); opacity: .75; scale: .8; }
+.ldr--orbit span:nth-child(3) { background: var(--c3); animation-delay: calc(var(--speed) * -.16); opacity: .5; scale: .6; }
+
+/* bounce — three dots with squash on landing */
+.ldr--bounce { display: inline-flex; align-items: flex-end; justify-content: space-between; width: calc(var(--size) * 1.2); }
+.ldr--bounce span { width: 26%; aspect-ratio: 1; border-radius: 50%; animation: ldr-squash calc(var(--speed) * .8) cubic-bezier(.5,.05,.5,.95) infinite; }
+.ldr--bounce span:nth-child(1) { background: var(--c1); }
+.ldr--bounce span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * .12); }
+.ldr--bounce span:nth-child(3) { background: var(--c3); animation-delay: calc(var(--speed) * .24); }
+@keyframes ldr-squash {
+  0%, 100% { transform: translateY(0) scale(1.1, .8); }
+  50%      { transform: translateY(-110%) scale(.9, 1.1); }
+}
+
+/* fade-dots — three dots handing off opacity */
+.ldr--fade-dots { display: inline-flex; align-items: center; justify-content: space-between; width: calc(var(--size) * 1.2); }
+.ldr--fade-dots span { width: 26%; aspect-ratio: 1; border-radius: 50%; animation: ldr-fade calc(var(--speed) * 1.2) ease-in-out infinite; }
+.ldr--fade-dots span:nth-child(1) { background: var(--c1); }
+.ldr--fade-dots span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * .2); }
+.ldr--fade-dots span:nth-child(3) { background: var(--c3); animation-delay: calc(var(--speed) * .4); }
+
+/* pulse-dots — three dots breathing in sequence */
+.ldr--pulse-dots { display: inline-flex; align-items: center; justify-content: space-between; width: calc(var(--size) * 1.2); }
+.ldr--pulse-dots span { width: 28%; aspect-ratio: 1; border-radius: 50%; animation: ldr-pulse calc(var(--speed) * 1.2) ease-in-out infinite; }
+.ldr--pulse-dots span:nth-child(1) { background: var(--c1); }
+.ldr--pulse-dots span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * .18); }
+.ldr--pulse-dots span:nth-child(3) { background: var(--c3); animation-delay: calc(var(--speed) * .36); }
+
+/* typing — chat-bubble typing indicator */
+.ldr--typing {
+  display: inline-flex; align-items: center; justify-content: space-evenly;
+  width: calc(var(--size) * 1.5); height: calc(var(--size) * .72);
+  border-radius: 99px; background: var(--track);
+}
+.ldr--typing span { width: 17%; aspect-ratio: 1; border-radius: 50%; background: var(--c1); animation: ldr-type calc(var(--speed) * 1.2) ease-in-out infinite; }
+.ldr--typing span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * .18); }
+.ldr--typing span:nth-child(3) { background: var(--c3); animation-delay: calc(var(--speed) * .36); }
+@keyframes ldr-type { 0%, 70%, 100% { transform: translateY(0); opacity: .4; } 35% { transform: translateY(-45%); opacity: 1; } }
+
+/* chase — six dots circling with a scale pulse */
+.ldr--chase { animation: ldr-spin calc(var(--speed) * 2) linear infinite; }
+.ldr--chase span {
+  position: absolute; top: 0; left: 50%;
+  width: 20%; aspect-ratio: 1; margin-left: -10%;
+  border-radius: 50%; transform-origin: 50% calc(var(--size) / 2);
+  /* Animates `scale`, not `transform` — the static rotate() below must survive. */
+  animation: ldr-pop-scale calc(var(--speed) * 1.2) ease-in-out infinite;
+}
+@keyframes ldr-pop-scale { 0%, 70%, 100% { scale: .45; opacity: .4; } 35% { scale: 1; opacity: 1; } }
+.ldr--chase span:nth-child(1) { transform: rotate(0deg);   background: var(--c1); animation-delay: calc(var(--speed) * -.0); }
+.ldr--chase span:nth-child(2) { transform: rotate(60deg);  background: color-mix(in oklab, var(--c1), var(--c2)); animation-delay: calc(var(--speed) * -.2); }
+.ldr--chase span:nth-child(3) { transform: rotate(120deg); background: var(--c2); animation-delay: calc(var(--speed) * -.4); }
+.ldr--chase span:nth-child(4) { transform: rotate(180deg); background: color-mix(in oklab, var(--c2), var(--c3)); animation-delay: calc(var(--speed) * -.6); }
+.ldr--chase span:nth-child(5) { transform: rotate(240deg); background: var(--c3); animation-delay: calc(var(--speed) * -.8); }
+.ldr--chase span:nth-child(6) { transform: rotate(300deg); background: color-mix(in oklab, var(--c3), var(--c1)); animation-delay: calc(var(--speed) * -1.0); }
+
+/* snake — dots sliding along a track */
+.ldr--snake { display: inline-flex; align-items: center; justify-content: space-between; width: calc(var(--size) * 1.6); }
+.ldr--snake span { width: 15%; aspect-ratio: 1; border-radius: 50%; background: var(--c1); animation: ldr-snake calc(var(--speed) * 1.4) ease-in-out infinite; }
+.ldr--snake span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * .1); }
+.ldr--snake span:nth-child(3) { background: var(--c2); animation-delay: calc(var(--speed) * .2); }
+.ldr--snake span:nth-child(4) { background: var(--c3); animation-delay: calc(var(--speed) * .3); }
+.ldr--snake span:nth-child(5) { background: var(--c3); animation-delay: calc(var(--speed) * .4); }
+@keyframes ldr-snake { 0%, 100% { transform: translateX(-60%) scale(.6); opacity: .4; } 50% { transform: translateX(60%) scale(1); opacity: 1; } }
+
+/* swap — two dots trading places */
+.ldr--swap span {
+  position: absolute; top: 50%; left: 50%;
+  width: 38%; aspect-ratio: 1; margin: -19% 0 0 -19%;
+  border-radius: 50%; opacity: .85;
+  animation: ldr-swap calc(var(--speed) * 1.4) cubic-bezier(.6,0,.4,1) infinite;
+}
+.ldr--swap span:nth-child(1) { background: var(--c1); }
+.ldr--swap span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * -.7); }
+@keyframes ldr-swap { 0%, 100% { transform: translateX(-60%); } 50% { transform: translateX(60%); } }
+
+/* juggle — three dots arcing over each other */
+.ldr--juggle { display: inline-flex; align-items: flex-end; justify-content: space-between; width: calc(var(--size) * 1.15); }
+.ldr--juggle span { width: 27%; aspect-ratio: 1; border-radius: 50%; animation: ldr-juggle calc(var(--speed) * 1.5) ease-in-out infinite; }
+.ldr--juggle span:nth-child(1) { background: var(--c1); }
+.ldr--juggle span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * -.5); }
+.ldr--juggle span:nth-child(3) { background: var(--c3); animation-delay: calc(var(--speed) * -1); }
+@keyframes ldr-juggle {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(40%, -120%) scale(.8); }
+  66%      { transform: translate(-40%, -60%) scale(.9); }
+}

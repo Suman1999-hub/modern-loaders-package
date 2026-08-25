@@ -1,0 +1,151 @@
+/* ===================== Family: organic & playful ===================== */
+
+/* heart — a heartbeat: a rotated square with two round lobes */
+.ldr--heart {
+  background: var(--grad);
+  animation: ldr-beat calc(var(--speed) * 1.2) ease-in-out infinite;
+}
+.ldr--heart::before, .ldr--heart::after {
+  content: ""; position: absolute;
+  width: 100%; height: 100%;
+  border-radius: 50%; background: inherit;
+}
+.ldr--heart::before { top: -50%; left: 0; }
+.ldr--heart::after  { top: 0; left: -50%; }
+/* The rotation lives in the keyframes: animating `transform` would otherwise drop it. */
+@keyframes ldr-beat {
+  0%, 100% { transform: rotate(45deg) scale(.52); }
+  15%      { transform: rotate(45deg) scale(.66); }
+  30%      { transform: rotate(45deg) scale(.56); }
+  45%      { transform: rotate(45deg) scale(.62); }
+}
+
+/* moon — a crescent turning through its phases */
+.ldr--moon {
+  border-radius: 50%;
+  box-shadow: inset calc(var(--size) / -4) 0 0 0 var(--c1);
+  animation: ldr-spin calc(var(--speed) * 2) linear infinite,
+             ldr-phase calc(var(--speed) * 3) ease-in-out infinite;
+}
+@keyframes ldr-phase {
+  0%, 100% { box-shadow: inset calc(var(--size) / -4) 0 0 0 var(--c1); }
+  50%      { box-shadow: inset calc(var(--size) / -12) 0 0 0 var(--c2); }
+}
+
+/* sun — a core with rays reaching out */
+.ldr--sun::before {
+  content: ""; position: absolute; inset: 30%; border-radius: 50%;
+  background: var(--grad);
+  animation: ldr-breathe calc(var(--speed) * 1.6) ease-in-out infinite;
+}
+.ldr--sun span {
+  position: absolute; top: 0; left: 50%;
+  width: 8%; height: 22%; margin-left: -4%;
+  border-radius: 99px; background: var(--c2);
+  transform-origin: 50% calc(var(--size) / 2);
+  animation: ldr-ray calc(var(--speed) * 1.5) ease-in-out infinite;
+}
+.ldr--sun span:nth-child(1) { transform: rotate(0deg);   animation-delay: calc(var(--speed) * -.0); }
+.ldr--sun span:nth-child(2) { transform: rotate(45deg);  animation-delay: calc(var(--speed) * -.18); }
+.ldr--sun span:nth-child(3) { transform: rotate(90deg);  animation-delay: calc(var(--speed) * -.36); }
+.ldr--sun span:nth-child(4) { transform: rotate(135deg); animation-delay: calc(var(--speed) * -.54); }
+.ldr--sun span:nth-child(5) { transform: rotate(180deg); animation-delay: calc(var(--speed) * -.72); }
+.ldr--sun span:nth-child(6) { transform: rotate(225deg); animation-delay: calc(var(--speed) * -.90); }
+.ldr--sun span:nth-child(7) { transform: rotate(270deg); animation-delay: calc(var(--speed) * -1.08); }
+.ldr--sun span:nth-child(8) { transform: rotate(315deg); animation-delay: calc(var(--speed) * -1.26); }
+@keyframes ldr-ray { 0%, 100% { opacity: .25; scale: .8; } 50% { opacity: 1; scale: 1.1; } }
+
+/* flame — a flickering teardrop */
+.ldr--flame {
+  background: linear-gradient(0deg, var(--c1), var(--c2) 55%, var(--c3));
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  transform-origin: 50% 80%;
+  animation: ldr-flicker calc(var(--speed) * .9) ease-in-out infinite;
+}
+@keyframes ldr-flicker {
+  0%, 100% { transform: scale(1, 1) skewX(0deg);   filter: brightness(1); }
+  25%      { transform: scale(.92, 1.08) skewX(3deg); filter: brightness(1.15); }
+  50%      { transform: scale(1.05, .95) skewX(-2deg); filter: brightness(.95); }
+  75%      { transform: scale(.96, 1.04) skewX(2deg);  filter: brightness(1.1); }
+}
+
+/* bubble — bubbles rising and popping */
+.ldr--bubble span {
+  position: absolute; bottom: 0;
+  width: 26%; aspect-ratio: 1; border-radius: 50%;
+  border: calc(var(--size) / 22) solid var(--c1);
+  animation: ldr-rise calc(var(--speed) * 2) ease-in infinite;
+}
+.ldr--bubble span:nth-child(1) { left: 8%;  animation-delay: calc(var(--speed) * -.0); }
+.ldr--bubble span:nth-child(2) { left: 38%; border-color: var(--c2); animation-delay: calc(var(--speed) * -.66); }
+.ldr--bubble span:nth-child(3) { left: 66%; border-color: var(--c3); animation-delay: calc(var(--speed) * -1.33); }
+@keyframes ldr-rise {
+  0%   { transform: translateY(0) scale(.4); opacity: 0; }
+  25%  { opacity: 1; }
+  100% { transform: translateY(-300%) scale(1); opacity: 0; }
+}
+
+/* jelly — squash and stretch */
+.ldr--jelly {
+  background: var(--grad); border-radius: 50%;
+  animation: ldr-jelly calc(var(--speed) * 1.2) cubic-bezier(.5,.05,.5,.95) infinite;
+}
+@keyframes ldr-jelly {
+  0%, 100% { transform: scale(1, 1); }
+  25%      { transform: scale(1.2, .8); }
+  50%      { transform: scale(.85, 1.15); }
+  75%      { transform: scale(1.08, .92); }
+}
+
+/* spring — a coil compressing and releasing */
+.ldr--spring {
+  background: repeating-linear-gradient(0deg, var(--c1) 0 18%, #0000 18% 30%);
+  border-radius: calc(var(--size) / 6);
+  transform-origin: 50% 100%;
+  animation: ldr-spring calc(var(--speed) * 1.1) cubic-bezier(.5,.05,.4,1.4) infinite;
+}
+@keyframes ldr-spring {
+  0%, 100% { transform: scaleY(1)  scaleX(1); }
+  40%      { transform: scaleY(.55) scaleX(1.2); }
+  70%      { transform: scaleY(1.15) scaleX(.92); }
+}
+
+/* float — an orb bobbing over its shadow */
+.ldr--float span {
+  position: absolute; top: 0; left: 15%;
+  width: 70%; aspect-ratio: 1; border-radius: 50%;
+  background: var(--grad);
+  animation: ldr-bob calc(var(--speed) * 1.6) ease-in-out infinite;
+}
+.ldr--float::after {
+  content: ""; position: absolute; bottom: 0; left: 22%;
+  width: 56%; height: 10%; border-radius: 50%;
+  background: var(--c1); filter: blur(calc(var(--size) / 30));
+  animation: ldr-shadow calc(var(--speed) * 1.6) ease-in-out infinite;
+}
+@keyframes ldr-bob    { 0%, 100% { transform: translateY(12%); } 50% { transform: translateY(-8%); } }
+@keyframes ldr-shadow { 0%, 100% { transform: scaleX(1); opacity: .45; } 50% { transform: scaleX(.7); opacity: .2; } }
+
+/* leaf — a teardrop tumbling as it turns */
+.ldr--leaf {
+  background: var(--grad);
+  border-radius: 0 50% 50% 50%;
+  animation: ldr-leaf calc(var(--speed) * 2) ease-in-out infinite;
+}
+@keyframes ldr-leaf {
+  0%, 100% { transform: rotate(0deg)   scale(.8); border-radius: 0 50% 50% 50%; }
+  50%      { transform: rotate(180deg) scale(1);  border-radius: 50% 50% 0 50%; }
+}
+
+/* windmill — four blades turning together */
+.ldr--windmill { animation: ldr-spin calc(var(--speed) * 1.4) cubic-bezier(.5,.1,.5,.9) infinite; }
+.ldr--windmill span {
+  position: absolute; top: 50%; left: 50%;
+  width: 45%; height: 16%; margin: -8% 0 0 0;
+  border-radius: 99px 0 0 99px;
+  transform-origin: 0 50%;
+}
+.ldr--windmill span:nth-child(1) { background: var(--c1); transform: rotate(0deg); }
+.ldr--windmill span:nth-child(2) { background: var(--c2); transform: rotate(90deg); }
+.ldr--windmill span:nth-child(3) { background: var(--c3); transform: rotate(180deg); }
+.ldr--windmill span:nth-child(4) { background: var(--c2); transform: rotate(270deg); }

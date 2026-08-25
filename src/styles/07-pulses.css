@@ -1,0 +1,108 @@
+/* ===================== Family: pulses & ripples ===================== */
+
+/* rings — sonar pulses in three hues */
+.ldr--rings span {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: calc(var(--size) / 16) solid;
+  animation: ldr-ripple calc(var(--speed) * 1.8) cubic-bezier(0,.2,.8,1) infinite;
+}
+.ldr--rings span:nth-child(1) { border-color: var(--c1); }
+.ldr--rings span:nth-child(2) { border-color: var(--c2); animation-delay: calc(var(--speed) * -.6); }
+.ldr--rings span:nth-child(3) { border-color: var(--c3); animation-delay: calc(var(--speed) * -1.2); }
+@keyframes ldr-ripple { 0% { transform: scale(.15); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
+
+/* radar — sweeping cone over a ring */
+.ldr--radar span { position: absolute; inset: 0; border-radius: 50%; }
+.ldr--radar span:nth-child(1) { border: calc(var(--size) / 20) solid var(--track); }
+.ldr--radar span:nth-child(2) {
+  background: conic-gradient(from 0turn, var(--c2), color-mix(in oklab, var(--c1) 50%, transparent) 45deg, #0000 90deg);
+  animation: ldr-spin var(--speed) linear infinite;
+}
+
+/* sonar — filled discs expanding outward */
+.ldr--sonar span {
+  position: absolute; inset: 0; border-radius: 50%;
+  animation: ldr-ripple calc(var(--speed) * 2) ease-out infinite;
+}
+.ldr--sonar span:nth-child(1) { background: var(--c1); }
+.ldr--sonar span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * -.66); }
+.ldr--sonar span:nth-child(3) { background: var(--c3); animation-delay: calc(var(--speed) * -1.33); }
+
+/* echo — rings that expand then snap back */
+.ldr--echo span {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: calc(var(--size) / 14) solid var(--c1);
+  animation: ldr-echo calc(var(--speed) * 1.6) cubic-bezier(.5,0,.5,1) infinite;
+}
+.ldr--echo span:nth-child(2) { border-color: var(--c2); animation-delay: calc(var(--speed) * -.53); }
+.ldr--echo span:nth-child(3) { border-color: var(--c3); animation-delay: calc(var(--speed) * -1.06); }
+@keyframes ldr-echo { 0%, 100% { transform: scale(.35); opacity: .3; } 50% { transform: scale(1); opacity: 1; } }
+
+/* shockwave — a ring that thins as it grows */
+.ldr--shockwave span {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: calc(var(--size) / 8) solid var(--c2);
+  animation: ldr-shock calc(var(--speed) * 1.6) cubic-bezier(.1,.6,.3,1) infinite;
+}
+.ldr--shockwave span:nth-child(2) { border-color: var(--c3); animation-delay: calc(var(--speed) * -.8); }
+@keyframes ldr-shock {
+  0%   { transform: scale(.2); border-width: calc(var(--size) / 8); opacity: 1; }
+  100% { transform: scale(1);  border-width: 1px; opacity: 0; }
+}
+
+/* bloom — soft gradient discs blooming open */
+.ldr--bloom span {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: var(--grad); filter: blur(calc(var(--size) / 20));
+  animation: ldr-ripple calc(var(--speed) * 2.2) ease-out infinite;
+}
+.ldr--bloom span:nth-child(2) { animation-delay: calc(var(--speed) * -.73); }
+.ldr--bloom span:nth-child(3) { animation-delay: calc(var(--speed) * -1.46); }
+
+/* droplet — a dot falling into its own ripple */
+.ldr--droplet span:nth-child(1) {
+  position: absolute; top: 0; left: 50%;
+  width: 22%; aspect-ratio: 1; margin-left: -11%;
+  border-radius: 50%; background: var(--c1);
+  animation: ldr-fall calc(var(--speed) * 1.6) cubic-bezier(.5,0,.9,.6) infinite;
+}
+.ldr--droplet span:nth-child(2) {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: calc(var(--size) / 18) solid var(--c3);
+  animation: ldr-ripple calc(var(--speed) * 1.6) ease-out infinite;
+  animation-delay: calc(var(--speed) * .5);
+}
+@keyframes ldr-fall {
+  0%       { transform: translateY(0) scale(1); opacity: 1; }
+  45%      { transform: translateY(180%) scale(1.1, .8); opacity: 1; }
+  60%, 100% { transform: translateY(180%) scale(1.6, .2); opacity: 0; }
+}
+
+/* concentric — three static rings breathing together */
+.ldr--concentric span { position: absolute; border-radius: 50%; border: calc(var(--size) / 20) solid; animation: ldr-breathe calc(var(--speed) * 1.6) ease-in-out infinite; }
+.ldr--concentric span:nth-child(1) { inset: 0;   border-color: var(--c1); animation-delay: calc(var(--speed) * .0); }
+.ldr--concentric span:nth-child(2) { inset: 20%; border-color: var(--c2); animation-delay: calc(var(--speed) * .2); }
+.ldr--concentric span:nth-child(3) { inset: 40%; border-color: var(--c3); animation-delay: calc(var(--speed) * .4); }
+
+/* aura — a soft glow breathing behind a core */
+.ldr--aura span {
+  position: absolute; inset: 12%; border-radius: 50%;
+  background: var(--grad); filter: blur(calc(var(--size) / 10));
+  animation: ldr-aura calc(var(--speed) * 2) ease-in-out infinite;
+}
+.ldr--aura::after {
+  content: ""; position: absolute; inset: 32%; border-radius: 50%;
+  background: var(--c1);
+}
+@keyframes ldr-aura { 0%, 100% { transform: scale(.7); opacity: .5; } 50% { transform: scale(1.15); opacity: 1; } }
+
+/* beacon — steady dot with an expanding halo */
+.ldr--beacon span:nth-child(1) {
+  position: absolute; inset: 32%; border-radius: 50%; background: var(--c1);
+  animation: ldr-breathe calc(var(--speed) * 1.4) ease-in-out infinite;
+}
+.ldr--beacon span:nth-child(2) {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: color-mix(in oklab, var(--c2) 55%, transparent);
+  animation: ldr-ripple calc(var(--speed) * 1.4) ease-out infinite;
+}

@@ -1,0 +1,106 @@
+/* ===================== Family: skeletons ===================== */
+/* Placeholders for content that hasn't arrived. They size to a block, not a square. */
+
+.ldr--shimmer, .ldr--sk-text, .ldr--sk-card, .ldr--sk-avatar, .ldr--sk-image,
+.ldr--sk-list, .ldr--sk-table, .ldr--sk-chip, .ldr--sk-paragraph, .ldr--sk-media {
+  --sk: linear-gradient(90deg,
+        var(--track) 0 40%,
+        color-mix(in oklab, var(--c2) 45%, transparent) 50%,
+        var(--track) 60% 100%) 0 0 / 250% 100%;
+  width: calc(var(--size) * 3.4);
+  height: auto;
+}
+
+/* shimmer — a single sweeping block */
+.ldr--shimmer {
+  height: calc(var(--size) * .9);
+  border-radius: calc(var(--size) / 6);
+  background: var(--sk);
+  animation: ldr-shimmer calc(var(--speed) * 1.6) linear infinite;
+}
+
+/* sk-text — three lines of copy */
+.ldr--sk-text, .ldr--sk-paragraph {
+  display: flex; flex-direction: column; justify-content: center;
+  gap: calc(var(--size) / 5);
+}
+.ldr--sk-text span, .ldr--sk-paragraph span {
+  height: calc(var(--size) / 5); border-radius: 99px;
+  background: var(--sk);
+  animation: ldr-shimmer calc(var(--speed) * 1.6) linear infinite;
+}
+.ldr--sk-text span:nth-child(1) { width: 100%; }
+.ldr--sk-text span:nth-child(2) { width: 88%; animation-delay: calc(var(--speed) * -.15); }
+.ldr--sk-text span:nth-child(3) { width: 60%; animation-delay: calc(var(--speed) * -.3); }
+.ldr--sk-paragraph span:nth-child(1) { width: 100%; }
+.ldr--sk-paragraph span:nth-child(2) { width: 96%; animation-delay: calc(var(--speed) * -.12); }
+.ldr--sk-paragraph span:nth-child(3) { width: 90%; animation-delay: calc(var(--speed) * -.24); }
+.ldr--sk-paragraph span:nth-child(4) { width: 48%; animation-delay: calc(var(--speed) * -.36); }
+
+/* sk-card — thumbnail with two lines beside it */
+.ldr--sk-card {
+  display: grid;
+  grid-template-columns: calc(var(--size) * .9) 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: calc(var(--size) / 6) calc(var(--size) / 5);
+  height: calc(var(--size) * .9);
+}
+.ldr--sk-card span { background: var(--sk); border-radius: calc(var(--size) / 8); animation: ldr-shimmer calc(var(--speed) * 1.6) linear infinite; }
+.ldr--sk-card span:nth-child(1) { grid-row: span 2; }
+.ldr--sk-card span:nth-child(2) { border-radius: 99px; animation-delay: calc(var(--speed) * -.15); }
+.ldr--sk-card span:nth-child(3) { border-radius: 99px; width: 65%; animation-delay: calc(var(--speed) * -.3); }
+
+/* sk-avatar — a circle and a name line */
+.ldr--sk-avatar {
+  display: flex; align-items: center; gap: calc(var(--size) / 4);
+  height: calc(var(--size) * .8);
+}
+.ldr--sk-avatar span { background: var(--sk); animation: ldr-shimmer calc(var(--speed) * 1.6) linear infinite; }
+.ldr--sk-avatar span:nth-child(1) { height: 100%; aspect-ratio: 1; border-radius: 50%; flex: none; }
+.ldr--sk-avatar span:nth-child(2) { flex: 1; height: 32%; border-radius: 99px; animation-delay: calc(var(--speed) * -.2); }
+
+/* sk-image — a framed image placeholder */
+.ldr--sk-image {
+  height: calc(var(--size) * 1.9);
+  border-radius: calc(var(--size) / 6);
+  background: var(--sk);
+  animation: ldr-shimmer calc(var(--speed) * 1.8) linear infinite;
+}
+.ldr--sk-image::after {
+  content: ""; position: absolute; inset: 32% 38%;
+  border-radius: calc(var(--size) / 10);
+  background: color-mix(in oklab, var(--c1) 22%, transparent);
+}
+
+/* sk-list — stacked rows with leading bullets */
+.ldr--sk-list {
+  display: flex; flex-direction: column; gap: calc(var(--size) / 5);
+}
+.ldr--sk-list span {
+  height: calc(var(--size) / 4); border-radius: 99px;
+  background: var(--sk);
+  animation: ldr-shimmer calc(var(--speed) * 1.6) linear infinite;
+}
+.ldr--sk-list span:nth-child(2) { width: 92%; animation-delay: calc(var(--speed) * -.15); }
+.ldr--sk-list span:nth-child(3) { width: 78%; animation-delay: calc(var(--speed) * -.3); }
+
+/* sk-table — a header row above body rows */
+.ldr--sk-table { display: flex; flex-direction: column; gap: calc(var(--size) / 6); }
+.ldr--sk-table span { border-radius: calc(var(--size) / 12); background: var(--sk); animation: ldr-shimmer calc(var(--speed) * 1.6) linear infinite; }
+.ldr--sk-table span:nth-child(1) { height: calc(var(--size) / 3.2); }
+.ldr--sk-table span:nth-child(2) { height: calc(var(--size) / 4.5); animation-delay: calc(var(--speed) * -.12); }
+.ldr--sk-table span:nth-child(3) { height: calc(var(--size) / 4.5); animation-delay: calc(var(--speed) * -.24); }
+.ldr--sk-table span:nth-child(4) { height: calc(var(--size) / 4.5); width: 70%; animation-delay: calc(var(--speed) * -.36); }
+
+/* sk-chip — a row of tag placeholders */
+.ldr--sk-chip { display: flex; align-items: center; gap: calc(var(--size) / 5); height: calc(var(--size) / 2.4); }
+.ldr--sk-chip span { height: 100%; border-radius: 99px; background: var(--sk); animation: ldr-shimmer calc(var(--speed) * 1.6) linear infinite; }
+.ldr--sk-chip span:nth-child(1) { width: 28%; }
+.ldr--sk-chip span:nth-child(2) { width: 38%; animation-delay: calc(var(--speed) * -.18); }
+.ldr--sk-chip span:nth-child(3) { width: 22%; animation-delay: calc(var(--speed) * -.36); }
+
+/* sk-media — a 16:9 block with a caption under it */
+.ldr--sk-media { display: flex; flex-direction: column; gap: calc(var(--size) / 5); }
+.ldr--sk-media span { background: var(--sk); animation: ldr-shimmer calc(var(--speed) * 1.7) linear infinite; }
+.ldr--sk-media span:nth-child(1) { aspect-ratio: 16 / 9; border-radius: calc(var(--size) / 7); }
+.ldr--sk-media span:nth-child(2) { height: calc(var(--size) / 5); width: 55%; border-radius: 99px; animation-delay: calc(var(--speed) * -.2); }

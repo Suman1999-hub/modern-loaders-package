@@ -1,0 +1,98 @@
+/* ===================== Family: bars ===================== */
+
+/* bars — gradient equalizer */
+.ldr--bars { display: inline-flex; align-items: center; width: calc(var(--size) * 1.25); gap: calc(var(--size) / 11); }
+.ldr--bars span { flex: 1; height: 100%; border-radius: 99px; background: linear-gradient(var(--c1), var(--c2), var(--c3)); animation: ldr-eq calc(var(--speed) * 1.2) ease-in-out infinite; }
+.ldr--bars span:nth-child(2) { animation-delay: calc(var(--speed) * -1.0); }
+.ldr--bars span:nth-child(3) { animation-delay: calc(var(--speed) * -.85); }
+.ldr--bars span:nth-child(4) { animation-delay: calc(var(--speed) * -.7); }
+.ldr--bars span:nth-child(5) { animation-delay: calc(var(--speed) * -.55); }
+@keyframes ldr-eq { 0%, 100% { transform: scaleY(.22); opacity: .55; } 50% { transform: scaleY(1); opacity: 1; } }
+
+/* ladder — bars lighting up bottom to top */
+.ldr--ladder { display: inline-flex; flex-direction: column; justify-content: space-between; width: calc(var(--size) * 1.2); }
+.ldr--ladder span { height: 18%; border-radius: 99px; background: var(--grad); animation: ldr-fade calc(var(--speed) * 1.2) ease-in-out infinite; }
+.ldr--ladder span:nth-child(1) { width: 100%; animation-delay: calc(var(--speed) * -.0); }
+.ldr--ladder span:nth-child(2) { width: 80%;  animation-delay: calc(var(--speed) * -.15); }
+.ldr--ladder span:nth-child(3) { width: 60%;  animation-delay: calc(var(--speed) * -.3); }
+.ldr--ladder span:nth-child(4) { width: 40%;  animation-delay: calc(var(--speed) * -.45); }
+
+/* stretch — bars scaling from the centre with a color shift */
+.ldr--stretch { display: inline-flex; align-items: center; width: calc(var(--size) * 1.25); gap: calc(var(--size) / 12); }
+.ldr--stretch span { flex: 1; height: 100%; border-radius: 99px; background: var(--c1); animation: ldr-stretch calc(var(--speed) * 1.1) ease-in-out infinite; }
+.ldr--stretch span:nth-child(2) { background: color-mix(in oklab, var(--c1), var(--c2)); animation-delay: calc(var(--speed) * .1); }
+.ldr--stretch span:nth-child(3) { background: var(--c2); animation-delay: calc(var(--speed) * .2); }
+.ldr--stretch span:nth-child(4) { background: color-mix(in oklab, var(--c2), var(--c3)); animation-delay: calc(var(--speed) * .3); }
+.ldr--stretch span:nth-child(5) { background: var(--c3); animation-delay: calc(var(--speed) * .4); }
+@keyframes ldr-stretch { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+
+/* flip-bars — bars flipping on the X axis */
+.ldr--flip-bars { display: inline-flex; align-items: center; width: calc(var(--size) * 1.25); gap: calc(var(--size) / 12); perspective: calc(var(--size) * 3); }
+.ldr--flip-bars span { flex: 1; height: 70%; border-radius: calc(var(--size) / 14); background: var(--grad); animation: ldr-flipx calc(var(--speed) * 1.4) ease-in-out infinite; }
+.ldr--flip-bars span:nth-child(2) { animation-delay: calc(var(--speed) * .1); }
+.ldr--flip-bars span:nth-child(3) { animation-delay: calc(var(--speed) * .2); }
+.ldr--flip-bars span:nth-child(4) { animation-delay: calc(var(--speed) * .3); }
+.ldr--flip-bars span:nth-child(5) { animation-delay: calc(var(--speed) * .4); }
+@keyframes ldr-flipx { 0%, 100% { transform: rotateX(0); } 50% { transform: rotateX(180deg); } }
+
+/* slide-bars — stacked bars sliding sideways */
+.ldr--slide-bars { display: inline-flex; flex-direction: column; justify-content: space-evenly; }
+.ldr--slide-bars span { height: 20%; width: 60%; border-radius: 99px; animation: ldr-slidex calc(var(--speed) * 1.5) ease-in-out infinite; }
+.ldr--slide-bars span:nth-child(1) { background: var(--c1); }
+.ldr--slide-bars span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * .15); }
+.ldr--slide-bars span:nth-child(3) { background: var(--c3); animation-delay: calc(var(--speed) * .3); }
+@keyframes ldr-slidex { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(66%); } }
+
+/* drop-bars — bars falling and rebounding */
+.ldr--drop-bars { display: inline-flex; align-items: flex-start; width: calc(var(--size) * 1.25); gap: calc(var(--size) / 12); }
+.ldr--drop-bars span { flex: 1; height: 45%; border-radius: 99px; background: var(--grad); animation: ldr-drop calc(var(--speed) * 1.2) cubic-bezier(.5,.05,.5,.95) infinite; }
+.ldr--drop-bars span:nth-child(2) { animation-delay: calc(var(--speed) * .1); }
+.ldr--drop-bars span:nth-child(3) { animation-delay: calc(var(--speed) * .2); }
+.ldr--drop-bars span:nth-child(4) { animation-delay: calc(var(--speed) * .3); }
+.ldr--drop-bars span:nth-child(5) { animation-delay: calc(var(--speed) * .4); }
+@keyframes ldr-drop { 0%, 100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(120%); opacity: 1; } }
+
+/* meter — signal-strength staircase */
+.ldr--meter { display: inline-flex; align-items: flex-end; width: calc(var(--size) * 1.25); gap: calc(var(--size) / 12); }
+.ldr--meter span { flex: 1; border-radius: calc(var(--size) / 16); background: var(--c1); animation: ldr-fade calc(var(--speed) * 1.4) steps(1, end) infinite; }
+.ldr--meter span:nth-child(1) { height: 30%; animation-delay: calc(var(--speed) * -.0); }
+.ldr--meter span:nth-child(2) { height: 48%; background: color-mix(in oklab, var(--c1), var(--c2)); animation-delay: calc(var(--speed) * -.2); }
+.ldr--meter span:nth-child(3) { height: 66%; background: var(--c2); animation-delay: calc(var(--speed) * -.4); }
+.ldr--meter span:nth-child(4) { height: 84%; background: color-mix(in oklab, var(--c2), var(--c3)); animation-delay: calc(var(--speed) * -.6); }
+.ldr--meter span:nth-child(5) { height: 100%; background: var(--c3); animation-delay: calc(var(--speed) * -.8); }
+
+/* wave-bars — seven bars translating through a sine */
+.ldr--wave-bars { display: inline-flex; align-items: center; width: calc(var(--size) * 1.4); gap: calc(var(--size) / 16); }
+.ldr--wave-bars span { flex: 1; height: 40%; border-radius: 99px; background: var(--grad); animation: ldr-wavebar calc(var(--speed) * 1.3) ease-in-out infinite; }
+.ldr--wave-bars span:nth-child(2) { animation-delay: calc(var(--speed) * .08); }
+.ldr--wave-bars span:nth-child(3) { animation-delay: calc(var(--speed) * .16); }
+.ldr--wave-bars span:nth-child(4) { animation-delay: calc(var(--speed) * .24); }
+.ldr--wave-bars span:nth-child(5) { animation-delay: calc(var(--speed) * .32); }
+.ldr--wave-bars span:nth-child(6) { animation-delay: calc(var(--speed) * .40); }
+.ldr--wave-bars span:nth-child(7) { animation-delay: calc(var(--speed) * .48); }
+@keyframes ldr-wavebar { 0%, 100% { transform: translateY(-55%) scaleY(.7); } 50% { transform: translateY(55%) scaleY(1.3); } }
+
+/* split-bars — pairs opening away from the centre */
+.ldr--split-bars { display: inline-flex; align-items: center; justify-content: center; width: calc(var(--size) * 1.25); gap: calc(var(--size) / 14); }
+.ldr--split-bars span { width: 16%; height: 100%; border-radius: 99px; animation: ldr-split calc(var(--speed) * 1.3) cubic-bezier(.5,0,.5,1) infinite; }
+.ldr--split-bars span:nth-child(1) { background: var(--c1); --dir: -1; }
+.ldr--split-bars span:nth-child(2) { background: var(--c2); --dir: -.4; }
+.ldr--split-bars span:nth-child(3) { background: var(--c2); --dir: .4; }
+.ldr--split-bars span:nth-child(4) { background: var(--c3); --dir: 1; }
+@keyframes ldr-split {
+  0%, 100% { transform: translateX(0) scaleY(.4); opacity: .5; }
+  50%      { transform: translateX(calc(var(--dir) * 60%)) scaleY(1); opacity: 1; }
+}
+
+/* scan-bars — a highlight sweeping across a static row */
+.ldr--scan-bars { display: inline-flex; align-items: center; width: calc(var(--size) * 1.3); gap: calc(var(--size) / 14); }
+.ldr--scan-bars span { flex: 1; height: 100%; border-radius: 99px; background: var(--grad); animation: ldr-scan calc(var(--speed) * 1.4) ease-in-out infinite; }
+.ldr--scan-bars span:nth-child(2) { animation-delay: calc(var(--speed) * .12); }
+.ldr--scan-bars span:nth-child(3) { animation-delay: calc(var(--speed) * .24); }
+.ldr--scan-bars span:nth-child(4) { animation-delay: calc(var(--speed) * .36); }
+.ldr--scan-bars span:nth-child(5) { animation-delay: calc(var(--speed) * .48); }
+.ldr--scan-bars span:nth-child(6) { animation-delay: calc(var(--speed) * .60); }
+@keyframes ldr-scan {
+  0%, 70%, 100% { opacity: .2; transform: scaleY(.45); }
+  35%           { opacity: 1;  transform: scaleY(1); }
+}
