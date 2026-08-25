@@ -1,0 +1,267 @@
+/* ===================== Family: particles ===================== */
+/* Radial motion keeps the whole chain inside `transform` (rotate then translate)
+   so the offset happens in the rotated frame; standalone `translate` is layered
+   on top when a particle also needs gravity in screen space. */
+
+/* confetti — paper tumbling down through the frame */
+.ldr--confetti { overflow: hidden; }
+.ldr--confetti span {
+  position: absolute; top: 0;
+  width: 11%; height: 15%;
+  border-radius: calc(var(--size) / 40);
+  animation: ldr-confetti-fall calc(var(--speed) * 2.4) linear infinite,
+             ldr-tumble calc(var(--speed) * 1.1) linear infinite;
+}
+@keyframes ldr-confetti-fall {
+  0%   { translate: 0 -40%; opacity: 0; }
+  12%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { translate: var(--sway, 20%) 620%; opacity: 0; }
+}
+@keyframes ldr-tumble { from { transform: rotate3d(1, 1, .3, 0deg); } to { transform: rotate3d(1, 1, .3, 1turn); } }
+.ldr--confetti span:nth-child(1) { left:  2%; background: var(--c1); --sway:  30%; animation-delay: calc(var(--speed) * -.0),  calc(var(--speed) * -.1); }
+.ldr--confetti span:nth-child(2) { left: 14%; background: var(--c2); --sway: -22%; animation-delay: calc(var(--speed) * -.7),  calc(var(--speed) * -.4); }
+.ldr--confetti span:nth-child(3) { left: 26%; background: var(--c3); --sway:  18%; animation-delay: calc(var(--speed) * -1.4), calc(var(--speed) * -.8); }
+.ldr--confetti span:nth-child(4) { left: 38%; background: var(--c1); --sway: -30%; animation-delay: calc(var(--speed) * -2.1), calc(var(--speed) * -.2); }
+.ldr--confetti span:nth-child(5) { left: 50%; background: var(--c2); --sway:  25%; animation-delay: calc(var(--speed) * -.35), calc(var(--speed) * -.6); }
+.ldr--confetti span:nth-child(6) { left: 62%; background: var(--c3); --sway: -16%; animation-delay: calc(var(--speed) * -1.0), calc(var(--speed) * -.9); }
+.ldr--confetti span:nth-child(7) { left: 74%; background: var(--c1); --sway:  28%; animation-delay: calc(var(--speed) * -1.8), calc(var(--speed) * -.3); }
+.ldr--confetti span:nth-child(8) { left: 86%; background: var(--c2); --sway: -26%; animation-delay: calc(var(--speed) * -2.3), calc(var(--speed) * -.7); }
+
+/* firework — sparks thrown out and pulled back down by gravity */
+.ldr--firework span {
+  position: absolute; left: 50%; top: 50%;
+  width: 10%; aspect-ratio: 1; margin: -5% 0 0 -5%;
+  border-radius: 50%;
+  background: var(--c1);
+  box-shadow: 0 0 calc(var(--size) / 9) var(--c1);
+  animation: ldr-firework calc(var(--speed) * 1.9) cubic-bezier(.1, .7, .3, 1) infinite,
+             ldr-gravity calc(var(--speed) * 1.9) cubic-bezier(.4, 0, .9, .6) infinite;
+}
+@keyframes ldr-firework {
+  0%   { transform: rotate(var(--a)) translateY(0) scale(.2); }
+  12%  { transform: rotate(var(--a)) translateY(-120%) scale(1); }
+  100% { transform: rotate(var(--a)) translateY(-380%) scale(.35); }
+}
+@keyframes ldr-gravity { 0% { translate: 0 0; opacity: 0; } 12% { opacity: 1; } 100% { translate: 0 90%; opacity: 0; } }
+.ldr--firework span:nth-child(1) { --a:   0deg; }
+.ldr--firework span:nth-child(2) { --a:  45deg; background: var(--c2); box-shadow: 0 0 calc(var(--size) / 9) var(--c2); }
+.ldr--firework span:nth-child(3) { --a:  90deg; }
+.ldr--firework span:nth-child(4) { --a: 135deg; background: var(--c3); box-shadow: 0 0 calc(var(--size) / 9) var(--c3); }
+.ldr--firework span:nth-child(5) { --a: 180deg; }
+.ldr--firework span:nth-child(6) { --a: 225deg; background: var(--c2); box-shadow: 0 0 calc(var(--size) / 9) var(--c2); }
+.ldr--firework span:nth-child(7) { --a: 270deg; }
+.ldr--firework span:nth-child(8) { --a: 315deg; background: var(--c3); box-shadow: 0 0 calc(var(--size) / 9) var(--c3); }
+
+/* snow — soft flakes settling with a lazy sideways drift */
+.ldr--snow { overflow: hidden; }
+.ldr--snow span {
+  position: absolute; top: 0;
+  aspect-ratio: 1; border-radius: 50%;
+  background: var(--c3);
+  filter: blur(calc(var(--size) / 90));
+  animation: ldr-snow-fall calc(var(--speed) * 3.4) linear infinite,
+             ldr-snow-sway calc(var(--speed) * 1.5) ease-in-out infinite;
+}
+@keyframes ldr-snow-fall { 0% { translate: 0 -30%; opacity: 0; } 10% { opacity: .95; } 88% { opacity: .95; } 100% { translate: 0 640%; opacity: 0; } }
+@keyframes ldr-snow-sway { 0%, 100% { transform: translateX(-70%); } 50% { transform: translateX(70%); } }
+.ldr--snow span:nth-child(1) { left:  6%; width: 13%; animation-delay: calc(var(--speed) * -.0),  calc(var(--speed) * -.2); }
+.ldr--snow span:nth-child(2) { left: 22%; width:  9%; background: var(--c1); animation-delay: calc(var(--speed) * -1.1), calc(var(--speed) * -.7); }
+.ldr--snow span:nth-child(3) { left: 38%; width: 15%; animation-delay: calc(var(--speed) * -2.2), calc(var(--speed) * -1.1); }
+.ldr--snow span:nth-child(4) { left: 54%; width: 10%; background: var(--c2); animation-delay: calc(var(--speed) * -.6),  calc(var(--speed) * -.4); }
+.ldr--snow span:nth-child(5) { left: 70%; width: 12%; animation-delay: calc(var(--speed) * -1.7), calc(var(--speed) * -.9); }
+.ldr--snow span:nth-child(6) { left: 86%; width:  8%; background: var(--c1); animation-delay: calc(var(--speed) * -2.8), calc(var(--speed) * -.3); }
+
+/* embers — sparks lifting off a fire and burning out */
+.ldr--embers { overflow: hidden; }
+.ldr--embers span {
+  position: absolute; bottom: 0;
+  aspect-ratio: 1; border-radius: 50%;
+  color: var(--c1); background: currentColor;
+  box-shadow: 0 0 calc(var(--size) / 8) currentColor;
+  animation: ldr-ember-rise calc(var(--speed) * 2.6) ease-out infinite,
+             ldr-blink calc(var(--speed) * .6) ease-in-out infinite;
+}
+@keyframes ldr-ember-rise {
+  0%   { translate: 0 0 ; scale: .4; }
+  20%  { scale: 1; }
+  100% { translate: var(--sway, 40%) -560%; scale: .15; }
+}
+.ldr--embers span:nth-child(1) { left: 12%; width: 11%; --sway:  60%; animation-delay: calc(var(--speed) * -.0),  calc(var(--speed) * -.1); }
+.ldr--embers span:nth-child(2) { left: 30%; width:  8%; --sway: -40%; color: var(--c2); animation-delay: calc(var(--speed) * -.9),  calc(var(--speed) * -.3); }
+.ldr--embers span:nth-child(3) { left: 46%; width: 13%; --sway:  25%; animation-delay: calc(var(--speed) * -1.7), calc(var(--speed) * -.5); }
+.ldr--embers span:nth-child(4) { left: 64%; width:  9%; --sway: -55%; color: var(--c3); animation-delay: calc(var(--speed) * -.5),  calc(var(--speed) * -.2); }
+.ldr--embers span:nth-child(5) { left: 80%; width: 10%; --sway:  35%; color: var(--c2); animation-delay: calc(var(--speed) * -2.2), calc(var(--speed) * -.4); }
+.ldr--embers::after {
+  content: ""; position: absolute; left: 18%; right: 18%; bottom: -12%; height: 34%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, var(--c1) 0 30%, transparent 72%);
+  filter: blur(calc(var(--size) / 20));
+  animation: ldr-glow-swell calc(var(--speed) * 1.2) ease-in-out infinite;
+}
+
+/* starfield — stars stretching into streaks as you jump to light speed */
+.ldr--starfield { overflow: hidden; border-radius: 50%; }
+.ldr--starfield span {
+  position: absolute; left: 50%; top: 50%;
+  width: 3%; height: 26%; margin: -13% 0 0 -1.5%;
+  border-radius: 99px;
+  background: linear-gradient(transparent, var(--c1));
+  animation: ldr-hyper calc(var(--speed) * 1.7) cubic-bezier(.4, 0, .75, 1) infinite;
+}
+@keyframes ldr-hyper {
+  0%   { transform: rotate(var(--a)) translateY(-10%) scaleY(.12); opacity: 0; }
+  18%  { opacity: 1; }
+  100% { transform: rotate(var(--a)) translateY(-170%) scaleY(1.5); opacity: 0; }
+}
+.ldr--starfield span:nth-child(1) { --a:  20deg; animation-delay: calc(var(--speed) * -.0); }
+.ldr--starfield span:nth-child(2) { --a:  65deg; background: linear-gradient(transparent, var(--c2)); animation-delay: calc(var(--speed) * -.21); }
+.ldr--starfield span:nth-child(3) { --a: 110deg; animation-delay: calc(var(--speed) * -.42); }
+.ldr--starfield span:nth-child(4) { --a: 155deg; background: linear-gradient(transparent, var(--c3)); animation-delay: calc(var(--speed) * -.63); }
+.ldr--starfield span:nth-child(5) { --a: 200deg; animation-delay: calc(var(--speed) * -.85); }
+.ldr--starfield span:nth-child(6) { --a: 245deg; background: linear-gradient(transparent, var(--c2)); animation-delay: calc(var(--speed) * -1.06); }
+.ldr--starfield span:nth-child(7) { --a: 290deg; animation-delay: calc(var(--speed) * -1.27); }
+.ldr--starfield span:nth-child(8) { --a: 335deg; background: linear-gradient(transparent, var(--c3)); animation-delay: calc(var(--speed) * -1.48); }
+
+/* dust — motes turning slowly in a shaft of light */
+.ldr--dust span {
+  position: absolute; left: 50%; top: 50%;
+  width: 9%; aspect-ratio: 1; margin: -4.5% 0 0 -4.5%;
+  border-radius: 50%;
+  background: var(--c1);
+  filter: blur(calc(var(--size) / 60));
+  animation: ldr-mote calc(var(--speed) * 5) linear infinite,
+             ldr-blink calc(var(--speed) * 2.2) ease-in-out infinite;
+}
+@keyframes ldr-mote {
+  from { transform: rotate(0turn) translateY(var(--r)) scale(var(--s, 1)); }
+  to   { transform: rotate(1turn) translateY(var(--r)) scale(var(--s, 1)); }
+}
+.ldr--dust span:nth-child(1) { --r: -444%; --s: 1;   animation-delay: calc(var(--speed) * -.0),  calc(var(--speed) * -.3); }
+.ldr--dust span:nth-child(2) { --r: -290%; --s: .7;  background: var(--c2); animation-delay: calc(var(--speed) * -1.9), calc(var(--speed) * -.9); }
+.ldr--dust span:nth-child(3) { --r: -500%; --s: .5;  animation-delay: calc(var(--speed) * -3.3), calc(var(--speed) * -1.4); }
+.ldr--dust span:nth-child(4) { --r: -360%; --s: 1.2; background: var(--c3); animation-delay: calc(var(--speed) * -2.4), calc(var(--speed) * -.6); }
+.ldr--dust span:nth-child(5) { --r: -200%; --s: .8;  animation-delay: calc(var(--speed) * -4.1), calc(var(--speed) * -1.8); }
+.ldr--dust span:nth-child(6) { --r: -480%; --s: .6;  background: var(--c2); animation-delay: calc(var(--speed) * -.9),  calc(var(--speed) * -2.0); }
+.ldr--dust span:nth-child(7) { --r: -330%; --s: .9;  animation-delay: calc(var(--speed) * -3.8), calc(var(--speed) * -.2); }
+
+/* burst — a ring of dots detonating outward and snapping home */
+.ldr--burst { animation: ldr-spin calc(var(--speed) * 6) linear infinite; }
+.ldr--burst span {
+  position: absolute; left: 50%; top: 50%;
+  width: 15%; aspect-ratio: 1; margin: -7.5% 0 0 -7.5%;
+  border-radius: 50%;
+  background: var(--c1);
+  animation: ldr-burst calc(var(--speed) * 1.5) cubic-bezier(.2, .8, .3, 1) infinite;
+}
+@keyframes ldr-burst {
+  0%, 100% { transform: rotate(var(--a)) translateY(-30%) scale(.5); opacity: .45; }
+  45%      { transform: rotate(var(--a)) translateY(-260%) scale(1); opacity: 1; }
+}
+.ldr--burst span:nth-child(1) { --a:   0deg; }
+.ldr--burst span:nth-child(2) { --a:  60deg; background: color-mix(in oklab, var(--c1), var(--c2)); }
+.ldr--burst span:nth-child(3) { --a: 120deg; background: var(--c2); }
+.ldr--burst span:nth-child(4) { --a: 180deg; background: color-mix(in oklab, var(--c2), var(--c3)); }
+.ldr--burst span:nth-child(5) { --a: 240deg; background: var(--c3); }
+.ldr--burst span:nth-child(6) { --a: 300deg; background: color-mix(in oklab, var(--c3), var(--c1)); }
+
+/* swarm — a flock tightening into a knot and scattering again */
+.ldr--swarm span {
+  position: absolute; left: 50%; top: 50%;
+  width: 16%; aspect-ratio: 1; margin: -8% 0 0 -8%;
+  border-radius: 50%;
+  background: var(--c1);
+  animation: ldr-flock calc(var(--speed) * 2.2) cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes ldr-flock {
+  0%, 100% { transform: rotate(var(--a)) translateY(-240%) scale(.7); opacity: .55; }
+  50%      { transform: rotate(calc(var(--a) + 140deg)) translateY(-25%) scale(1.15); opacity: 1; }
+}
+.ldr--swarm span:nth-child(1) { --a:   0deg; animation-delay: calc(var(--speed) * -.0); }
+.ldr--swarm span:nth-child(2) { --a:  51deg; background: var(--c2); animation-delay: calc(var(--speed) * -.12); }
+.ldr--swarm span:nth-child(3) { --a: 103deg; animation-delay: calc(var(--speed) * -.24); }
+.ldr--swarm span:nth-child(4) { --a: 154deg; background: var(--c3); animation-delay: calc(var(--speed) * -.36); }
+.ldr--swarm span:nth-child(5) { --a: 206deg; animation-delay: calc(var(--speed) * -.48); }
+.ldr--swarm span:nth-child(6) { --a: 257deg; background: var(--c2); animation-delay: calc(var(--speed) * -.6); }
+.ldr--swarm span:nth-child(7) { --a: 309deg; background: var(--c3); animation-delay: calc(var(--speed) * -.72); }
+
+/* rain — streaks coming down onto a wet line */
+.ldr--rain { overflow: hidden; }
+.ldr--rain span {
+  position: absolute; top: 0;
+  width: 4%; height: 30%;
+  border-radius: 99px;
+  background: linear-gradient(transparent, var(--c1));
+  animation: ldr-rain-fall calc(var(--speed) * .9) linear infinite;
+}
+@keyframes ldr-rain-fall { 0% { translate: 0 -110%; opacity: 0; } 15% { opacity: 1; } 80% { opacity: 1; } 100% { translate: 0 300%; opacity: 0; } }
+.ldr--rain span:nth-child(1) { left:  8%; animation-delay: calc(var(--speed) * -.0); }
+.ldr--rain span:nth-child(2) { left: 24%; background: linear-gradient(transparent, var(--c2)); animation-delay: calc(var(--speed) * -.42); }
+.ldr--rain span:nth-child(3) { left: 40%; animation-delay: calc(var(--speed) * -.18); }
+.ldr--rain span:nth-child(4) { left: 56%; background: linear-gradient(transparent, var(--c3)); animation-delay: calc(var(--speed) * -.62); }
+.ldr--rain span:nth-child(5) { left: 72%; animation-delay: calc(var(--speed) * -.3); }
+.ldr--rain span:nth-child(6) { left: 88%; background: linear-gradient(transparent, var(--c2)); animation-delay: calc(var(--speed) * -.75); }
+.ldr--rain::after {
+  content: ""; position: absolute; left: 4%; right: 4%; bottom: 6%;
+  height: max(2px, calc(var(--size) / 26));
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, var(--c3), transparent);
+  animation: ldr-breathe calc(var(--speed) * .9) ease-in-out infinite;
+}
+
+/* magnet — particles dragged into a core, then released */
+.ldr--magnet::after {
+  content: ""; position: absolute; left: 38%; top: 38%;
+  width: 24%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 10%, var(--c1) 55%, var(--c2) 100%);
+  box-shadow: 0 0 calc(var(--size) / 7) var(--c1);
+  animation: ldr-pulse calc(var(--speed) * 1.8) ease-in-out infinite;
+}
+.ldr--magnet span {
+  position: absolute; left: 50%; top: 50%;
+  width: 11%; aspect-ratio: 1; margin: -5.5% 0 0 -5.5%;
+  border-radius: 50%;
+  background: var(--c3);
+  animation: ldr-attract calc(var(--speed) * 1.8) cubic-bezier(.75, 0, .25, 1) infinite;
+}
+@keyframes ldr-attract {
+  0%   { transform: rotate(var(--a)) translateY(-400%) scale(1); opacity: 0; }
+  20%  { opacity: 1; }
+  70%  { transform: rotate(var(--a)) translateY(-30%) scale(.45); opacity: 1; }
+  100% { transform: rotate(var(--a)) translateY(-30%) scale(0); opacity: 0; }
+}
+.ldr--magnet span:nth-child(1) { --a:   0deg; animation-delay: calc(var(--speed) * -.0); }
+.ldr--magnet span:nth-child(2) { --a:  51deg; background: var(--c2); animation-delay: calc(var(--speed) * -.26); }
+.ldr--magnet span:nth-child(3) { --a: 103deg; animation-delay: calc(var(--speed) * -.51); }
+.ldr--magnet span:nth-child(4) { --a: 154deg; background: var(--c2); animation-delay: calc(var(--speed) * -.77); }
+.ldr--magnet span:nth-child(5) { --a: 206deg; animation-delay: calc(var(--speed) * -1.03); }
+.ldr--magnet span:nth-child(6) { --a: 257deg; background: var(--c2); animation-delay: calc(var(--speed) * -1.28); }
+.ldr--magnet span:nth-child(7) { --a: 309deg; animation-delay: calc(var(--speed) * -1.54); }
+
+/* nebula — coloured gas turning slowly, with stars picking out through it */
+.ldr--nebula { border-radius: 50%; overflow: hidden; }
+.ldr--nebula::before {
+  content: ""; position: absolute; inset: -25%;
+  background:
+    radial-gradient(circle at 34% 32%, var(--c1) 0 16%, transparent 52%),
+    radial-gradient(circle at 68% 44%, var(--c2) 0 18%, transparent 55%),
+    radial-gradient(circle at 46% 72%, var(--c3) 0 20%, transparent 58%);
+  filter: blur(calc(var(--size) / 12));
+  opacity: .85;
+  animation: ldr-spin calc(var(--speed) * 8) linear infinite;
+}
+.ldr--nebula span {
+  position: absolute;
+  width: 6%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 calc(var(--size) / 14) var(--c3);
+  animation: ldr-blink calc(var(--speed) * 1.6) ease-in-out infinite;
+}
+.ldr--nebula span:nth-child(1) { left: 22%; top: 30%; animation-delay: calc(var(--speed) * -.0); }
+.ldr--nebula span:nth-child(2) { left: 62%; top: 20%; width: 4%; animation-delay: calc(var(--speed) * -.4); }
+.ldr--nebula span:nth-child(3) { left: 76%; top: 58%; animation-delay: calc(var(--speed) * -.8); }
+.ldr--nebula span:nth-child(4) { left: 40%; top: 74%; width: 5%; animation-delay: calc(var(--speed) * -1.2); }
+.ldr--nebula span:nth-child(5) { left: 16%; top: 62%; width: 4%; animation-delay: calc(var(--speed) * -1.6); }
+.ldr--nebula span:nth-child(6) { left: 52%; top: 46%; animation-delay: calc(var(--speed) * -2.0); }

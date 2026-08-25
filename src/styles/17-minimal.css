@@ -1,0 +1,179 @@
+/* ===================== Family: minimal (quiet & restrained) ===================== */
+/* Small, low-contrast motion for dense UI — toolbars, table cells, inline text. */
+
+/* hairline — a lit segment travelling a thin rule */
+.ldr--hairline {
+  width: calc(var(--size) * 2); height: max(2px, calc(var(--size) / 22));
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 18%, transparent);
+  overflow: hidden;
+}
+.ldr--hairline::after {
+  content: ""; position: absolute; inset: 0 auto 0 0;
+  width: 34%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, var(--c1) 30%, var(--c2) 70%, transparent);
+  animation: ldr-hairline-run calc(var(--speed) * 1.6) cubic-bezier(.65, 0, .35, 1) infinite;
+}
+@keyframes ldr-hairline-run { 0% { translate: -100% 0; } 100% { translate: 295% 0; } }
+
+/* tick — a hand stepping round a quiet dial */
+.ldr--tick { border-radius: 50%; }
+.ldr--tick::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(color-mix(in oklab, var(--c1) 40%, transparent) 0 2deg, transparent 2deg 30deg);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 13%), #000 calc(100% - 12%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 13%), #000 calc(100% - 12%));
+}
+.ldr--tick::after {
+  content: ""; position: absolute; left: 50%; top: 15%;
+  width: max(2px, calc(var(--size) / 18)); height: 37%;
+  margin-left: max(-1px, calc(var(--size) / -36));
+  border-radius: 99px;
+  background: var(--c1);
+  transform-origin: 50% 100%;
+  animation: ldr-spin calc(var(--speed) * 3) steps(12, end) infinite;
+}
+
+/* quarter — one arc, snapping a quarter-turn at a time */
+.ldr--quarter {
+  border-radius: 50%;
+  border: calc(var(--size) / 13) solid color-mix(in oklab, var(--c1) 16%, transparent);
+}
+.ldr--quarter::after {
+  content: ""; position: absolute; inset: calc(var(--size) / -13);
+  border-radius: 50%;
+  border: calc(var(--size) / 13) solid transparent;
+  border-top-color: var(--c1);
+  border-right-color: var(--c1);
+  animation: ldr-spin calc(var(--speed) * 1.6) steps(4, end) infinite;
+}
+
+/* dot-fade — one dot, one slow breath */
+.ldr--dot-fade::after {
+  content: ""; position: absolute; inset: 22%;
+  border-radius: 50%;
+  background: var(--c1);
+  animation: ldr-slow-breath calc(var(--speed) * 2) cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes ldr-slow-breath { 0%, 100% { scale: .6; opacity: .3; } 50% { scale: 1; opacity: 1; } }
+
+/* underline — a rule tracking back and forth beneath a word */
+.ldr--underline { width: calc(var(--size) * 1.6); height: calc(var(--size) * .46); }
+.ldr--underline::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 18%;
+  height: 30%;
+  border-radius: calc(var(--size) / 26);
+  background: color-mix(in oklab, var(--c1) 20%, transparent);
+}
+.ldr--underline::after {
+  content: ""; position: absolute; left: 0; bottom: 12%;
+  width: 34%; height: max(2px, calc(var(--size) / 20));
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c2));
+  animation: ldr-underline-track calc(var(--speed) * 1.8) cubic-bezier(.65, 0, .35, 1) infinite;
+}
+@keyframes ldr-underline-track { 0%, 100% { transform: translateX(0) scaleX(1); } 50% { transform: translateX(194%) scaleX(1); } }
+
+/* pill-swap — a pill stretching to the far end and collecting itself */
+.ldr--pill-swap { width: calc(var(--size) * 1.5); height: calc(var(--size) * .28); }
+.ldr--pill-swap::after {
+  content: ""; position: absolute; inset: 0;
+  border-radius: 99px;
+  background: var(--grad);
+  animation: ldr-pill-swap calc(var(--speed) * 1.8) cubic-bezier(.65, 0, .35, 1) infinite;
+}
+@keyframes ldr-pill-swap {
+  0%   { clip-path: inset(0 81% 0 0 round 99px); }
+  30%  { clip-path: inset(0 0 0 0 round 99px); }
+  50%  { clip-path: inset(0 0 0 81% round 99px); }
+  80%  { clip-path: inset(0 0 0 0 round 99px); }
+  100% { clip-path: inset(0 81% 0 0 round 99px); }
+}
+
+/* bracket — two marks closing in on the point between them */
+.ldr--bracket span {
+  position: absolute; top: 24%; bottom: 24%;
+  width: 22%;
+  border: max(2px, calc(var(--size) / 16)) solid var(--c1);
+  animation: ldr-bracket calc(var(--speed) * 1.5) cubic-bezier(.5, 0, .3, 1) infinite;
+}
+.ldr--bracket span:nth-child(1) { left: 0;  border-right: none; border-radius: calc(var(--size) / 12) 0 0 calc(var(--size) / 12); --dir: -1; }
+.ldr--bracket span:nth-child(2) { right: 0; border-left: none;  border-radius: 0 calc(var(--size) / 12) calc(var(--size) / 12) 0; --dir:  1; }
+@keyframes ldr-bracket {
+  0%, 100% { transform: translateX(calc(var(--dir) * 55%)); opacity: .4; }
+  50%      { transform: translateX(0); opacity: 1; }
+}
+.ldr--bracket::after {
+  content: ""; position: absolute; left: 44%; top: 44%;
+  width: 12%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c2);
+  animation: ldr-pulse calc(var(--speed) * 1.5) ease-in-out infinite;
+}
+
+/* slash — a single stroke wiping through a frame */
+.ldr--slash {
+  border-radius: calc(var(--size) / 8);
+  border: max(1px, calc(var(--size) / 34)) solid color-mix(in oklab, var(--c1) 22%, transparent);
+  overflow: hidden;
+}
+.ldr--slash::after {
+  content: ""; position: absolute; top: -30%; bottom: -30%; left: 0;
+  width: 22%;
+  background: linear-gradient(var(--c1), var(--c2));
+  transform: rotate(24deg);
+  animation: ldr-slash-wipe calc(var(--speed) * 1.5) cubic-bezier(.6, 0, .4, 1) infinite;
+}
+@keyframes ldr-slash-wipe { 0% { translate: -130% 0; } 100% { translate: 560% 0; } }
+
+/* micro-dots — the plainest ellipsis there is */
+.ldr--micro-dots {
+  display: inline-flex; align-items: center; justify-content: space-between;
+  width: calc(var(--size) * .7); height: calc(var(--size) * .2);
+}
+.ldr--micro-dots span {
+  width: 24%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c1);
+  animation: ldr-micro calc(var(--speed) * 1.5) steps(1, end) infinite;
+}
+.ldr--micro-dots span:nth-child(2) { animation-delay: calc(var(--speed) * .25); }
+.ldr--micro-dots span:nth-child(3) { animation-delay: calc(var(--speed) * .5); }
+@keyframes ldr-micro { 0% { opacity: .16; } 20%, 78% { opacity: 1; } 80%, 100% { opacity: .16; } }
+
+/* ring-thin — a hairline ring with one short arc gliding round it */
+.ldr--ring-thin {
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 30)) solid color-mix(in oklab, var(--c1) 16%, transparent);
+}
+.ldr--ring-thin::after {
+  content: ""; position: absolute; inset: max(-1px, calc(var(--size) / -30));
+  border-radius: 50%;
+  background: conic-gradient(var(--c1) 0 14%, transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - max(1px, var(--size) / 30)), #000 0);
+          mask: radial-gradient(farthest-side, #0000 calc(100% - max(1px, var(--size) / 30)), #000 0);
+  animation: ldr-spin calc(var(--speed) * 1.3) cubic-bezier(.45, .05, .55, .95) infinite;
+}
+
+/* crosshair — two hairlines finding each other */
+.ldr--crosshair::before, .ldr--crosshair::after {
+  content: ""; position: absolute;
+  background: var(--c1);
+}
+.ldr--crosshair::before {
+  left: 0; right: 0; top: 50%;
+  height: max(1px, calc(var(--size) / 30));
+  margin-top: max(-.5px, calc(var(--size) / -60));
+  animation: ldr-cross-y calc(var(--speed) * 1.8) cubic-bezier(.5, 0, .3, 1) infinite;
+}
+.ldr--crosshair::after {
+  top: 0; bottom: 0; left: 50%;
+  width: max(1px, calc(var(--size) / 30));
+  margin-left: max(-.5px, calc(var(--size) / -60));
+  background: var(--c2);
+  animation: ldr-cross-x calc(var(--speed) * 1.8) cubic-bezier(.5, 0, .3, 1) infinite;
+}
+@keyframes ldr-cross-y { 0%, 100% { transform: translateY(-160%); opacity: .35; } 50% { transform: translateY(160%); opacity: 1; } }
+@keyframes ldr-cross-x { 0%, 100% { transform: translateX(160%); opacity: .35; } 50% { transform: translateX(-160%); opacity: 1; } }

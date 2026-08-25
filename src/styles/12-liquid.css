@@ -1,0 +1,272 @@
+/* ===================== Family: liquid (fluid, water & goo) ===================== */
+
+/* liquid-fill — a vessel filling and draining behind a rolling surface */
+.ldr--liquid-fill {
+  border-radius: 50%;
+  overflow: hidden;
+  border: calc(var(--size) / 16) solid var(--c1);
+  background: color-mix(in oklab, var(--c1) 12%, transparent);
+}
+.ldr--liquid-fill span {
+  position: absolute; inset: 0;
+  animation: ldr-fill-level calc(var(--speed) * 4) ease-in-out infinite;
+}
+.ldr--liquid-fill span::before {
+  content: ""; position: absolute; left: 50%; top: 52%;
+  width: 220%; aspect-ratio: 1; margin-left: -110%;
+  border-radius: 43%;
+  background: var(--c2);
+  animation: ldr-spin calc(var(--speed) * 3) linear infinite;
+}
+.ldr--liquid-fill span:nth-child(2) { animation-delay: calc(var(--speed) * -.5); }
+.ldr--liquid-fill span:nth-child(2)::before {
+  top: 56%; border-radius: 46%; background: var(--c3); opacity: .55;
+  animation-duration: calc(var(--speed) * 2.2); animation-direction: reverse;
+}
+@keyframes ldr-fill-level { 0%, 100% { transform: translateY(40%); } 50% { transform: translateY(-14%); } }
+
+/* drip — a drop swelling at a nozzle, letting go, and landing in the pool */
+.ldr--drip { width: calc(var(--size) * .8); height: calc(var(--size) * 1.3); }
+.ldr--drip::before {
+  content: ""; position: absolute; left: 50%; top: 0;
+  width: 34%; height: 26%; margin-left: -17%;
+  border-radius: 0 0 50% 50% / 0 0 74% 74%;
+  background: linear-gradient(var(--c1), var(--c2));
+  transform-origin: 50% 0;
+  animation: ldr-drip-form calc(var(--speed) * 1.9) cubic-bezier(.6, 0, .7, .2) infinite;
+}
+@keyframes ldr-drip-form { 0% { scale: .62 .5; } 62% { scale: 1 1.3; } 68% { scale: .55 .42; } 100% { scale: .62 .5; } }
+.ldr--drip span {
+  position: absolute; left: 50%; top: 24%;
+  width: 26%; aspect-ratio: 1; margin-left: -13%;
+  border-radius: 50% / 62% 62% 38% 38%;
+  background: var(--c2);
+  animation: ldr-drip-fall calc(var(--speed) * 1.9) cubic-bezier(.45, 0, .75, .55) infinite;
+}
+@keyframes ldr-drip-fall {
+  0%, 60% { translate: 0 0;    scale: .1;      opacity: 0; }
+  65%     { translate: 0 0;    scale: 1;       opacity: 1; }
+  92%     { translate: 0 185%; scale: 1.1 .92; opacity: 1; }
+  100%    { translate: 0 205%; scale: 1.6 .3;  opacity: 0; }
+}
+.ldr--drip::after {
+  content: ""; position: absolute; left: 14%; right: 14%; bottom: 4%; height: 13%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c3) 85%, transparent);
+  animation: ldr-drip-pool calc(var(--speed) * 1.9) ease-out infinite;
+}
+@keyframes ldr-drip-pool { 0%, 92% { scale: .82 1; opacity: .6; } 96% { scale: 1.3 .65; opacity: 1; } 100% { scale: .82 1; opacity: .6; } }
+
+/* metaball — two drops pulling a neck between them, then merging */
+.ldr--metaball span {
+  position: absolute; top: 50%; left: 50%;
+  width: 44%; aspect-ratio: 1; margin: -22% 0 0 -22%;
+  border-radius: 50%;
+  animation: ldr-meta calc(var(--speed) * 1.8) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+.ldr--metaball span:nth-child(1) { background: var(--c1); --dir: -1; }
+.ldr--metaball span:nth-child(2) { background: var(--c2); --dir:  1; }
+@keyframes ldr-meta {
+  0%, 100% { translate: calc(var(--dir) * 66%) 0; scale: .92 1.04; }
+  50%      { translate: 0 0; scale: 1.14 .88; }
+}
+.ldr--metaball::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 62%; height: 30%; margin: -15% 0 0 -31%;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--c1), var(--c2));
+  animation: ldr-meta-neck calc(var(--speed) * 1.8) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-meta-neck {
+  0%, 100% { scale: 1 .1; opacity: .3; }
+  34%, 66% { scale: 1 1;  opacity: 1; }
+  50%      { scale: .72 1.5; }
+}
+
+/* wave-tank — two swells sloshing past each other at a steady level */
+.ldr--wave-tank {
+  width: calc(var(--size) * 1.5); height: var(--size);
+  border-radius: calc(var(--size) / 10);
+  overflow: hidden;
+  border: max(1px, calc(var(--size) / 44)) solid color-mix(in oklab, var(--c1) 35%, transparent);
+  background: color-mix(in oklab, var(--c1) 10%, transparent);
+}
+.ldr--wave-tank span {
+  position: absolute; left: 50%; top: 30%;
+  width: 240%; aspect-ratio: 1; margin-left: -120%;
+  border-radius: 44%;
+}
+.ldr--wave-tank span:nth-child(1) { background: color-mix(in oklab, var(--c2) 78%, transparent); animation: ldr-spin calc(var(--speed) * 2.8) linear infinite; }
+.ldr--wave-tank span:nth-child(2) { top: 38%; border-radius: 47%; background: var(--c3); opacity: .6; animation: ldr-spin calc(var(--speed) * 1.9) linear infinite reverse; }
+
+/* ripple-pool — rings spreading across a surface seen at a low angle */
+.ldr--ripple-pool span {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 18)) solid var(--c1);
+  transform: rotateX(62deg);
+  animation: ldr-pool calc(var(--speed) * 2.2) cubic-bezier(.2, .6, .3, 1) infinite;
+}
+.ldr--ripple-pool span:nth-child(2) { border-color: var(--c2); animation-delay: calc(var(--speed) * -.73); }
+.ldr--ripple-pool span:nth-child(3) { border-color: var(--c3); animation-delay: calc(var(--speed) * -1.46); }
+@keyframes ldr-pool { 0% { scale: .08; opacity: 0; } 12% { opacity: 1; } 72% { opacity: .8; } 100% { scale: 1.12; opacity: 0; } }
+.ldr--ripple-pool::after {
+  content: ""; position: absolute; left: 44%; top: 44%;
+  width: 12%; aspect-ratio: 1;
+  border-radius: 50%; background: var(--c2);
+  animation: ldr-pulse calc(var(--speed) * 2.2) ease-out infinite;
+}
+
+/* mercury — a bead of liquid metal wobbling under its own weight */
+.ldr--mercury::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 34% 28%, #fff 0 6%, color-mix(in oklab, var(--c1) 55%, #fff) 24%, var(--c1) 58%, var(--c2) 100%);
+  animation: ldr-mercury calc(var(--speed) * 2) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-mercury {
+  0%, 100% { border-radius: 50%; transform: scale(1, 1); }
+  25%      { border-radius: 46% 54% 62% 38% / 58% 42% 58% 42%; transform: scale(1.12, .88); }
+  50%      { border-radius: 58% 42% 38% 62% / 40% 62% 38% 60%; transform: scale(.88, 1.12); }
+  75%      { border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%; transform: scale(1.07, .93); }
+}
+.ldr--mercury::after {
+  content: ""; position: absolute; top: 18%; left: 22%;
+  width: 26%; height: 16%;
+  border-radius: 50%; background: #fff; opacity: .75;
+  filter: blur(calc(var(--size) / 32));
+  animation: ldr-spec calc(var(--speed) * 2) ease-in-out infinite;
+}
+@keyframes ldr-spec { 0%, 100% { translate: 0 0; opacity: .8; } 50% { translate: 45% 30%; opacity: .4; } }
+
+/* lava — heavy blobs climbing a warm capsule and sinking back */
+.ldr--lava {
+  width: calc(var(--size) * .72); height: calc(var(--size) * 1.35);
+  border-radius: 99px;
+  overflow: hidden;
+  border: max(1px, calc(var(--size) / 44)) solid color-mix(in oklab, var(--c1) 30%, transparent);
+  background: linear-gradient(color-mix(in oklab, var(--c1) 16%, transparent), color-mix(in oklab, var(--c2) 28%, transparent));
+}
+.ldr--lava span {
+  position: absolute; left: 50%; top: 60%;
+  width: 58%; aspect-ratio: 1; margin-left: -29%;
+  border-radius: 50%;
+  background: var(--c2);
+  filter: blur(calc(var(--size) / 44));
+  animation: ldr-lava-rise calc(var(--speed) * 3.4) ease-in-out infinite;
+}
+.ldr--lava span:nth-child(2) { width: 40%; margin-left: -20%; background: var(--c1); animation-delay: calc(var(--speed) * -1.1); }
+.ldr--lava span:nth-child(3) { width: 30%; margin-left: -15%; background: var(--c3); animation-delay: calc(var(--speed) * -2.2); }
+@keyframes ldr-lava-rise {
+  0%, 100% { translate: 0 42%;   scale: 1.12 .8; }
+  50%      { translate: 0 -235%; scale: .82 1.2; }
+}
+
+/* ink — a drop of colour blooming out through water */
+.ldr--ink span {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle, var(--c1) 0 34%, color-mix(in oklab, var(--c2) 65%, transparent) 68%, transparent 100%);
+  filter: blur(calc(var(--size) / 22));
+  animation: ldr-ink-bloom calc(var(--speed) * 2.6) cubic-bezier(.2, .62, .35, 1) infinite,
+             ldr-ink-morph calc(var(--speed) * 2.6) linear infinite;
+}
+.ldr--ink span:nth-child(2) { animation-delay: calc(var(--speed) * -.87); }
+.ldr--ink span:nth-child(3) { animation-delay: calc(var(--speed) * -1.74); }
+@keyframes ldr-ink-bloom { 0% { scale: .1; opacity: 0; } 12% { opacity: 1; } 100% { scale: 1.2; opacity: 0; } }
+@keyframes ldr-ink-morph {
+  0%   { border-radius: 52% 48% 44% 56% / 46% 54% 46% 54%; rotate: 0deg; }
+  50%  { border-radius: 38% 62% 58% 42% / 60% 38% 62% 40%; }
+  100% { border-radius: 52% 48% 44% 56% / 46% 54% 46% 54%; rotate: 140deg; }
+}
+
+/* splash — a drop hitting the surface and throwing up a crown */
+.ldr--splash { width: var(--size); height: calc(var(--size) * 1.1); }
+.ldr--splash::before {
+  content: ""; position: absolute; left: 50%; top: 0;
+  width: 20%; aspect-ratio: 1; margin-left: -10%;
+  border-radius: 50% / 64% 64% 36% 36%;
+  background: var(--c1);
+  animation: ldr-splash-fall calc(var(--speed) * 1.8) cubic-bezier(.45, 0, .8, .5) infinite;
+}
+@keyframes ldr-splash-fall {
+  0%   { translate: 0 -40%; scale: .9 1.15; opacity: 0; }
+  10%  { opacity: 1; }
+  55%  { translate: 0 300%; scale: 1 1.2; opacity: 1; }
+  60%, 100% { translate: 0 320%; scale: 1.4 .2; opacity: 0; }
+}
+.ldr--splash span {
+  position: absolute; left: 50%; bottom: 16%;
+  width: 13%; aspect-ratio: 1; margin-left: -6.5%;
+  border-radius: 50%;
+  background: var(--c2);
+  animation: ldr-splash-crown calc(var(--speed) * 1.8) cubic-bezier(.15, .7, .4, 1) infinite;
+}
+.ldr--splash span:nth-child(1) { --dx: -170%; }
+.ldr--splash span:nth-child(2) { --dx: 0%; background: var(--c3); }
+.ldr--splash span:nth-child(3) { --dx: 170%; }
+@keyframes ldr-splash-crown {
+  0%, 55%  { translate: 0 0; scale: .2; opacity: 0; }
+  70%      { translate: calc(var(--dx) * .7) -170%; scale: 1; opacity: 1; }
+  100%     { translate: var(--dx) 30%; scale: .4; opacity: 0; }
+}
+.ldr--splash::after {
+  content: ""; position: absolute; left: 8%; right: 8%; bottom: 6%; height: 16%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, var(--c3) 0 40%, color-mix(in oklab, var(--c3) 30%, transparent) 100%);
+  animation: ldr-splash-ring calc(var(--speed) * 1.8) ease-out infinite;
+}
+@keyframes ldr-splash-ring { 0%, 55% { scale: .7 1; opacity: .55; } 62% { scale: 1.15 .6; opacity: 1; } 100% { scale: .7 1; opacity: .55; } }
+
+/* whirl — liquid spun into a funnel, with the eye opening at the centre */
+.ldr--whirl {
+  border-radius: 50%;
+  overflow: hidden;
+  border: max(1px, calc(var(--size) / 34)) solid color-mix(in oklab, var(--c1) 40%, transparent);
+  background: color-mix(in oklab, var(--c1) 10%, transparent);
+}
+.ldr--whirl::before {
+  content: ""; position: absolute; inset: -22%;
+  background: conic-gradient(from 0deg, var(--c1), var(--c2), var(--c3), var(--c1));
+  -webkit-mask: radial-gradient(circle, #000 0 26%, rgba(0, 0, 0, .3) 54%, #000 100%);
+          mask: radial-gradient(circle, #000 0 26%, rgba(0, 0, 0, .3) 54%, #000 100%);
+  filter: blur(calc(var(--size) / 26));
+  animation: ldr-spin calc(var(--speed) * 1.5) linear infinite;
+}
+.ldr--whirl::after {
+  content: ""; position: absolute; left: 34%; top: 34%;
+  width: 32%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 0 38%, color-mix(in oklab, var(--c3) 75%, transparent) 100%);
+  animation: ldr-whirl-eye calc(var(--speed) * 1.5) ease-in-out infinite;
+}
+@keyframes ldr-whirl-eye { 0%, 100% { scale: .68; opacity: .55; } 50% { scale: 1.3; opacity: 1; } }
+
+/* pour — a stream running into a glass that fills, then empties */
+.ldr--pour { width: calc(var(--size) * .82); height: calc(var(--size) * 1.25); }
+.ldr--pour::before {
+  content: ""; position: absolute; left: 50%; top: 0;
+  width: 11%; height: 34%; margin-left: -5.5%;
+  border-radius: 99px;
+  background: linear-gradient(var(--c1), var(--c2));
+  transform-origin: 50% 0;
+  animation: ldr-pour-stream calc(var(--speed) * 3.2) ease-in-out infinite;
+}
+@keyframes ldr-pour-stream { 0%, 78% { scale: 1 1; opacity: 1; } 88%, 100% { scale: .5 0; opacity: 0; } }
+.ldr--pour::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 30%; bottom: 0;
+  border: max(1px, calc(var(--size) / 40)) solid color-mix(in oklab, var(--c1) 45%, transparent);
+  border-top: none;
+  border-radius: 0 0 calc(var(--size) / 5) calc(var(--size) / 5);
+}
+.ldr--pour span {
+  position: absolute; left: 6%; right: 6%; top: 32%; bottom: 3%;
+  border-radius: 0 0 calc(var(--size) / 6) calc(var(--size) / 6);
+  overflow: hidden;
+}
+.ldr--pour span::before {
+  content: ""; position: absolute; left: -60%; right: -60%; top: 0; bottom: 0;
+  border-radius: 44% 44% 0 0 / 18% 18% 0 0;
+  background: var(--c2);
+  animation: ldr-pour-fill calc(var(--speed) * 3.2) ease-in-out infinite;
+}
+.ldr--pour span:nth-child(2)::before { background: var(--c3); opacity: .5; border-radius: 40% 48% 0 0 / 22% 14% 0 0; animation-delay: calc(var(--speed) * -.18); }
+@keyframes ldr-pour-fill { 0% { translate: 0 102%; } 74%, 88% { translate: 0 4%; } 100% { translate: 0 102%; } }

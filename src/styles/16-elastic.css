@@ -1,0 +1,273 @@
+/* ===================== Family: elastic (spring & recoil) ===================== */
+/* The overshoot comes from cubic-bezier curves that leave the 0–1 range, which
+   is supported everywhere — no `linear()` easing, so nothing silently fails. */
+
+/* rubber-band — a band strung between two pins and plucked */
+.ldr--rubber-band {
+  width: calc(var(--size) * 1.7); height: calc(var(--size) * .5);
+  display: inline-flex; align-items: center;
+}
+.ldr--rubber-band::before, .ldr--rubber-band::after {
+  content: ""; position: absolute; top: 50%;
+  width: 14%; aspect-ratio: 1; margin-top: -7%;
+  border-radius: 50%;
+  background: var(--c1);
+}
+.ldr--rubber-band::before { left: 0; }
+.ldr--rubber-band::after  { right: 0; }
+.ldr--rubber-band span {
+  position: absolute; left: 7%; right: 7%; top: 50%;
+  height: 22%; margin-top: -11%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+  animation: ldr-pluck calc(var(--speed) * 1.4) cubic-bezier(.5, -.6, .4, 1.7) infinite;
+}
+@keyframes ldr-pluck {
+  0%, 100% { scale: 1 1; }
+  30%      { scale: 1 2.6; }
+  55%      { scale: 1 .35; }
+  75%      { scale: 1 1.5; }
+}
+
+/* bungee — a weight dropping on a cord that stretches to catch it */
+.ldr--bungee { width: calc(var(--size) * .6); height: calc(var(--size) * 1.4); }
+.ldr--bungee::before {
+  content: ""; position: absolute; left: 50%; top: 0;
+  width: max(2px, calc(var(--size) / 26)); height: 60%;
+  margin-left: max(-1px, calc(var(--size) / -52));
+  border-radius: 99px;
+  background: linear-gradient(var(--c1), var(--c2));
+  transform-origin: 50% 0;
+  animation: ldr-cord calc(var(--speed) * 1.8) cubic-bezier(.5, -.4, .35, 1.5) infinite;
+}
+@keyframes ldr-cord { 0%, 100% { scale: 1 .5; } 50% { scale: 1 1.55; } }
+.ldr--bungee span {
+  position: absolute; left: 50%; top: 30%;
+  width: 44%; aspect-ratio: 1; margin-left: -22%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, color-mix(in oklab, var(--c3) 40%, #fff) 0 14%, var(--c3) 60%, var(--c2) 100%);
+  animation: ldr-bungee-drop calc(var(--speed) * 1.8) cubic-bezier(.5, -.4, .35, 1.5) infinite;
+}
+@keyframes ldr-bungee-drop {
+  0%, 100% { translate: 0 -34%; scale: .92 1.1; }
+  50%      { translate: 0 92%;  scale: 1.1 .9; }
+}
+
+/* trampoline — a ball landing on a sheet that bows and throws it back */
+.ldr--trampoline { width: calc(var(--size) * 1.3); height: calc(var(--size) * 1.05); }
+.ldr--trampoline span {
+  position: absolute; left: 50%; top: 4%;
+  width: 30%; aspect-ratio: 1; margin-left: -15%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  animation: ldr-tramp-ball calc(var(--speed) * 1.5) cubic-bezier(.4, 0, .6, 1) infinite;
+}
+@keyframes ldr-tramp-ball {
+  0%, 100% { translate: 0 0;    scale: .94 1.08; }
+  44%      { translate: 0 150%; scale: 1.18 .82; }
+  50%      { translate: 0 168%; scale: 1.3 .7; }
+  56%      { translate: 0 150%; scale: 1.14 .86; }
+}
+.ldr--trampoline::before {
+  content: ""; position: absolute; left: 6%; right: 6%; bottom: 16%;
+  height: max(3px, calc(var(--size) / 16));
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c3), var(--c2), var(--c3));
+  animation: ldr-tramp-mat calc(var(--speed) * 1.5) cubic-bezier(.4, 0, .6, 1) infinite;
+}
+@keyframes ldr-tramp-mat {
+  0%, 100% { border-radius: 99px; translate: 0 0; scale: 1 1; }
+  50%      { border-radius: 99px 99px 50% 50% / 99px 99px 220% 220%; translate: 0 34%; scale: 1 1.5; }
+}
+.ldr--trampoline::after {
+  content: ""; position: absolute; left: 3%; bottom: 15%; width: 5%; height: 16%;
+  border-radius: 99px; background: var(--c1);
+  box-shadow: calc(var(--size) * 1.16) 0 0 var(--c1);
+}
+
+/* wobble — a weighted shape rocking past level and settling back */
+.ldr--wobble::before {
+  content: ""; position: absolute; inset: 8%;
+  border-radius: 42% 42% 50% 50% / 38% 38% 62% 62%;
+  background: var(--grad);
+  transform-origin: 50% 88%;
+  animation: ldr-wobble calc(var(--speed) * 1.6) cubic-bezier(.4, -.4, .5, 1.4) infinite;
+}
+@keyframes ldr-wobble {
+  0%, 100% { transform: rotate(-24deg) skewX(6deg); }
+  50%      { transform: rotate(24deg) skewX(-6deg); }
+}
+.ldr--wobble::after {
+  content: ""; position: absolute; left: 22%; right: 22%; bottom: 2%; height: 7%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 40%, transparent);
+  animation: ldr-breathe calc(var(--speed) * .8) ease-in-out infinite;
+}
+
+/* pogo — a hop with the squash on landing and a shadow that keeps up */
+.ldr--pogo { width: calc(var(--size) * 1.3); height: calc(var(--size) * 1.1); }
+.ldr--pogo span {
+  position: absolute; left: 6%; bottom: 18%;
+  width: 30%; aspect-ratio: 1;
+  border-radius: 30%;
+  background: var(--grad);
+  animation: ldr-hop calc(var(--speed) * 1.4) cubic-bezier(.4, 0, .55, 1) infinite,
+             ldr-hop-x calc(var(--speed) * 2.8) ease-in-out infinite;
+}
+@keyframes ldr-hop {
+  0%, 100% { translate: 0 0;    scale: 1.2 .8; border-radius: 42%; }
+  15%      { translate: 0 -20%; scale: .88 1.16; border-radius: 30%; }
+  50%      { translate: 0 -105%; scale: 1 1; border-radius: 26%; }
+  85%      { translate: 0 -20%; scale: .92 1.12; border-radius: 30%; }
+}
+@keyframes ldr-hop-x { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(150%); } }
+.ldr--pogo::after {
+  content: ""; position: absolute; left: 8%; bottom: 12%;
+  width: 26%; height: 8%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 45%, transparent);
+  animation: ldr-hop-shadow calc(var(--speed) * 1.4) cubic-bezier(.4, 0, .55, 1) infinite,
+             ldr-hop-x calc(var(--speed) * 2.8) ease-in-out infinite;
+}
+@keyframes ldr-hop-shadow { 0%, 100% { scale: 1.15 1; opacity: .8; } 50% { scale: .6 1; opacity: .3; } }
+
+/* elastic-bar — a pill that stretches into the direction it is thrown */
+.ldr--elastic-bar {
+  width: calc(var(--size) * 2); height: calc(var(--size) * .3);
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 14%, transparent);
+  overflow: hidden;
+}
+.ldr--elastic-bar::after {
+  content: ""; position: absolute; inset: 0 auto 0 0;
+  width: 32%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+  transform-origin: 50% 50%;
+  animation: ldr-elastic-run calc(var(--speed) * 1.8) cubic-bezier(.5, -.35, .5, 1.35) infinite;
+}
+@keyframes ldr-elastic-run {
+  0%, 100% { transform: translateX(2%) scaleX(1); }
+  25%      { transform: translateX(90%) scaleX(1.7); }
+  50%      { transform: translateX(210%) scaleX(1); }
+  75%      { transform: translateX(90%) scaleX(1.7); }
+}
+
+/* catapult — flung up and over, then reset out of sight */
+.ldr--catapult { width: calc(var(--size) * 1.4); height: calc(var(--size) * 1.1); }
+.ldr--catapult::before {
+  content: ""; position: absolute; left: 10%; bottom: 12%;
+  width: 8%; height: 52%;
+  border-radius: 99px;
+  background: linear-gradient(var(--c2), var(--c1));
+  transform-origin: 50% 100%;
+  animation: ldr-arm calc(var(--speed) * 2) cubic-bezier(.2, 1.6, .5, 1) infinite;
+}
+@keyframes ldr-arm { 0% { transform: rotate(-52deg); } 16% { transform: rotate(46deg); } 70%, 100% { transform: rotate(-52deg); } }
+.ldr--catapult span {
+  position: absolute; left: 12%; bottom: 58%;
+  width: 18%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c3);
+  animation: ldr-fling-x calc(var(--speed) * 2) cubic-bezier(.15, .5, .6, 1) infinite,
+             ldr-fling-y calc(var(--speed) * 2) cubic-bezier(.3, 0, .7, 1) infinite;
+}
+@keyframes ldr-fling-x { 0%, 12% { translate: 0 0; opacity: 0; } 16% { opacity: 1; } 72% { translate: 330% 0; opacity: 1; } 78%, 100% { translate: 330% 0; opacity: 0; } }
+@keyframes ldr-fling-y { 0%, 16% { transform: translateY(0); } 40% { transform: translateY(-120%); } 72%, 100% { transform: translateY(160%); } }
+.ldr--catapult::after {
+  content: ""; position: absolute; left: 4%; right: 4%; bottom: 8%;
+  height: max(2px, calc(var(--size) / 30));
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 40%, transparent);
+}
+
+/* yo-yo — spinning down the string and climbing back up it */
+.ldr--yo-yo { width: calc(var(--size) * .7); height: calc(var(--size) * 1.4); }
+.ldr--yo-yo::before {
+  content: ""; position: absolute; left: 50%; top: 0;
+  width: max(2px, calc(var(--size) / 34)); height: 62%;
+  margin-left: max(-1px, calc(var(--size) / -68));
+  background: color-mix(in oklab, var(--c1) 65%, transparent);
+  transform-origin: 50% 0;
+  animation: ldr-string calc(var(--speed) * 2.2) cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes ldr-string { 0%, 100% { scale: 1 .18; } 50% { scale: 1 1; } }
+.ldr--yo-yo span {
+  position: absolute; left: 50%; top: 4%;
+  width: 46%; aspect-ratio: 1; margin-left: -23%;
+  border-radius: 50%;
+  background: conic-gradient(var(--c1) 0 25%, var(--c2) 0 50%, var(--c1) 0 75%, var(--c3) 0);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 22)) color-mix(in oklab, var(--c1) 50%, #fff);
+  animation: ldr-yo-drop calc(var(--speed) * 2.2) cubic-bezier(.45, 0, .55, 1) infinite,
+             ldr-yo-spin calc(var(--speed) * .55) linear infinite;
+}
+@keyframes ldr-yo-drop { 0%, 100% { translate: 0 0; } 50% { translate: 0 152%; } }
+@keyframes ldr-yo-spin { to { rotate: 1turn; } }
+
+/* elastic-ring — a hoop squashed along an axis that keeps turning */
+.ldr--elastic-ring::before {
+  content: ""; position: absolute; inset: 4%;
+  border-radius: 50%;
+  border: calc(var(--size) / 9) solid transparent;
+  border-top-color: var(--c1);
+  border-right-color: var(--c2);
+  border-bottom-color: var(--c3);
+  animation: ldr-ring-squash calc(var(--speed) * 1.8) cubic-bezier(.45, -.3, .55, 1.3) infinite;
+}
+@keyframes ldr-ring-squash {
+  0%, 100% { transform: rotate(0deg)   scale(1, 1); }
+  25%      { transform: rotate(90deg)  scale(1.2, .8); }
+  50%      { transform: rotate(180deg) scale(.82, 1.18); }
+  75%      { transform: rotate(270deg) scale(1.14, .86); }
+}
+
+/* snap-dots — a thread pulled taut until it lets go */
+.ldr--snap-dots { width: calc(var(--size) * 1.5); height: calc(var(--size) * .5); }
+.ldr--snap-dots span {
+  position: absolute; top: 50%; left: 50%;
+  width: 24%; aspect-ratio: 1; margin: -12% 0 0 -12%;
+  border-radius: 50%;
+  animation: ldr-snap calc(var(--speed) * 1.6) cubic-bezier(.55, -.5, .35, 1.6) infinite;
+}
+.ldr--snap-dots span:nth-child(1) { background: var(--c1); --dir: -1; }
+.ldr--snap-dots span:nth-child(2) { background: var(--c3); --dir:  1; }
+@keyframes ldr-snap {
+  0%, 100% { translate: calc(var(--dir) * 20%) 0; scale: 1 1; }
+  46%      { translate: calc(var(--dir) * 200%) 0; scale: .8 1.15; }
+  62%      { translate: calc(var(--dir) * 6%) 0; scale: 1.2 .84; }
+}
+.ldr--snap-dots::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 60%; height: 12%; margin: -6% 0 0 -30%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c3));
+  animation: ldr-thread calc(var(--speed) * 1.6) cubic-bezier(.55, -.5, .35, 1.6) infinite;
+}
+@keyframes ldr-thread {
+  0%, 100% { scale: .35 1; opacity: 1; }
+  40%      { scale: 1.5 .28; opacity: 1; }
+  47%      { scale: 1.6 .1; opacity: 0; }
+  62%      { scale: .2 1; opacity: 0; }
+  70%      { scale: .3 1; opacity: 1; }
+}
+
+/* chain — a swing running down a linked strand, one bead behind the last */
+.ldr--chain {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: space-between;
+  width: calc(var(--size) * .8);
+}
+.ldr--chain span {
+  width: 26%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c1);
+  animation: ldr-whip calc(var(--speed) * 1.6) cubic-bezier(.45, 0, .55, 1) infinite;
+}
+.ldr--chain span:nth-child(1) { --amp:  8%; }
+.ldr--chain span:nth-child(2) { --amp: 40%; background: color-mix(in oklab, var(--c1), var(--c2)); animation-delay: calc(var(--speed) * -.09); }
+.ldr--chain span:nth-child(3) { --amp: 80%; background: var(--c2); animation-delay: calc(var(--speed) * -.18); }
+.ldr--chain span:nth-child(4) { --amp: 125%; background: color-mix(in oklab, var(--c2), var(--c3)); animation-delay: calc(var(--speed) * -.27); }
+.ldr--chain span:nth-child(5) { --amp: 175%; background: var(--c3); animation-delay: calc(var(--speed) * -.36); }
+@keyframes ldr-whip {
+  0%, 100% { translate: calc(var(--amp) * -1) 0; }
+  50%      { translate: var(--amp) 0; }
+}

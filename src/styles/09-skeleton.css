@@ -32,6 +32,8 @@
 .ldr--sk-text span:nth-child(1) { width: 100%; }
 .ldr--sk-text span:nth-child(2) { width: 88%; animation-delay: calc(var(--speed) * -.15); }
 .ldr--sk-text span:nth-child(3) { width: 60%; animation-delay: calc(var(--speed) * -.3); }
+
+/* sk-paragraph — four lines of body copy */
 .ldr--sk-paragraph span:nth-child(1) { width: 100%; }
 .ldr--sk-paragraph span:nth-child(2) { width: 96%; animation-delay: calc(var(--speed) * -.12); }
 .ldr--sk-paragraph span:nth-child(3) { width: 90%; animation-delay: calc(var(--speed) * -.24); }

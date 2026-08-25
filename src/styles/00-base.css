@@ -35,3 +35,16 @@
     animation-timing-function: linear !important;
   }
 }
+
+/* Registered custom properties — these let gradients and angles animate.
+   Every use passes a fallback (`var(--ldr-p, 30%)`), so a browser without
+   @property support renders a sensible static frame instead of nothing. */
+@property --ldr-p { syntax: "<percentage>"; inherits: false; initial-value: 30%; }
+@property --ldr-a { syntax: "<angle>";      inherits: false; initial-value: 0deg; }
+
+/* Shared keyframes for the extended families. `scale`, `translate` and `rotate`
+   are animated as standalone properties wherever a variant also needs
+   `transform`, so the two compose instead of overwriting each other. */
+@keyframes ldr-glow-swell { 0%, 100% { scale: .86; opacity: .3; } 50% { scale: 1.16; opacity: .9; } }
+@keyframes ldr-blink      { 0%, 100% { opacity: .15; } 45% { opacity: 1; } }
+@keyframes ldr-sheen      { to { transform: translateX(260%); } }

@@ -2,7 +2,7 @@
 
 # modern-loaders
 
-**100 colorful, animated loaders for React.**
+**212 colorful, animated loaders for React.**
 
 Pure CSS motion behind one typed component — no runtime dependencies, no SVG, no images.
 
@@ -33,9 +33,9 @@ remember, nothing to configure in Vite, Next.js, CRA, or Tailwind.
 
 ## Why this one
 
-- **100 variants across 10 families** — spinners, dots, bars, shapes, progress, grids, pulses, organic, skeletons, and dimensional.
+- **212 variants across 20 families** — spinners, dots, bars, shapes, progress, grids, pulses, organic, skeletons, dimensional, neon, liquid, glitch, particles, futuristic, elastic, minimal, gradient, kinetic, and premium.
 - **Three props to learn.** `size`, `speed`, `colors`. Everything else has a sensible default.
-- **Zero dependencies.** ~2 kB of JS. All motion is CSS keyframes, so it runs off the main thread.
+- **Zero dependencies.** ~4 kB of JS. All motion is CSS keyframes — no rAF loop, no JS on the animation path.
 - **Fully typed.** `variant` autocompletes every id, and a typo is a compile error.
 - **Accessible by default.** Each loader is a labelled `role="status"` and honours `prefers-reduced-motion`.
 - **Themeable without a build step.** Every value is a CSS custom property you can override.
@@ -46,7 +46,7 @@ remember, nothing to configure in Vite, Next.js, CRA, or Tailwind.
 
 | prop | type | default | description |
 |---|---|---|---|
-| `variant` | `LoaderVariant` | `"aurora"` | Which loader to render — any of the 100 ids below. |
+| `variant` | `LoaderVariant` | `"aurora"` | Which loader to render — any of the 212 ids below. |
 | `size` | `number \| string` | `48` | Overall size. A number means pixels; strings pass through (`"3rem"`). |
 | `speed` | `number \| string` | `1` | Base duration. A number means seconds; lower is faster. |
 | `colors` | `string[]` | indigo / pink / cyan | One to three colors. Fewer are cycled, so a single color gives a clean monochrome loader. |
@@ -63,6 +63,10 @@ Every other `div` prop — `className`, `style`, `id`, `onClick`, `data-*` — p
 | Upload, install, multi-step work | **Progress** | Says "work is moving", not just "wait". |
 | Live, polling, listening | **Pulses** | Reads as a heartbeat rather than a block. |
 | Splash, empty state, 404 | **Shapes**, **Organic**, **Dimensional** | Personality is worth the pixels here. |
+| Onboarding, upload, sync | **Premium** | Restrained, product-grade motion that won't date. |
+| Dense UI — toolbars, table cells | **Minimal** | Small and low-contrast; won't pull the eye off the data. |
+| Games, launch screens, dev tools | **Neon**, **Futuristic**, **Glitch** | Loud on purpose. Best on a dark surface. |
+| Playful or brand-forward moments | **Liquid**, **Particles**, **Elastic**, **Kinetic** | Physical motion people actually watch. |
 
 ### Recipes
 
@@ -102,7 +106,7 @@ VARIANTS.filter(v => v.group === "Skeletons")
         .map(v => <Loader key={v.id} variant={v.id} />);
 ```
 
-## All 100 variants
+## All 212 variants
 
 Expand a family to see its variants. Every id maps to a `.ldr--<id>` CSS class.
 
@@ -286,6 +290,198 @@ Expand a family to see its variants. Every id maps to a `.ldr--<id>` CSS class.
 
 </details>
 
+<details>
+<summary><b>Neon</b> · 12 — Light that hums, blooms, and flickers alight.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `neon-ring` | a glass tube that hums, with a lit filament turning inside it |
+| `neon-pulse` | a white-hot filament breathing inside its own bloom |
+| `neon-tube` | a light bouncing wall to wall inside a glass capsule |
+| `neon-sign` | bars igniting one by one, with the stutter of a real tube |
+| `laser` | a scan line crossing a screen, scanlines and all |
+| `light-trail` | two lights chasing each other on nested tracks |
+| `neon-arc` | a tube of light growing and shrinking as it turns |
+| `plasma` | churning light held inside a containment ring |
+| `strobe` | halos firing outward on hard steps, not a smooth ripple |
+| `glow-dots` | a chain of bulbs handing the current along |
+| `retro-grid` | a synthwave horizon rushing toward you |
+| `firefly` | soft lights drifting and blinking out of step |
+
+</details>
+
+<details>
+<summary><b>Liquid</b> · 11 — Fluid behaviour — filling, pouring, rippling, merging.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `liquid-fill` | a vessel filling and draining behind a rolling surface |
+| `drip` | a drop swelling at a nozzle, letting go, and landing in the pool |
+| `metaball` | two drops pulling a neck between them, then merging |
+| `wave-tank` | two swells sloshing past each other at a steady level |
+| `ripple-pool` | rings spreading across a surface seen at a low angle |
+| `mercury` | a bead of liquid metal wobbling under its own weight |
+| `lava` | heavy blobs climbing a warm capsule and sinking back |
+| `ink` | a drop of colour blooming out through water |
+| `splash` | a drop hitting the surface and throwing up a crown |
+| `whirl` | liquid spun into a funnel, with the eye opening at the centre |
+| `pour` | a stream running into a glass that fills, then empties |
+
+</details>
+
+<details>
+<summary><b>Glitch</b> · 11 — Digital damage: tearing, static, dropout, corruption.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `glitch-block` | a mark tearing into its colour channels and snapping back |
+| `glitch-text` | lines of copy slipping out of register mid-render |
+| `rgb-split` | three channels drifting apart and recombining |
+| `scanlines` | a CRT panel with the raster rolling through it |
+| `static-noise` | untuned signal, hard-cut frame to frame |
+| `datamosh` | horizontal slices sliding off their own frame |
+| `corrupt-bar` | a progress track that keeps losing its place |
+| `signal-loss` | reception bars dropping out and clawing back |
+| `vhs` | tracking damage crawling up a taped frame |
+| `pixel-drift` | a tile field losing alignment, then re-seating |
+| `terminal` | a prompt typing a line, cursor still blinking |
+
+</details>
+
+<details>
+<summary><b>Particles</b> · 11 — Fields of small things falling, bursting, drifting, swarming.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `confetti` | paper tumbling down through the frame |
+| `firework` | sparks thrown out and pulled back down by gravity |
+| `snow` | soft flakes settling with a lazy sideways drift |
+| `embers` | sparks lifting off a fire and burning out |
+| `starfield` | stars stretching into streaks as you jump to light speed |
+| `dust` | motes turning slowly in a shaft of light |
+| `burst` | a ring of dots detonating outward and snapping home |
+| `swarm` | a flock tightening into a knot and scattering again |
+| `rain` | streaks coming down onto a wet line |
+| `magnet` | particles dragged into a core, then released |
+| `nebula` | coloured gas turning slowly, with stars picking out through it |
+
+</details>
+
+<details>
+<summary><b>Futuristic</b> · 12 — Reticles, reactors, and hardware that does not exist yet.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `hud-ring` | instrument rings ticking against each other |
+| `reactor` | a white-hot core inside a segmented containment ring |
+| `hologram` | a projection standing in its own light cone |
+| `warp` | frames rushing past you down a tunnel |
+| `targeting` | brackets closing onto a lock |
+| `circuit` | pulses running the traces of a board |
+| `barcode` | a code being read, line by line |
+| `quantum` | a particle taking every position it might occupy |
+| `portal` | a gateway swirling open, two currents against each other |
+| `shield` | an energy field taking hits and holding |
+| `satellite` | bodies sweeping their own inclined orbits |
+| `teleport` | slices dematerialising and coming back together |
+
+</details>
+
+<details>
+<summary><b>Elastic</b> · 11 — Spring physics with genuine overshoot and recoil.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `rubber-band` | a band strung between two pins and plucked |
+| `bungee` | a weight dropping on a cord that stretches to catch it |
+| `trampoline` | a ball landing on a sheet that bows and throws it back |
+| `wobble` | a weighted shape rocking past level and settling back |
+| `pogo` | a hop with the squash on landing and a shadow that keeps up |
+| `elastic-bar` | a pill that stretches into the direction it is thrown |
+| `catapult` | flung up and over, then reset out of sight |
+| `yo-yo` | spinning down the string and climbing back up it |
+| `elastic-ring` | a hoop squashed along an axis that keeps turning |
+| `snap-dots` | a thread pulled taut until it lets go |
+| `chain` | a swing running down a linked strand, one bead behind the last |
+
+</details>
+
+<details>
+<summary><b>Minimal</b> · 11 — Quiet motion for dense UI, toolbars, and inline text.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `hairline` | a lit segment travelling a thin rule |
+| `tick` | a hand stepping round a quiet dial |
+| `quarter` | one arc, snapping a quarter-turn at a time |
+| `dot-fade` | one dot, one slow breath |
+| `underline` | a rule tracking back and forth beneath a word |
+| `pill-swap` | a pill stretching to the far end and collecting itself |
+| `bracket` | two marks closing in on the point between them |
+| `slash` | a single stroke wiping through a frame |
+| `micro-dots` | the plainest ellipsis there is |
+| `ring-thin` | a hairline ring with one short arc gliding round it |
+| `crosshair` | two hairlines finding each other |
+
+</details>
+
+<details>
+<summary><b>Gradient</b> · 11 — Colour itself is the animation.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `mesh` | a soft mesh gradient drifting under itself |
+| `hue-ring` | a colour wheel turning while the colours themselves travel |
+| `gradient-orb` | a lit sphere with the highlight sliding over it |
+| `chroma` | three colour fields overlapping and pulling apart |
+| `ombre` | one long gradient revealed a band at a time |
+| `iridescent` | an oil-slick sheen crawling across a disc |
+| `sunrise` | a disc climbing over its own horizon |
+| `refract` | a beam split into its colours by a prism |
+| `gradient-border` | a lit frame with the colour running round the edge |
+| `color-cycle` | one block, the gradient axis sweeping right round it |
+| `northern` | light curtains folding across the sky |
+
+</details>
+
+<details>
+<summary><b>Kinetic</b> · 11 — Mechanisms — gears, cranks, belts, beams, and escapements.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `gears` | two toothed wheels driving each other |
+| `metronome` | a weighted arm keeping time |
+| `hourglass` | sand running out, then the whole thing turns over |
+| `piston` | a head driven up and down by a crank |
+| `carousel` | panels turning past you on a ring |
+| `clockwork` | three hands, three speeds, one dial |
+| `abacus` | beads counted back and forth along their rails |
+| `conveyor` | crates carried along and sent round again |
+| `pie` | a wedge sweeping the full turn, then handing over to the next colour |
+| `seesaw` | a beam tipping between two weights |
+| `roller` | balls rolling round the inside of a track |
+
+</details>
+
+<details>
+<summary><b>Premium</b> · 11 — Product-grade motion for onboarding, uploads, and sync.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `logo-morph` | a brand mark fanning apart and re-forming |
+| `card-stack` | the top card dealt to the back, over and over |
+| `progress-ring` | a track filling round, with the head lit |
+| `pill-progress` | a soft track with a glide and a glass sweep over it |
+| `glass-ring` | frosted glass with one specular arc travelling the rim |
+| `orbit-avatar` | a team circling a hub, each face staying upright |
+| `checklist` | tasks ticking off one after another |
+| `upload-cloud` | chevrons lifting into the cloud |
+| `sync` | two arrows chasing each other round the loop |
+| `steps` | a stepper advancing one node at a time |
+| `spark-line` | a chart drawing itself under a moving read head |
+
+</details>
+
 ## Theming
 
 The `colors` prop covers most cases. For anything else, override the custom properties — they
@@ -318,13 +514,15 @@ cascade, so one rule themes a whole subtree:
 
 | | raw | gzipped |
 |---|---|---|
-| JS | ~7 kB | **~2 kB** |
-| CSS (all 100 variants) | ~58 kB | **~8 kB** |
+| JS | ~18 kB | **~4 kB** |
+| CSS (all 212 variants) | ~166 kB | **~24 kB** |
 
 One caveat, stated plainly: **the CSS is not tree-shakeable.** Class-based styles cannot be
-dead-code eliminated, so importing a single variant still ships the sheet for all 100. That is a
-fair trade for most apps. If you need only a handful and every kilobyte counts, copy the specific
-`.ldr--*` blocks out of [`src/styles/`](./src/styles) into your own CSS and skip the package.
+dead-code eliminated, so importing a single variant still ships the sheet for all 212. At ~24 kB
+gzipped that is a fair trade for most apps, but it is real weight. If you need only a handful and
+every kilobyte counts, copy the specific `.ldr--*` blocks out of [`src/styles/`](./src/styles)
+into your own CSS and skip the package — each block is self-contained apart from the shared
+keyframes in [`00-base.css`](./src/styles/00-base.css).
 
 ## Named exports
 
@@ -335,25 +533,35 @@ with 1.0.x:
 import { Aurora, Orbit, Rings, Wave, Bars, Blob, Cube, Spiral, Bar, Grid } from "modern-loaders";
 ```
 
-The other 90 are reached with `<Loader variant="…" />`. A hundred named exports would bloat the
-API surface for no real gain.
+Everything else is reached with `<Loader variant="…" />`. Two hundred named exports would bloat
+the API surface for no real gain, and `variant` autocompletes just as well.
 
 ## Browser support
 
-Chrome 111+ · Safari 16.2+ · Firefox 113+ — the floor is set by `color-mix()`, alongside `mask`,
-`aspect-ratio`, and `clip-path`. Older browsers degrade to solid shapes rather than breaking.
+Chrome 111+ · Safari 16.4+ · Firefox 113+ — the floor is set by `color-mix()`, alongside `mask`,
+`aspect-ratio`, `clip-path`, and the individual `translate` / `rotate` / `scale` properties. Older
+browsers degrade to solid shapes rather than breaking.
+
+Five variants — `neon-arc`, `pie`, `progress-ring`, `gradient-border`, `color-cycle` — animate a
+registered custom property via `@property` (Firefox 128+). Every use passes a fallback, so below
+that they render a sensible static frame instead of disappearing.
 
 ## Development
 
 ```bash
-npm run dev          # demo gallery: search, family tabs, live palette / size / speed controls
+npm run dev          # showcase: search, 20 family filters, live size / speed / palette, detail sheet
 npm run build        # typecheck, then emit dist/ (ESM + CJS + .d.ts + CSS)
-npm run build:demo   # static demo site → dist-demo/
+npm run build:demo   # static showcase → dist-demo/
 ```
 
 Adding a variant takes two edits: a `.ldr--<id>` block in `src/styles/`, and a row in
-[`src/variants.ts`](./src/variants.ts). The component, the types, and the demo all read from that
-one manifest.
+[`src/variants.ts`](./src/variants.ts). The component, the types, the README catalogue, and the
+showcase all read from that one manifest — `cells` is how many `<span>` children the CSS expects.
+
+Two rules keep the motion composable inside a variant: put a whole radial chain
+(`rotate(…) translateY(…)`) in a single `transform` so the offset happens in the rotated frame,
+and reach for the standalone `translate` / `rotate` / `scale` properties when an element already
+animates `transform` — they compose instead of overwriting it.
 
 ## License
 

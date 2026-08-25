@@ -1,0 +1,305 @@
+/* ===================== Family: premium (product-grade polish) ===================== */
+/* The set you reach for inside a real product: onboarding, uploads, sync, empty
+   states. Restrained motion, generous radii, no novelty for its own sake. */
+
+/* logo-morph — a brand mark fanning apart and re-forming */
+.ldr--logo-morph span {
+  position: absolute; left: 50%; top: 50%;
+  width: 46%; height: 46%; margin: -23% 0 0 -23%;
+  border-radius: 46% 8% 46% 8%;
+  animation: ldr-assemble calc(var(--speed) * 2.6) cubic-bezier(.55, 0, .25, 1) infinite;
+}
+.ldr--logo-morph span:nth-child(1) { background: var(--c1); --a:   0deg; }
+.ldr--logo-morph span:nth-child(2) { background: var(--c2); --a: 120deg; }
+.ldr--logo-morph span:nth-child(3) { background: var(--c3); --a: 240deg; }
+@keyframes ldr-assemble {
+  0%, 100% { transform: rotate(var(--a)) translate(0, 0) scale(1); border-radius: 46% 8% 46% 8%; opacity: .9; }
+  50%      { transform: rotate(calc(var(--a) + 150deg)) translate(0, -62%) scale(.78); border-radius: 50%; opacity: 1; }
+}
+
+/* card-stack — the top card dealt to the back, over and over */
+.ldr--card-stack { perspective: calc(var(--size) * 3); }
+.ldr--card-stack span {
+  position: absolute; inset: 16% 10%;
+  border-radius: calc(var(--size) / 8);
+  background: var(--grad);
+  box-shadow: 0 calc(var(--size) / 20) calc(var(--size) / 8) color-mix(in oklab, var(--c1) 28%, transparent);
+  animation: ldr-restack calc(var(--speed) * 2.7) cubic-bezier(.5, 0, .25, 1) infinite;
+}
+.ldr--card-stack span:nth-child(2) { animation-delay: calc(var(--speed) * -.9); filter: hue-rotate(30deg); }
+.ldr--card-stack span:nth-child(3) { animation-delay: calc(var(--speed) * -1.8); filter: hue-rotate(60deg); }
+@keyframes ldr-restack {
+  0%      { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; z-index: 3; }
+  24%     { transform: translate(78%, -30%) rotate(15deg) scale(1); opacity: 1; z-index: 3; }
+  33%     { transform: translate(78%, -30%) rotate(15deg) scale(1); opacity: 0; z-index: 0; }
+  36%     { transform: translate(0, 20%) rotate(0deg) scale(.8); opacity: 0; z-index: 0; }
+  48%     { transform: translate(0, 20%) rotate(0deg) scale(.8); opacity: 1; z-index: 1; }
+  72%     { transform: translate(0, 10%) rotate(0deg) scale(.9); opacity: 1; z-index: 2; }
+  100%    { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; z-index: 3; }
+}
+
+/* progress-ring — a track filling round, with the head lit */
+.ldr--progress-ring::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--c1) var(--ldr-p, 30%), color-mix(in oklab, var(--c1) 12%, transparent) 0);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 13%), #000 calc(100% - 12%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 13%), #000 calc(100% - 12%));
+  animation: ldr-ring-fill calc(var(--speed) * 2.4) cubic-bezier(.55, 0, .25, 1) infinite;
+}
+@keyframes ldr-ring-fill { 0% { --ldr-p: 2%; } 78%, 100% { --ldr-p: 100%; } }
+.ldr--progress-ring::after {
+  content: ""; position: absolute; inset: 26%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--c2) 55%, transparent) 0, transparent 70%);
+  animation: ldr-glow-swell calc(var(--speed) * 2.4) ease-in-out infinite;
+}
+.ldr--progress-ring span {
+  position: absolute; inset: 0;
+  animation: ldr-ring-head calc(var(--speed) * 2.4) cubic-bezier(.55, 0, .25, 1) infinite;
+}
+@keyframes ldr-ring-head { 0% { rotate: 7deg; } 78%, 100% { rotate: 360deg; } }
+.ldr--progress-ring span::before {
+  content: ""; position: absolute; top: 0; left: 50%;
+  width: 13%; aspect-ratio: 1; margin-left: -6.5%;
+  border-radius: 50%;
+  background: var(--c2);
+  box-shadow: 0 0 calc(var(--size) / 7) var(--c2);
+}
+
+/* pill-progress — a soft track with a glide and a glass sweep over it */
+.ldr--pill-progress {
+  width: calc(var(--size) * 2.2); height: calc(var(--size) * .36);
+  border-radius: 99px;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--c1) 12%, transparent);
+  box-shadow: inset 0 0 0 max(1px, calc(var(--size) / 60)) color-mix(in oklab, var(--c1) 24%, transparent);
+}
+.ldr--pill-progress::before {
+  content: ""; position: absolute; inset: 12% auto 12% 0;
+  width: 42%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c2) 60%, var(--c3));
+  transform-origin: 50% 50%;
+  animation: ldr-glide calc(var(--speed) * 2) cubic-bezier(.55, 0, .3, 1) infinite;
+}
+@keyframes ldr-glide {
+  0%       { transform: translateX(-8%) scaleX(.5); }
+  45%      { transform: translateX(80%) scaleX(1.12); }
+  100%     { transform: translateX(148%) scaleX(.5); }
+}
+.ldr--pill-progress::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -40%;
+  width: 34%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .5), transparent);
+  animation: ldr-sheen calc(var(--speed) * 2) ease-in-out infinite;
+}
+
+/* glass-ring — frosted glass with one specular arc travelling the rim */
+.ldr--glass-ring {
+  border-radius: 50%;
+  border: calc(var(--size) / 8) solid color-mix(in oklab, var(--c1) 34%, transparent);
+  background: radial-gradient(circle at 34% 26%, color-mix(in oklab, var(--c3) 34%, transparent), transparent 64%);
+  box-shadow:
+    inset 0 0 calc(var(--size) / 10) color-mix(in oklab, var(--c1) 22%, transparent),
+    0 calc(var(--size) / 20) calc(var(--size) / 7) color-mix(in oklab, var(--c1) 18%, transparent);
+}
+.ldr--glass-ring::before {
+  content: ""; position: absolute; inset: calc(var(--size) / -8);
+  border-radius: 50%;
+  background: conic-gradient(transparent 0 52%, color-mix(in oklab, var(--c2) 45%, #fff) 72%, color-mix(in oklab, var(--c3) 70%, #fff) 82%, transparent 96%);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 13%), #000 calc(100% - 12%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 13%), #000 calc(100% - 12%));
+  animation: ldr-spin calc(var(--speed) * 1.6) cubic-bezier(.5, .1, .5, .9) infinite;
+}
+.ldr--glass-ring::after {
+  content: ""; position: absolute; top: 8%; left: 18%;
+  width: 30%; height: 16%;
+  border-radius: 50%;
+  background: #fff;
+  opacity: .65;
+  filter: blur(calc(var(--size) / 34));
+}
+
+/* orbit-avatar — a team circling a hub, each face staying upright */
+.ldr--orbit-avatar span {
+  position: absolute; inset: 0;
+  animation: ldr-spin calc(var(--speed) * 3.2) linear infinite;
+}
+.ldr--orbit-avatar span::before {
+  content: ""; position: absolute; top: -3%; left: 50%;
+  width: 27%; aspect-ratio: 1; margin-left: -13.5%;
+  border-radius: 34%;
+  background: linear-gradient(150deg, var(--c1), var(--c2));
+  box-shadow: 0 calc(var(--size) / 40) calc(var(--size) / 14) color-mix(in oklab, var(--c1) 30%, transparent);
+  animation: ldr-spin-rev calc(var(--speed) * 3.2) linear infinite;
+}
+.ldr--orbit-avatar span:nth-child(1), .ldr--orbit-avatar span:nth-child(1)::before { animation-delay: calc(var(--speed) * -.0); }
+.ldr--orbit-avatar span:nth-child(2), .ldr--orbit-avatar span:nth-child(2)::before { animation-delay: calc(var(--speed) * -.64); }
+.ldr--orbit-avatar span:nth-child(3), .ldr--orbit-avatar span:nth-child(3)::before { animation-delay: calc(var(--speed) * -1.28); }
+.ldr--orbit-avatar span:nth-child(4), .ldr--orbit-avatar span:nth-child(4)::before { animation-delay: calc(var(--speed) * -1.92); }
+.ldr--orbit-avatar span:nth-child(5), .ldr--orbit-avatar span:nth-child(5)::before { animation-delay: calc(var(--speed) * -2.56); }
+.ldr--orbit-avatar span:nth-child(2)::before { background: linear-gradient(150deg, var(--c2), var(--c3)); }
+.ldr--orbit-avatar span:nth-child(3)::before { background: linear-gradient(150deg, var(--c3), var(--c1)); }
+.ldr--orbit-avatar span:nth-child(4)::before { background: linear-gradient(150deg, var(--c1), var(--c3)); }
+.ldr--orbit-avatar span:nth-child(5)::before { background: linear-gradient(150deg, var(--c2), var(--c1)); }
+.ldr--orbit-avatar::after {
+  content: ""; position: absolute; inset: 33%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 22%, transparent);
+  animation: ldr-breathe calc(var(--speed) * 1.6) ease-in-out infinite;
+}
+
+/* checklist — tasks ticking off one after another */
+.ldr--checklist {
+  width: calc(var(--size) * 1.7); height: var(--size);
+  display: inline-flex; flex-direction: column; justify-content: space-between;
+}
+.ldr--checklist span { position: relative; height: 26%; }
+.ldr--checklist span::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 14%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 24)) color-mix(in oklab, var(--c1) 34%, transparent);
+  animation: ldr-tickbox calc(var(--speed) * 3) cubic-bezier(.3, 1.5, .5, 1) infinite;
+}
+@keyframes ldr-tickbox {
+  0%, 14%  { background: color-mix(in oklab, var(--c1) 14%, transparent); scale: 1; }
+  22%      { background: var(--c2); scale: 1.28; }
+  30%, 92% { background: var(--c2); scale: 1; }
+  100%     { background: color-mix(in oklab, var(--c1) 14%, transparent); scale: 1; }
+}
+.ldr--checklist span::after {
+  content: ""; position: absolute; left: 34%; top: 30%;
+  height: 38%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 40%, transparent);
+  animation: ldr-task-line calc(var(--speed) * 3) cubic-bezier(.4, 0, .3, 1) infinite;
+}
+@keyframes ldr-task-line { 0%, 14% { opacity: .45; width: 40%; } 30%, 92% { opacity: 1; width: 62%; } 100% { opacity: .45; width: 40%; } }
+.ldr--checklist span:nth-child(1)::before, .ldr--checklist span:nth-child(1)::after { animation-delay: calc(var(--speed) * -1.1); }
+.ldr--checklist span:nth-child(2)::before, .ldr--checklist span:nth-child(2)::after { animation-delay: calc(var(--speed) * -.55); }
+.ldr--checklist span:nth-child(3)::before, .ldr--checklist span:nth-child(3)::after { animation-delay: 0s; }
+
+/* upload-cloud — chevrons lifting into the cloud */
+.ldr--upload-cloud { width: calc(var(--size) * 1.35); height: var(--size); }
+.ldr--upload-cloud::before {
+  content: ""; position: absolute; left: 26%; top: 12%;
+  width: 30%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 30%, transparent);
+  box-shadow:
+    calc(var(--size) * .3)  calc(var(--size) * .1)  0 calc(var(--size) * -.02) color-mix(in oklab, var(--c1) 30%, transparent),
+    calc(var(--size) * -.2) calc(var(--size) * .14) 0 calc(var(--size) * -.05) color-mix(in oklab, var(--c1) 30%, transparent);
+}
+.ldr--upload-cloud::after {
+  content: ""; position: absolute; left: 12%; right: 12%; top: 30%;
+  height: 22%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 30%, transparent);
+}
+.ldr--upload-cloud span {
+  position: absolute; left: 50%; bottom: 2%;
+  width: 20%; height: 40%; margin-left: -10%;
+  clip-path: polygon(50% 0, 100% 44%, 68% 44%, 68% 100%, 32% 100%, 32% 44%, 0 44%);
+  background: linear-gradient(var(--c2), var(--c3));
+  animation: ldr-lift calc(var(--speed) * 1.8) ease-in-out infinite;
+}
+.ldr--upload-cloud span:nth-child(2) { animation-delay: calc(var(--speed) * -.6); }
+.ldr--upload-cloud span:nth-child(3) { animation-delay: calc(var(--speed) * -1.2); }
+@keyframes ldr-lift { 0% { translate: 0 45%; opacity: 0; } 25% { opacity: 1; } 70% { opacity: 1; } 100% { translate: 0 -105%; opacity: 0; } }
+
+/* sync — two arrows chasing each other round the loop */
+.ldr--sync span {
+  position: absolute; inset: 6%;
+  border-radius: 50%;
+  border: calc(var(--size) / 11) solid transparent;
+  animation: ldr-spin calc(var(--speed) * 1.5) cubic-bezier(.55, .12, .45, .88) infinite;
+}
+.ldr--sync span:nth-child(1) { border-top-color: var(--c1); border-right-color: var(--c1); }
+.ldr--sync span:nth-child(2) { border-bottom-color: var(--c3); border-left-color: var(--c3); }
+.ldr--sync span::before { content: ""; position: absolute; width: 30%; aspect-ratio: 1; }
+.ldr--sync span:nth-child(1)::before {
+  right: calc(var(--size) / -22); top: 40%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: var(--c1);
+}
+.ldr--sync span:nth-child(2)::before {
+  left: calc(var(--size) / -22); bottom: 40%;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: var(--c3);
+}
+
+/* steps — a stepper advancing one node at a time */
+.ldr--steps {
+  width: calc(var(--size) * 1.9); height: calc(var(--size) * .44);
+  display: inline-flex; align-items: center; justify-content: space-between;
+}
+.ldr--steps::before, .ldr--steps::after {
+  content: ""; position: absolute; left: 7%; right: 7%; top: 50%;
+  height: max(2px, calc(var(--size) / 22));
+  margin-top: max(-1px, calc(var(--size) / -44));
+  border-radius: 99px;
+}
+.ldr--steps::before { background: color-mix(in oklab, var(--c1) 16%, transparent); }
+.ldr--steps::after {
+  background: linear-gradient(90deg, var(--c1), var(--c2));
+  transform-origin: 0 50%;
+  animation: ldr-step-fill calc(var(--speed) * 3.2) cubic-bezier(.6, 0, .3, 1) infinite;
+}
+@keyframes ldr-step-fill { 0%, 6% { scale: 0 1; } 22%, 38% { scale: .34 1; } 54%, 68% { scale: .67 1; } 84%, 100% { scale: 1 1; } }
+.ldr--steps span {
+  position: relative;
+  width: calc(var(--size) * .26); aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 16%, transparent);
+  box-shadow: 0 0 0 max(2px, calc(var(--size) / 30)) color-mix(in oklab, var(--c1) 8%, transparent);
+  animation: ldr-node calc(var(--speed) * 3.2) cubic-bezier(.3, 1.5, .5, 1) infinite;
+}
+.ldr--steps span:nth-child(2) { animation-delay: calc(var(--speed) * .7); }
+.ldr--steps span:nth-child(3) { animation-delay: calc(var(--speed) * 1.72); }
+.ldr--steps span:nth-child(4) { animation-delay: calc(var(--speed) * 2.68); }
+@keyframes ldr-node {
+  0%       { background: color-mix(in oklab, var(--c1) 16%, transparent); scale: 1; }
+  6%       { background: var(--c2); scale: 1.3; }
+  14%, 94% { background: var(--c2); scale: 1; }
+  100%     { background: color-mix(in oklab, var(--c1) 16%, transparent); scale: 1; }
+}
+
+/* spark-line — a chart drawing itself under a moving read head */
+.ldr--spark-line {
+  width: calc(var(--size) * 1.8); height: var(--size);
+  border-radius: calc(var(--size) / 12);
+  background: color-mix(in oklab, var(--c1) 7%, transparent);
+  overflow: hidden;
+}
+.ldr--spark-line span:nth-child(1) {
+  position: absolute; inset: 8%;
+  animation: ldr-spark-wipe calc(var(--speed) * 2.8) cubic-bezier(.5, 0, .25, 1) infinite;
+}
+@keyframes ldr-spark-wipe { 0% { clip-path: inset(0 100% 0 0); } 76%, 100% { clip-path: inset(0 0 0 0); } }
+.ldr--spark-line span:nth-child(1)::before {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(0 72%, 14% 54%, 28% 64%, 42% 34%, 56% 46%, 70% 20%, 84% 32%, 100% 8%, 100% 100%, 0 100%);
+  background: linear-gradient(color-mix(in oklab, var(--c1) 55%, transparent), transparent 88%);
+}
+.ldr--spark-line span:nth-child(1)::after {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(0 72%, 14% 54%, 28% 64%, 42% 34%, 56% 46%, 70% 20%, 84% 32%, 100% 8%,
+                     100% 17%, 84% 41%, 70% 29%, 56% 55%, 42% 43%, 28% 73%, 14% 63%, 0 81%);
+  background: linear-gradient(90deg, var(--c1), var(--c2) 60%, var(--c3));
+}
+.ldr--spark-line span:nth-child(2) {
+  position: absolute; top: 4%; bottom: 4%; left: 8%;
+  width: max(2px, calc(var(--size) / 30));
+  border-radius: 99px;
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 7) var(--c3);
+  animation: ldr-readhead calc(var(--speed) * 2.8) cubic-bezier(.5, 0, .25, 1) infinite;
+}
+@keyframes ldr-readhead {
+  0%       { translate: 0 0; opacity: 1; }
+  76%      { translate: calc(var(--size) * 1.53) 0; opacity: 1; }
+  86%, 100% { translate: calc(var(--size) * 1.53) 0; opacity: 0; }
+}

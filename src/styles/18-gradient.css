@@ -1,0 +1,235 @@
+/* ===================== Family: gradient (colour in motion) ===================== */
+
+@keyframes ldr-angle { to { --ldr-a: 360deg; } }
+
+/* mesh — a soft mesh gradient drifting under itself */
+.ldr--mesh {
+  border-radius: calc(var(--size) / 4);
+  background:
+    radial-gradient(circle at 50% 50%, var(--c1) 0, transparent 55%),
+    radial-gradient(circle at 50% 50%, var(--c2) 0, transparent 55%),
+    radial-gradient(circle at 50% 50%, var(--c3) 0, transparent 55%),
+    linear-gradient(140deg, var(--c1), var(--c2));
+  background-size: 170% 170%, 160% 160%, 180% 180%, 100% 100%;
+  background-repeat: no-repeat;
+  filter: blur(calc(var(--size) / 40));
+  animation: ldr-mesh calc(var(--speed) * 4.5) ease-in-out infinite;
+}
+@keyframes ldr-mesh {
+  0%, 100% { background-position:   0% 0%, 100%  0%,  50% 100%, 0 0; }
+  33%      { background-position: 100% 30%,  0% 70%, 100%   0%, 0 0; }
+  66%      { background-position:  40% 100%, 60%  0%,   0%  40%, 0 0; }
+}
+
+/* hue-ring — a colour wheel turning while the colours themselves travel */
+.ldr--hue-ring {
+  border-radius: 50%;
+  background: conic-gradient(var(--c1), var(--c2), var(--c3), var(--c1));
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 22%), #000 calc(100% - 21%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 22%), #000 calc(100% - 21%));
+  animation: ldr-spin calc(var(--speed) * 2.4) linear infinite,
+             ldr-hue calc(var(--speed) * 3) linear infinite;
+}
+@keyframes ldr-hue { to { filter: hue-rotate(360deg); } }
+.ldr--hue-ring::after {
+  content: ""; position: absolute; inset: 30%;
+  border-radius: 50%;
+  background: conic-gradient(var(--c3), var(--c1), var(--c2), var(--c3));
+  animation: ldr-spin calc(var(--speed) * 1.6) linear infinite reverse;
+}
+
+/* gradient-orb — a lit sphere with the highlight sliding over it */
+.ldr--gradient-orb {
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 55%, var(--c2) 0 18%, var(--c1) 62%, color-mix(in oklab, var(--c1) 45%, #000) 100%);
+  overflow: hidden;
+}
+.ldr--gradient-orb::before {
+  content: ""; position: absolute; top: 12%; left: 18%;
+  width: 40%; height: 28%;
+  border-radius: 50%;
+  background: #fff;
+  filter: blur(calc(var(--size) / 18));
+  opacity: .8;
+  animation: ldr-orb-spec calc(var(--speed) * 2.6) ease-in-out infinite;
+}
+@keyframes ldr-orb-spec { 0%, 100% { transform: translate(-10%, 0) scale(1); opacity: .8; } 50% { transform: translate(90%, 40%) scale(.7); opacity: .45; } }
+.ldr--gradient-orb::after {
+  content: ""; position: absolute; inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(transparent 0 55%, var(--c3) 72%, transparent 88%);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9%), #000 calc(100% - 8%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 9%), #000 calc(100% - 8%));
+  animation: ldr-spin calc(var(--speed) * 2.6) linear infinite;
+}
+
+/* chroma — three colour fields overlapping and pulling apart */
+.ldr--chroma span {
+  position: absolute; left: 50%; top: 50%;
+  width: 62%; aspect-ratio: 1; margin: -31% 0 0 -31%;
+  border-radius: 50%;
+  opacity: .62;
+  filter: blur(calc(var(--size) / 40));
+  animation: ldr-chroma calc(var(--speed) * 2.6) ease-in-out infinite;
+}
+.ldr--chroma span:nth-child(1) { background: var(--c1); --a:   0deg; }
+.ldr--chroma span:nth-child(2) { background: var(--c2); --a: 120deg; }
+.ldr--chroma span:nth-child(3) { background: var(--c3); --a: 240deg; }
+@keyframes ldr-chroma {
+  0%, 100% { transform: rotate(var(--a)) translateY(-14%) scale(1); }
+  50%      { transform: rotate(calc(var(--a) + 180deg)) translateY(-26%) scale(1.12); }
+}
+
+/* ombre — one long gradient revealed a band at a time */
+.ldr--ombre {
+  display: inline-flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden;
+  border-radius: calc(var(--size) / 12);
+}
+.ldr--ombre span {
+  height: 13%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c2) 50%, var(--c3));
+  background-size: var(--size) 100%;
+  transform-origin: 0 50%;
+  animation: ldr-ombre-in calc(var(--speed) * 2.2) cubic-bezier(.5, 0, .3, 1) infinite;
+}
+.ldr--ombre span:nth-child(1) { animation-delay: calc(var(--speed) * -.0); }
+.ldr--ombre span:nth-child(2) { animation-delay: calc(var(--speed) * -.14); }
+.ldr--ombre span:nth-child(3) { animation-delay: calc(var(--speed) * -.28); }
+.ldr--ombre span:nth-child(4) { animation-delay: calc(var(--speed) * -.42); }
+.ldr--ombre span:nth-child(5) { animation-delay: calc(var(--speed) * -.56); }
+.ldr--ombre span:nth-child(6) { animation-delay: calc(var(--speed) * -.7); }
+@keyframes ldr-ombre-in {
+  0%       { transform: scaleX(0); opacity: 0; }
+  16%      { transform: scaleX(1); opacity: 1; }
+  84%      { transform: scaleX(1); opacity: 1; }
+  97%, 100% { transform: scaleX(0); opacity: 0; }
+}
+
+/* iridescent — an oil-slick sheen crawling across a disc */
+.ldr--iridescent {
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    var(--c1), var(--c2) 18%, var(--c3) 34%, var(--c1) 50%,
+    var(--c3) 66%, var(--c2) 82%, var(--c1));
+  filter: blur(calc(var(--size) / 30)) saturate(1.3);
+  animation: ldr-spin calc(var(--speed) * 3.4) linear infinite,
+             ldr-hue calc(var(--speed) * 5) linear infinite;
+}
+.ldr--iridescent::after {
+  content: ""; position: absolute; inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(115deg, transparent 34%, rgba(255, 255, 255, .7) 50%, transparent 66%);
+  animation: ldr-iri-sheen calc(var(--speed) * 2.6) ease-in-out infinite;
+}
+@keyframes ldr-iri-sheen { 0%, 100% { opacity: .15; transform: translateX(-32%); } 50% { opacity: .75; transform: translateX(32%); } }
+
+/* sunrise — a disc climbing over its own horizon */
+.ldr--sunrise {
+  width: calc(var(--size) * 1.5); height: var(--size);
+  border-radius: calc(var(--size) / 10);
+  overflow: hidden;
+  background: linear-gradient(var(--c3) 0, var(--c1) 55%, var(--c2) 100%);
+}
+.ldr--sunrise::before {
+  content: ""; position: absolute; left: 50%; bottom: 26%;
+  width: 46%; aspect-ratio: 1; margin-left: -23%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 18%, var(--c2) 55%, var(--c1) 100%);
+  box-shadow: 0 0 calc(var(--size) / 4) color-mix(in oklab, var(--c2) 70%, transparent);
+  animation: ldr-sun-rise calc(var(--speed) * 3.4) cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes ldr-sun-rise { 0%, 100% { translate: 0 78%; } 50% { translate: 0 -26%; } }
+.ldr--sunrise::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
+  background: linear-gradient(color-mix(in oklab, var(--c1) 85%, #000), color-mix(in oklab, var(--c2) 70%, #000));
+  border-top: max(1px, calc(var(--size) / 44)) solid color-mix(in oklab, var(--c2) 80%, #fff);
+}
+
+/* refract — a beam split into its colours by a prism */
+.ldr--refract { width: calc(var(--size) * 1.5); height: var(--size); }
+.ldr--refract::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 34%; height: max(2px, calc(var(--size) / 22));
+  margin-top: max(-1px, calc(var(--size) / -44));
+  background: linear-gradient(90deg, transparent, #fff);
+  box-shadow: 0 0 calc(var(--size) / 8) rgba(255, 255, 255, .6);
+  transform-origin: 0 50%;
+  animation: ldr-beam-in calc(var(--speed) * 2) ease-in-out infinite;
+}
+@keyframes ldr-beam-in { 0%, 100% { transform: scaleX(.25); opacity: .4; } 45%, 70% { transform: scaleX(1); opacity: 1; } }
+.ldr--refract::after {
+  content: ""; position: absolute; left: 30%; top: 50%;
+  width: 26%; height: 60%; margin-top: -30%;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: linear-gradient(160deg, color-mix(in oklab, var(--c1) 55%, #fff), color-mix(in oklab, var(--c3) 75%, #fff));
+  animation: ldr-prism-turn calc(var(--speed) * 4) ease-in-out infinite;
+}
+@keyframes ldr-prism-turn { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+.ldr--refract span {
+  position: absolute; right: 0; top: 50%;
+  width: 46%; height: max(3px, calc(var(--size) / 18));
+  border-radius: 99px;
+  transform-origin: 100% 50%;
+  animation: ldr-fan calc(var(--speed) * 2) ease-in-out infinite;
+}
+.ldr--refract span:nth-child(1) { background: linear-gradient(90deg, transparent, var(--c1)); --fa: -16deg; }
+.ldr--refract span:nth-child(2) { background: linear-gradient(90deg, transparent, var(--c2)); --fa:   0deg; animation-delay: calc(var(--speed) * -.06); }
+.ldr--refract span:nth-child(3) { background: linear-gradient(90deg, transparent, var(--c3)); --fa:  16deg; animation-delay: calc(var(--speed) * -.12); }
+@keyframes ldr-fan {
+  0%, 100% { transform: rotate(calc(var(--fa) * .2)) scaleX(.2); opacity: 0; }
+  50%, 78% { transform: rotate(var(--fa)) scaleX(1); opacity: 1; }
+}
+
+/* gradient-border — a lit frame with the colour running round the edge */
+.ldr--gradient-border {
+  border-radius: calc(var(--size) / 4.5);
+  padding: calc(var(--size) / 11);
+  background: conic-gradient(from var(--ldr-a, 0deg), var(--c1), var(--c2) 30%, var(--c3) 60%, var(--c1));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: ldr-angle calc(var(--speed) * 2.2) linear infinite;
+}
+.ldr--gradient-border::after {
+  content: ""; position: absolute; inset: 12%;
+  border-radius: calc(var(--size) / 7);
+  background: conic-gradient(from var(--ldr-a, 0deg), var(--c1), var(--c2) 30%, var(--c3) 60%, var(--c1));
+  filter: blur(calc(var(--size) / 9));
+  opacity: .5;
+  animation: ldr-angle calc(var(--speed) * 2.2) linear infinite;
+}
+
+/* color-cycle — one block, the gradient axis sweeping right round it */
+.ldr--color-cycle {
+  border-radius: calc(var(--size) / 4.5);
+  background: linear-gradient(var(--ldr-a, 0deg), var(--c1), var(--c2) 50%, var(--c3));
+  animation: ldr-angle calc(var(--speed) * 3) linear infinite,
+             ldr-cycle-breathe calc(var(--speed) * 1.5) ease-in-out infinite;
+}
+@keyframes ldr-cycle-breathe { 0%, 100% { scale: .84; border-radius: 24%; } 50% { scale: 1; border-radius: 42%; } }
+
+/* northern — light curtains folding across the sky */
+.ldr--northern {
+  width: calc(var(--size) * 1.5); height: var(--size);
+  border-radius: calc(var(--size) / 10);
+  overflow: hidden;
+  background: linear-gradient(color-mix(in oklab, var(--c1) 18%, transparent), transparent 70%);
+}
+.ldr--northern span {
+  position: absolute; top: -18%; bottom: -18%;
+  width: 28%;
+  border-radius: 50%;
+  filter: blur(calc(var(--size) / 11));
+  animation: ldr-curtain calc(var(--speed) * 3.2) ease-in-out infinite;
+}
+.ldr--northern span:nth-child(1) { left:  2%; background: var(--c1); --sk: -14deg; }
+.ldr--northern span:nth-child(2) { left: 26%; background: var(--c2); --sk:  12deg; animation-delay: calc(var(--speed) * -.8); }
+.ldr--northern span:nth-child(3) { left: 50%; background: var(--c3); --sk: -10deg; animation-delay: calc(var(--speed) * -1.6); }
+.ldr--northern span:nth-child(4) { left: 72%; background: var(--c2); --sk:  16deg; animation-delay: calc(var(--speed) * -2.4); }
+@keyframes ldr-curtain {
+  0%, 100% { transform: skewX(var(--sk)) translateX(-24%) scaleY(.78); opacity: .45; }
+  50%      { transform: skewX(calc(var(--sk) * -1)) translateX(24%) scaleY(1.1); opacity: .95; }
+}

@@ -1,0 +1,319 @@
+/* ===================== Family: futuristic (HUD, sci-fi & tech) ===================== */
+
+/* hud-ring — instrument rings ticking against each other */
+.ldr--hud-ring::before, .ldr--hud-ring::after {
+  content: ""; position: absolute; border-radius: 50%;
+}
+.ldr--hud-ring::before {
+  inset: 0;
+  background: repeating-conic-gradient(var(--c1) 0 2deg, transparent 2deg 10deg);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 12%), #000 calc(100% - 11%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 12%), #000 calc(100% - 11%));
+  animation: ldr-spin calc(var(--speed) * 5) steps(36, end) infinite;
+}
+.ldr--hud-ring::after {
+  inset: 20%;
+  background: conic-gradient(var(--c2) 0 18%, transparent 18% 50%, var(--c3) 50% 62%, transparent 62%);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 16%), #000 calc(100% - 15%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 16%), #000 calc(100% - 15%));
+  animation: ldr-spin calc(var(--speed) * 1.4) linear infinite reverse;
+}
+.ldr--hud-ring span {
+  position: absolute; inset: 38%;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 34)) solid transparent;
+  border-top-color: var(--c1);
+  border-left-color: var(--c1);
+  animation: ldr-spin calc(var(--speed) * .9) cubic-bezier(.6, .1, .4, .9) infinite;
+}
+.ldr--hud-ring span:nth-child(2) { inset: 46%; border-radius: 0; border: none; background: var(--c3); animation: ldr-pulse calc(var(--speed) * 1.2) ease-in-out infinite; }
+
+/* reactor — a white-hot core inside a segmented containment ring */
+.ldr--reactor::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(var(--c1) 0 7deg, transparent 7deg 20deg);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 15%), #000 calc(100% - 14%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 15%), #000 calc(100% - 14%));
+  animation: ldr-spin calc(var(--speed) * 3.4) linear infinite;
+}
+.ldr--reactor::after {
+  content: ""; position: absolute; inset: 32%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 20%, var(--c2) 52%, var(--c1) 100%);
+  box-shadow: 0 0 calc(var(--size) / 5) var(--c2);
+  animation: ldr-pulse calc(var(--speed) * 1.2) ease-in-out infinite;
+}
+.ldr--reactor span {
+  position: absolute; inset: 18%;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 40)) solid var(--c3);
+  animation: ldr-reactor-wave calc(var(--speed) * 1.8) ease-out infinite;
+}
+.ldr--reactor span:nth-child(2) { animation-delay: calc(var(--speed) * -.6); }
+.ldr--reactor span:nth-child(3) { animation-delay: calc(var(--speed) * -1.2); }
+@keyframes ldr-reactor-wave { 0% { scale: .55; opacity: .9; } 100% { scale: 1.55; opacity: 0; } }
+
+/* hologram — a projection standing in its own light cone */
+.ldr--hologram { width: calc(var(--size) * 1.2); height: calc(var(--size) * 1.15); }
+.ldr--hologram::before {
+  content: ""; position: absolute; inset: 0 0 8% 0;
+  clip-path: polygon(30% 100%, 70% 100%, 100% 6%, 0 6%);
+  background: linear-gradient(to top, color-mix(in oklab, var(--c3) 45%, transparent), transparent 82%);
+  animation: ldr-flicker calc(var(--speed) * 2.2) steps(1, end) infinite;
+}
+.ldr--hologram span {
+  position: absolute; left: 18%; right: 18%;
+  height: 10%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, var(--c1), var(--c2), transparent);
+  animation: ldr-holo-line calc(var(--speed) * 2) ease-in-out infinite;
+}
+.ldr--hologram span:nth-child(1) { top: 18%; }
+.ldr--hologram span:nth-child(2) { top: 40%; left: 26%; right: 26%; animation-delay: calc(var(--speed) * -.4); }
+.ldr--hologram span:nth-child(3) { top: 62%; left: 32%; right: 32%; animation-delay: calc(var(--speed) * -.8); }
+@keyframes ldr-holo-line { 0%, 100% { opacity: .3; scale: .85 1; } 50% { opacity: 1; scale: 1 1; } }
+.ldr--hologram::after {
+  content: ""; position: absolute; left: 18%; right: 18%; bottom: 0; height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, var(--c3) 0 35%, transparent 74%);
+  animation: ldr-glow-swell calc(var(--speed) * 1.4) ease-in-out infinite;
+}
+
+/* warp — frames rushing past you down a tunnel */
+.ldr--warp { perspective: calc(var(--size) * 1.1); }
+.ldr--warp span {
+  position: absolute; inset: 0;
+  border: max(1px, calc(var(--size) / 26)) solid var(--c1);
+  border-radius: calc(var(--size) / 7);
+  animation: ldr-warp-in calc(var(--speed) * 2) cubic-bezier(.45, 0, .9, .55) infinite;
+}
+.ldr--warp span:nth-child(2) { border-color: var(--c2); animation-delay: calc(var(--speed) * -.5); }
+.ldr--warp span:nth-child(3) { border-color: var(--c3); animation-delay: calc(var(--speed) * -1); }
+.ldr--warp span:nth-child(4) { border-color: var(--c2); animation-delay: calc(var(--speed) * -1.5); }
+@keyframes ldr-warp-in {
+  0%   { transform: translateZ(calc(var(--size) * -2)) rotate(0deg); opacity: 0; }
+  18%  { opacity: 1; }
+  100% { transform: translateZ(calc(var(--size) * .55)) rotate(92deg); opacity: 0; }
+}
+
+/* targeting — brackets closing onto a lock */
+.ldr--targeting span {
+  position: absolute;
+  width: 30%; height: 30%;
+  border: max(2px, calc(var(--size) / 18)) solid var(--c1);
+  animation: ldr-lock calc(var(--speed) * 2) cubic-bezier(.5, 0, .18, 1) infinite;
+}
+.ldr--targeting span:nth-child(1) { top: 0;    left: 0;    border-right: none; border-bottom: none; --dx: -1; --dy: -1; }
+.ldr--targeting span:nth-child(2) { top: 0;    right: 0;   border-left: none;  border-bottom: none; --dx:  1; --dy: -1; }
+.ldr--targeting span:nth-child(3) { bottom: 0; right: 0;   border-left: none;  border-top: none;    --dx:  1; --dy:  1; }
+.ldr--targeting span:nth-child(4) { bottom: 0; left: 0;    border-right: none; border-top: none;    --dx: -1; --dy:  1; }
+@keyframes ldr-lock {
+  0%, 100% { translate: calc(var(--dx) * 55%) calc(var(--dy) * 55%); opacity: .45; }
+  55%, 84% { translate: 0 0; opacity: 1; }
+}
+.ldr--targeting::before {
+  content: ""; position: absolute; inset: 26%;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 36)) dashed var(--c2);
+  animation: ldr-spin calc(var(--speed) * 4) linear infinite;
+}
+.ldr--targeting::after {
+  content: ""; position: absolute; left: 44%; top: 44%;
+  width: 12%; aspect-ratio: 1;
+  border-radius: 50%; background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 7) var(--c3);
+  animation: ldr-lock-flash calc(var(--speed) * 2) steps(1, end) infinite;
+}
+@keyframes ldr-lock-flash { 0%, 54% { opacity: 0; scale: .3; } 58% { opacity: 1; scale: 1.6; } 62%, 100% { opacity: .85; scale: 1; } }
+
+/* circuit — pulses running the traces of a board */
+.ldr--circuit::before {
+  content: ""; position: absolute; inset: 12%;
+  border: max(1px, calc(var(--size) / 40)) solid color-mix(in oklab, var(--c1) 55%, transparent);
+  border-radius: calc(var(--size) / 10);
+}
+.ldr--circuit::after {
+  content: ""; position: absolute; inset: 36%;
+  border-radius: calc(var(--size) / 22);
+  background: color-mix(in oklab, var(--c1) 28%, transparent);
+  border: max(1px, calc(var(--size) / 44)) solid var(--c2);
+  animation: ldr-breathe calc(var(--speed) * 1.6) ease-in-out infinite;
+}
+.ldr--circuit span {
+  position: absolute; left: 12%; top: 12%;
+  width: 10%; aspect-ratio: 1; margin: -5% 0 0 -5%;
+  border-radius: 50%;
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 8) var(--c3);
+  animation: ldr-trace calc(var(--speed) * 3) linear infinite;
+}
+.ldr--circuit span:nth-child(2) { background: var(--c2); box-shadow: 0 0 calc(var(--size) / 8) var(--c2); animation-delay: calc(var(--speed) * -1); }
+.ldr--circuit span:nth-child(3) { background: var(--c1); box-shadow: 0 0 calc(var(--size) / 8) var(--c1); animation-delay: calc(var(--speed) * -2); }
+@keyframes ldr-trace {
+  0%   { translate: 0 0; }
+  25%  { translate: 760% 0; }
+  50%  { translate: 760% 760%; }
+  75%  { translate: 0 760%; }
+  100% { translate: 0 0; }
+}
+
+/* barcode — a code being read, line by line */
+.ldr--barcode {
+  width: calc(var(--size) * 1.5); height: var(--size);
+  border-radius: calc(var(--size) / 20);
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--c1) 0 calc(var(--size) / 30), transparent 0 calc(var(--size) / 15),
+      var(--c1) 0 calc(var(--size) / 50), transparent 0 calc(var(--size) / 20),
+      var(--c1) 0 calc(var(--size) / 18), transparent 0 calc(var(--size) / 11));
+  background-color: color-mix(in oklab, var(--c1) 8%, transparent);
+}
+.ldr--barcode::before {
+  content: ""; position: absolute; inset: 0 auto 0 0;
+  width: 8%;
+  background: linear-gradient(90deg, transparent, var(--c2) 40%, #fff 55%, var(--c2) 70%, transparent);
+  box-shadow: 0 0 calc(var(--size) / 5) var(--c2);
+  animation: ldr-barcode-scan calc(var(--speed) * 2) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-barcode-scan { 0%, 100% { translate: 0 0; } 50% { translate: calc(var(--size) * 1.38) 0; } }
+.ldr--barcode::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 14%;
+  background: color-mix(in oklab, var(--c3) 70%, transparent);
+  transform-origin: 0 50%;
+  animation: ldr-barcode-read calc(var(--speed) * 2) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-barcode-read { 0%, 100% { scale: 0 1; } 50% { scale: 1 1; } }
+
+/* quantum — a particle taking every position it might occupy */
+.ldr--quantum::before {
+  content: ""; position: absolute; inset: 6%;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 44)) dashed color-mix(in oklab, var(--c1) 55%, transparent);
+  animation: ldr-spin calc(var(--speed) * 6) linear infinite;
+}
+.ldr--quantum span {
+  position: absolute; left: 50%; top: 50%;
+  width: 20%; aspect-ratio: 1; margin: -10% 0 0 -10%;
+  border-radius: 50%;
+  background: var(--c1);
+  filter: blur(calc(var(--size) / 60));
+  animation: ldr-quantum calc(var(--speed) * 1.6) cubic-bezier(.4, 0, .3, 1) infinite;
+}
+@keyframes ldr-quantum {
+  0%, 100% { transform: rotate(var(--a)) translateY(-165%) scale(0);   opacity: 0; }
+  28%      { transform: rotate(var(--a)) translateY(-165%) scale(1);   opacity: 1; }
+  62%      { transform: rotate(var(--a)) translateY(-165%) scale(.85); opacity: .8; }
+  84%      { transform: rotate(var(--a)) translateY(-165%) scale(.4);  opacity: .25; }
+}
+.ldr--quantum span:nth-child(1) { --a:   0deg; animation-delay: calc(var(--speed) * -.0); }
+.ldr--quantum span:nth-child(2) { --a:  60deg; background: var(--c2); animation-delay: calc(var(--speed) * -.27); }
+.ldr--quantum span:nth-child(3) { --a: 120deg; animation-delay: calc(var(--speed) * -.53); }
+.ldr--quantum span:nth-child(4) { --a: 180deg; background: var(--c3); animation-delay: calc(var(--speed) * -.8); }
+.ldr--quantum span:nth-child(5) { --a: 240deg; animation-delay: calc(var(--speed) * -1.07); }
+.ldr--quantum span:nth-child(6) { --a: 300deg; background: var(--c2); animation-delay: calc(var(--speed) * -1.33); }
+
+/* portal — a gateway swirling open, two currents against each other */
+.ldr--portal::before, .ldr--portal::after { content: ""; position: absolute; border-radius: 50%; }
+.ldr--portal::before {
+  inset: 0;
+  background: conic-gradient(from 0deg, var(--c1), var(--c2), var(--c3), var(--c1));
+  -webkit-mask: radial-gradient(farthest-side, #0000 40%, #000 46%, #000 90%, #0000 100%);
+          mask: radial-gradient(farthest-side, #0000 40%, #000 46%, #000 90%, #0000 100%);
+  filter: blur(calc(var(--size) / 44));
+  animation: ldr-spin calc(var(--speed) * 1.5) linear infinite;
+}
+.ldr--portal::after {
+  inset: 20%;
+  background: radial-gradient(circle, #fff 0 7%, var(--c3) 32%, var(--c1) 72%, transparent 100%);
+  filter: blur(calc(var(--size) / 34));
+  animation: ldr-spin calc(var(--speed) * .95) linear infinite reverse,
+             ldr-glow-swell calc(var(--speed) * 1.7) ease-in-out infinite;
+}
+
+/* shield — an energy field taking hits and holding */
+.ldr--shield::before {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(50% 0, 100% 26%, 100% 74%, 50% 100%, 0 74%, 0 26%);
+  background:
+    repeating-linear-gradient(60deg,  color-mix(in oklab, var(--c1) 55%, transparent) 0 max(1px, calc(var(--size) / 60)), transparent 0 calc(var(--size) / 7)),
+    repeating-linear-gradient(-60deg, color-mix(in oklab, var(--c1) 55%, transparent) 0 max(1px, calc(var(--size) / 60)), transparent 0 calc(var(--size) / 7)),
+    repeating-linear-gradient(0deg,   color-mix(in oklab, var(--c2) 45%, transparent) 0 max(1px, calc(var(--size) / 60)), transparent 0 calc(var(--size) / 7)),
+    linear-gradient(color-mix(in oklab, var(--c1) 22%, transparent), color-mix(in oklab, var(--c3) 22%, transparent));
+  animation: ldr-breathe calc(var(--speed) * 2) ease-in-out infinite;
+}
+.ldr--shield::after {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(50% 0, 100% 26%, 100% 74%, 50% 100%, 0 74%, 0 26%);
+  background: linear-gradient(120deg, transparent 40%, rgba(255, 255, 255, .6) 50%, transparent 60%);
+  background-size: 300% 100%;
+  animation: ldr-shield-sweep calc(var(--speed) * 2.4) ease-in-out infinite;
+}
+@keyframes ldr-shield-sweep { 0%, 100% { background-position: 130% 0; } 55%, 70% { background-position: -30% 0; } }
+.ldr--shield span {
+  position: absolute; left: 50%; top: 50%;
+  width: 26%; aspect-ratio: 1; margin: -13% 0 0 -13%;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 34)) solid var(--c3);
+  animation: ldr-impact calc(var(--speed) * 1.8) ease-out infinite;
+}
+.ldr--shield span:nth-child(1) { --ox: -60%; --oy: -70%; }
+.ldr--shield span:nth-child(2) { --ox:  70%; --oy:  40%; animation-delay: calc(var(--speed) * -.9); }
+@keyframes ldr-impact {
+  0%   { transform: translate(var(--ox), var(--oy)) scale(.15); opacity: 1; }
+  100% { transform: translate(var(--ox), var(--oy)) scale(1.8); opacity: 0; }
+}
+
+/* satellite — bodies sweeping their own inclined orbits */
+.ldr--satellite::before {
+  content: ""; position: absolute; inset: 34%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, color-mix(in oklab, var(--c1) 40%, #fff) 0 12%, var(--c1) 55%, var(--c2) 100%);
+  box-shadow: 0 0 calc(var(--size) / 8) color-mix(in oklab, var(--c1) 60%, transparent);
+  animation: ldr-breathe calc(var(--speed) * 2) ease-in-out infinite;
+}
+.ldr--satellite span {
+  position: absolute; inset: 4%;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 50)) solid color-mix(in oklab, var(--c3) 45%, transparent);
+  animation: ldr-orbit-plane calc(var(--speed) * 2.6) linear infinite;
+}
+@keyframes ldr-orbit-plane { to { transform: rotate(1turn); } }
+.ldr--satellite span::before {
+  content: ""; position: absolute; top: -8%; left: 50%;
+  width: 15%; aspect-ratio: 1; margin-left: -7.5%;
+  border-radius: 50%;
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 9) var(--c3);
+}
+.ldr--satellite span:nth-child(1) { rotate: x 68deg; }
+.ldr--satellite span:nth-child(2) { rotate: y 70deg; inset: 12%; animation-duration: calc(var(--speed) * 1.8); animation-direction: reverse; }
+.ldr--satellite span:nth-child(2)::before { background: var(--c2); box-shadow: 0 0 calc(var(--size) / 9) var(--c2); }
+.ldr--satellite span:nth-child(3) { rotate: x 24deg; inset: 0; animation-duration: calc(var(--speed) * 3.6); }
+.ldr--satellite span:nth-child(3)::before { background: var(--c1); box-shadow: 0 0 calc(var(--size) / 9) var(--c1); width: 11%; margin-left: -5.5%; }
+
+/* teleport — slices dematerialising and coming back together */
+.ldr--teleport {
+  display: inline-flex; flex-direction: column;
+  gap: calc(var(--size) / 40);
+}
+.ldr--teleport span {
+  flex: 1;
+  border-radius: calc(var(--size) / 26);
+  background: var(--grad);
+  animation: ldr-teleport calc(var(--speed) * 2.6) cubic-bezier(.6, 0, .35, 1) infinite;
+}
+.ldr--teleport span:nth-child(1) { --dx:  70%; animation-delay: calc(var(--speed) * -.0); }
+.ldr--teleport span:nth-child(2) { --dx: -55%; animation-delay: calc(var(--speed) * -.1); }
+.ldr--teleport span:nth-child(3) { --dx:  85%; animation-delay: calc(var(--speed) * -.2); }
+.ldr--teleport span:nth-child(4) { --dx: -70%; animation-delay: calc(var(--speed) * -.3); }
+.ldr--teleport span:nth-child(5) { --dx:  60%; animation-delay: calc(var(--speed) * -.4); }
+.ldr--teleport span:nth-child(6) { --dx: -85%; animation-delay: calc(var(--speed) * -.5); }
+@keyframes ldr-teleport {
+  0%, 100% { translate: 0 0; opacity: 1; }
+  30%      { translate: var(--dx) 0; opacity: .12; }
+  45%      { translate: var(--dx) 0; opacity: 0; }
+  68%      { translate: calc(var(--dx) * -.25) 0; opacity: .55; }
+  80%      { translate: 0 0; opacity: 1; }
+}

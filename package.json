@@ -1,7 +1,7 @@
 {
   "name": "modern-loaders",
-  "version": "1.1.0",
-  "description": "100 modern, colorful, animated React loaders \u2014 pure CSS, zero runtime dependencies",
+  "version": "1.2.0",
+  "description": "212 modern, colorful, animated React loaders \u2014 pure CSS, zero runtime dependencies",
   "author": "suman",
   "license": "ISC",
   "type": "module",
@@ -31,7 +31,12 @@
     "loading",
     "css",
     "animation",
-    "skeleton"
+    "skeleton",
+    "neon",
+    "glitch",
+    "particles",
+    "gradient",
+    "ui"
   ],
   "scripts": {
     "dev": "vite",
