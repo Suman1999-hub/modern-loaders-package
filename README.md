@@ -1,42 +1,41 @@
 <div align="center">
 
-# modern-loaders
+<h1>modern-loaders</h1>
 
-**212 colorful, animated loaders for React.**
+<p><b>212 ready-made loading animations for React.</b><br/>
+One component, pure CSS motion, zero runtime dependencies.</p>
 
-Pure CSS motion behind one typed component — no runtime dependencies, no SVG, no images.
+[![npm version](https://img.shields.io/npm/v/modern-loaders?style=flat-square&color=6366f1&label=npm)](https://www.npmjs.com/package/modern-loaders)
+[![npm downloads](https://img.shields.io/npm/dm/modern-loaders?style=flat-square&color=ec4899&label=downloads)](https://www.npmjs.com/package/modern-loaders)
+[![gzipped size](https://img.shields.io/bundlephobia/minzip/modern-loaders?style=flat-square&color=22d3ee&label=gzipped)](https://bundlephobia.com/package/modern-loaders)
+[![types](https://img.shields.io/npm/types/modern-loaders?style=flat-square&color=8b5cf6)](https://www.npmjs.com/package/modern-loaders)
+[![license](https://img.shields.io/npm/l/modern-loaders?style=flat-square&color=f59e0b)](./LICENSE)
+[![GitHub](https://img.shields.io/github/stars/Suman1999-hub/modern-loaders-package?style=flat-square&color=64748b&label=GitHub)](https://github.com/Suman1999-hub/modern-loaders-package)
 
-[![npm](https://img.shields.io/npm/v/modern-loaders?color=6366f1&label=npm)](https://www.npmjs.com/package/modern-loaders)
-[![size](https://img.shields.io/bundlephobia/minzip/modern-loaders?color=ec4899&label=gzipped)](https://bundlephobia.com/package/modern-loaders)
-[![types](https://img.shields.io/npm/types/modern-loaders?color=22d3ee)](https://www.npmjs.com/package/modern-loaders)
-[![license](https://img.shields.io/npm/l/modern-loaders?color=8b5cf6)](./LICENSE)
-[![demo](https://img.shields.io/badge/demo-live-10b981)](https://modern-loaders.netlify.app/)
+```bash
+npm install modern-loaders
+```
 
-### [**→ Browse all 212 loaders live**](https://modern-loaders.netlify.app/)
-
-Search by name, filter by family, tune size / speed / palette, and copy the JSX for any of them.
+[![Browse all 212 loaders live](https://img.shields.io/badge/%E2%86%92%20Browse%20all%20212%20loaders%20live-6366f1?style=for-the-badge&labelColor=6366f1)](https://modern-loaders.netlify.app/)
 
 </div>
 
 ---
 
-```bash
-npm i modern-loaders
-```
+## What is modern-loaders?
 
-```tsx
-import { Loader } from "modern-loaders";
+A library of **212 loading animations** for React, all behind a single
+`<Loader />` component.
 
-<Loader />
-<Loader variant="wave" size={72} speed={0.8} colors={["#f97316", "#ef4444", "#a855f7"]} />
-```
+**The problem.** Every app needs loading states. Building them by hand means
+writing CSS keyframes again and again. Most loader packages give you a handful
+of spinners, or pull in a JavaScript animation runtime you did not ask for.
 
-That is the whole setup. **The stylesheet is bundled and injects itself** — no CSS import to
-remember, nothing to configure in Vite, Next.js, CRA, or Tailwind.
+**This package.** Pick a loader by name, set the size, speed and colours if you
+want, and ship. Every animation is plain CSS, so nothing runs on the main
+thread and there is nothing to install alongside it.
 
-<sub>If your bundler strips side-effect imports, add <code>import "modern-loaders/styles.css"</code>.</sub>
-
-## Why this one
+### Why developers use it
 
 - **212 variants across 20 families** — spinners, dots, bars, shapes, progress, grids, pulses, organic, skeletons, dimensional, neon, liquid, glitch, particles, futuristic, elastic, minimal, gradient, kinetic, and premium.
 - **Three props to learn.** `size`, `speed`, `colors`. Everything else has a sensible default.
@@ -45,21 +44,89 @@ remember, nothing to configure in Vite, Next.js, CRA, or Tailwind.
 - **Accessible by default.** Each loader is a labelled `role="status"` and honours `prefers-reduced-motion`.
 - **Themeable without a build step.** Every value is a CSS custom property you can override.
 
-## Usage
+---
 
-### Props
+## Installation
 
-| prop | type | default | description |
-|---|---|---|---|
-| `variant` | `LoaderVariant` | `"aurora"` | Which loader to render — any of the 212 ids below. |
-| `size` | `number \| string` | `48` | Overall size. A number means pixels; strings pass through (`"3rem"`). |
-| `speed` | `number \| string` | `1` | Base duration. A number means seconds; lower is faster. |
-| `colors` | `string[]` | indigo / pink / cyan | One to three colors. Fewer are cycled, so a single color gives a clean monochrome loader. |
-| `label` | `string \| null` | `"Loading"` | Screen-reader text. Pass `null` to mark the loader decorative. |
+```bash
+npm install modern-loaders
+```
 
-Every other `div` prop — `className`, `style`, `id`, `onClick`, `data-*` — passes straight through.
+<details>
+<summary>Using yarn or pnpm?</summary>
 
-### Which loader should I use?
+```bash
+yarn add modern-loaders
+```
+
+```bash
+pnpm add modern-loaders
+```
+
+</details>
+
+**No CSS import needed.** The stylesheet is bundled and injects itself — nothing
+to configure in Vite, Next.js, CRA, or Tailwind.
+
+<sub>If your bundler strips side-effect imports, add
+<code>import "modern-loaders/styles.css"</code>.</sub>
+
+---
+
+## Quick Start
+
+### 1. Render a loader
+
+```tsx
+import { Loader } from "modern-loaders";
+
+export default function App() {
+  return <Loader />;
+}
+```
+
+### 2. Pick a variant
+
+Every loader has a name. Pass it as `variant`:
+
+```tsx
+<Loader variant="wave" />
+```
+
+### 3. Customise it
+
+Set the size, speed and colours:
+
+```tsx
+<Loader
+  variant="wave"
+  size={72}
+  speed={0.8}
+  colors={["#f97316", "#ef4444", "#a855f7"]}
+/>
+```
+
+Not sure which one to pick?
+[**Browse all 212 in the live gallery →**](https://modern-loaders.netlify.app/)
+
+---
+
+## Contents
+
+- [Choosing a loader](#choosing-a-loader)
+- [Recipes](#recipes)
+- [Customization](#customization)
+- [API](#api)
+- [All 212 variants](#all-212-variants)
+- [Accessibility](#accessibility)
+- [Bundle size](#bundle-size)
+- [Browser support](#browser-support)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Choosing a loader
 
 | situation | reach for | why |
 |---|---|---|
@@ -73,49 +140,181 @@ Every other `div` prop — `className`, `style`, `id`, `onClick`, `data-*` — p
 | Games, launch screens, dev tools | **Neon**, **Futuristic**, **Glitch** | Loud on purpose. Best on a dark surface. |
 | Playful or brand-forward moments | **Liquid**, **Particles**, **Elastic**, **Kinetic** | Physical motion people actually watch. |
 
-### Recipes
+---
 
-**A button that keeps its width while loading**
+## Recipes
+
+### A button that keeps its width while loading
 
 ```tsx
 <button disabled={busy}>
-  {busy
-    ? <Loader variant="pulse-dots" size={16} colors={["currentColor"]} label={null} />
-    : "Save"}
+  {busy ? (
+    <Loader
+      variant="pulse-dots"
+      size={16}
+      colors={["currentColor"]}
+      label={null}
+    />
+  ) : (
+    "Save"
+  )}
 </button>
 ```
 
-`colors={["currentColor"]}` inherits the button's own text color. `label={null}` stops screen
-readers announcing "Loading" twice when the button already conveys it.
+`colors={["currentColor"]}` inherits the button's own text colour.
+`label={null}` stops screen readers announcing "Loading" twice when the button
+already conveys it.
 
-**A skeleton shaped like the thing you're waiting for**
+### A skeleton shaped like the thing you're waiting for
 
 ```tsx
-{isLoading ? <Loader variant="sk-card" size={64} /> : <ArticleCard {...article} />}
+{isLoading ? (
+  <Loader
+    variant="sk-card"
+    size={64}
+  />
+) : (
+  <ArticleCard {...article} />
+)}
 ```
 
-**A full-page overlay**
+### A full-page overlay
 
 ```tsx
-<div style={{ position: "fixed", inset: 0, display: "grid", placeItems: "center" }}>
-  <Loader variant="aurora" size={80} label="Loading your dashboard" />
+<div
+  style={{
+    position: "fixed",
+    inset: 0,
+    display: "grid",
+    placeItems: "center",
+  }}
+>
+  <Loader
+    variant="aurora"
+    size={80}
+    label="Loading your dashboard"
+  />
 </div>
 ```
 
-**Build your own picker** — the manifest is exported:
+### Build your own picker
+
+The manifest is exported, so you can map over it:
 
 ```tsx
 import { VARIANTS, Loader } from "modern-loaders";
 
-VARIANTS.filter(v => v.group === "Skeletons")
-        .map(v => <Loader key={v.id} variant={v.id} />);
+VARIANTS
+  .filter((variant) => variant.group === "Skeletons")
+  .map((variant) => (
+    <Loader
+      key={variant.id}
+      variant={variant.id}
+    />
+  ));
 ```
+
+---
+
+## Customization
+
+The `colors` prop covers most cases. For anything else, override the CSS custom
+properties — they cascade, so one rule themes a whole subtree:
+
+```css
+.dashboard {
+  /* palette */
+  --c1: #6366f1;
+  --c2: #ec4899;
+  --c3: #22d3ee;
+
+  /* size and timing */
+  --size: 64px;
+  --speed: .9s;
+
+  /* rail behind progress bars */
+  --track: #1e1e2e;
+
+  /* shared gradient */
+  --grad: linear-gradient(
+    90deg,
+    var(--c1),
+    var(--c3)
+  );
+}
+```
+
+`--track` and `--grad` derive from `--c1`–`--c3` automatically; set them
+directly for finer control.
+
+---
+
+## API
+
+### Props
+
+| prop | type | default | description |
+|---|---|---|---|
+| `variant` | `LoaderVariant` | `"aurora"` | Which loader to render — any of the 212 ids below. |
+| `size` | `number \| string` | `48` | Overall size. A number means pixels; strings pass through (`"3rem"`). |
+| `speed` | `number \| string` | `1` | Base duration. A number means seconds; lower is faster. |
+| `colors` | `string[]` | indigo / pink / cyan | One to three colours. Fewer are cycled, so a single colour gives a clean monochrome loader. |
+| `label` | `string \| null` | `"Loading"` | Screen-reader text. Pass `null` to mark the loader decorative. |
+
+Every other `div` prop — `className`, `style`, `id`, `onClick`, `data-*` —
+passes straight through.
+
+### Exports
+
+| export | what it is |
+|---|---|
+| `Loader` | The component. |
+| `VARIANTS` | Manifest of all 212: `{ id, label, group, cells }`. |
+| `LOADER_VARIANTS` | Just the 212 ids, in display order. |
+| `GROUPS` | The 20 families: `{ name, description }`. |
+
+`Loader` is the main export. The original ten also have named wrappers, kept for
+backward compatibility with 1.0.x:
+
+```tsx
+import {
+  Aurora, Orbit, Rings, Wave, Bars,
+  Blob, Cube, Spiral, Bar, Grid,
+} from "modern-loaders";
+```
+
+Everything else is reached with `<Loader variant="…" />`. Two hundred named
+exports would bloat the API surface for no real gain, and `variant`
+autocompletes just as well.
+
+### TypeScript
+
+Types ship with the package — no `@types` install:
+
+```tsx
+import type {
+  LoaderProps,
+  LoaderVariant,
+  LoaderGroup,
+  VariantMeta,
+} from "modern-loaders";
+
+// a union of all 212 ids; typos fail to compile
+const variant: LoaderVariant = "aurora";
+
+// wrap Loader without re-declaring its props
+function Busy(props: LoaderProps) {
+  return <Loader {...props} />;
+}
+```
+
+---
 
 ## All 212 variants
 
-Every id maps to a `.ldr--<id>` CSS class. The tables below are the full reference; to *see* them
-moving, use the [live gallery](https://modern-loaders.netlify.app/) — it renders every variant with
-your own size, speed, and colours, and copies the JSX for you.
+Every id maps to a `.ldr--<id>` CSS class. The tables below are the full
+reference; to *see* them moving, use the [live gallery](https://modern-loaders.netlify.app/) — it renders
+every variant with your own size, speed and colours, and copies the JSX for you.
 
 <details>
 <summary><b>Spinners</b> · 10 — Rings and arcs — the classic shape, modernised.</summary>
@@ -489,33 +688,15 @@ your own size, speed, and colours, and copies the JSX for you.
 
 </details>
 
-## Theming
-
-The `colors` prop covers most cases. For anything else, override the custom properties — they
-cascade, so one rule themes a whole subtree:
-
-```css
-.dashboard {
-  --c1: #6366f1;    /* primary       */
-  --c2: #ec4899;    /* secondary     */
-  --c3: #22d3ee;    /* tertiary      */
-  --size: 64px;     /* box size      */
-  --speed: .9s;     /* base duration */
-
-  --track: #1e1e2e;                                      /* rail behind progress bars */
-  --grad: linear-gradient(90deg, var(--c1), var(--c3));  /* shared gradient           */
-}
-```
-
-`--track` and `--grad` derive from `--c1`–`--c3` automatically; set them directly for finer control.
+---
 
 ## Accessibility
 
 - Each loader renders as `role="status"` with `aria-label`, so assistive tech announces it once.
-- A decorative loader — one sitting beside visible "Loading…" text — should take `label={null}`,
-  which switches it to `aria-hidden` and prevents a double announcement.
-- Under `prefers-reduced-motion: reduce`, every animation slows to a single calm 4s linear cycle
-  rather than stopping. A frozen loader reads as a crashed app, which is worse than gentle motion.
+- A decorative loader — one sitting beside visible "Loading…" text — should take `label={null}`, which switches it to `aria-hidden` and prevents a double announcement.
+- Under `prefers-reduced-motion: reduce`, every animation slows to a single calm 4s linear cycle rather than stopping. A frozen loader reads as a crashed app, which is worse than gentle motion.
+
+---
 
 ## Bundle size
 
@@ -524,52 +705,64 @@ cascade, so one rule themes a whole subtree:
 | JS | ~18 kB | **~4 kB** |
 | CSS (all 212 variants) | ~166 kB | **~24 kB** |
 
-One caveat, stated plainly: **the CSS is not tree-shakeable.** Class-based styles cannot be
-dead-code eliminated, so importing a single variant still ships the sheet for all 212. At ~24 kB
-gzipped that is a fair trade for most apps, but it is real weight. If you need only a handful and
-every kilobyte counts, copy the specific `.ldr--*` blocks out of [`src/styles/`](./src/styles)
-into your own CSS and skip the package — each block is self-contained apart from the shared
+One caveat, stated plainly: **the CSS is not tree-shakeable.** Class-based
+styles cannot be dead-code eliminated, so importing a single variant still ships
+the sheet for all 212. At ~24 kB gzipped that is a fair trade for most apps, but
+it is real weight. If you need only a handful and every kilobyte counts, copy
+the specific `.ldr--*` blocks out of [`src/styles/`](./src/styles) into your own
+CSS and skip the package — each block is self-contained apart from the shared
 keyframes in [`00-base.css`](./src/styles/00-base.css).
 
-## Named exports
-
-`Loader` is the main export. The original ten also have wrappers, kept for backward compatibility
-with 1.0.x:
-
-```tsx
-import { Aurora, Orbit, Rings, Wave, Bars, Blob, Cube, Spiral, Bar, Grid } from "modern-loaders";
-```
-
-Everything else is reached with `<Loader variant="…" />`. Two hundred named exports would bloat
-the API surface for no real gain, and `variant` autocompletes just as well.
+---
 
 ## Browser support
 
-Chrome 111+ · Safari 16.4+ · Firefox 113+ — the floor is set by `color-mix()`, alongside `mask`,
-`aspect-ratio`, `clip-path`, and the individual `translate` / `rotate` / `scale` properties. Older
-browsers degrade to solid shapes rather than breaking.
+Chrome 111+ · Safari 16.4+ · Firefox 113+ — the floor is set by `color-mix()`,
+alongside `mask`, `aspect-ratio`, `clip-path`, and the individual `translate` /
+`rotate` / `scale` properties. Older browsers degrade to solid shapes rather
+than breaking.
 
-Five variants — `neon-arc`, `pie`, `progress-ring`, `gradient-border`, `color-cycle` — animate a
-registered custom property via `@property` (Firefox 128+). Every use passes a fallback, so below
-that they render a sensible static frame instead of disappearing.
+Five variants — `neon-arc`, `pie`, `progress-ring`, `gradient-border`,
+`color-cycle` — animate a registered custom property via `@property`
+(Firefox 128+). Every use passes a fallback, so below that they render a
+sensible static frame instead of disappearing.
 
-## Development
+---
+
+## Contributing
 
 ```bash
-npm run dev          # showcase: search, 20 family filters, live size / speed / palette, detail sheet
-npm run build        # typecheck, then emit dist/ (ESM + CJS + .d.ts + CSS)
-npm run build:demo   # static showcase → dist-demo/ (deployed to modern-loaders.netlify.app)
+# Live showcase with search and filters
+npm run dev
+
+# Typecheck, then build dist/
+npm run build
+
+# Build the static showcase
+npm run build:demo
 ```
 
-Adding a variant takes two edits: a `.ldr--<id>` block in `src/styles/`, and a row in
-[`src/variants.ts`](./src/variants.ts). The component, the types, the README catalogue, and the
-showcase all read from that one manifest — `cells` is how many `<span>` children the CSS expects.
+`build` emits ESM + CJS + `.d.ts` + CSS into `dist/`. `build:demo` writes the
+static showcase to `dist-demo/`, which is what gets deployed to
+[modern-loaders.netlify.app](https://modern-loaders.netlify.app/).
+
+Adding a variant takes two edits: a `.ldr--<id>` block in `src/styles/`, and a
+row in [`src/variants.ts`](./src/variants.ts). The component, the types, the
+README catalogue and the showcase all read from that one manifest — `cells` is
+how many `<span>` children the CSS expects.
 
 Two rules keep the motion composable inside a variant: put a whole radial chain
-(`rotate(…) translateY(…)`) in a single `transform` so the offset happens in the rotated frame,
-and reach for the standalone `translate` / `rotate` / `scale` properties when an element already
-animates `transform` — they compose instead of overwriting it.
+(`rotate(…) translateY(…)`) in a single `transform` so the offset happens in the
+rotated frame, and reach for the standalone `translate` / `rotate` / `scale`
+properties when an element already animates `transform` — they compose instead
+of overwriting it.
+
+---
 
 ## License
 
 ISC © suman
+
+<div align="center">
+<sub><a href="https://modern-loaders.netlify.app/">Live gallery</a> · <a href="https://www.npmjs.com/package/modern-loaders">npm</a> · <a href="https://github.com/Suman1999-hub/modern-loaders-package">GitHub</a></sub>
+</div>
