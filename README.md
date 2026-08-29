@@ -10,6 +10,11 @@ Pure CSS motion behind one typed component — no runtime dependencies, no SVG, 
 [![size](https://img.shields.io/bundlephobia/minzip/modern-loaders?color=ec4899&label=gzipped)](https://bundlephobia.com/package/modern-loaders)
 [![types](https://img.shields.io/npm/types/modern-loaders?color=22d3ee)](https://www.npmjs.com/package/modern-loaders)
 [![license](https://img.shields.io/npm/l/modern-loaders?color=8b5cf6)](./LICENSE)
+[![demo](https://img.shields.io/badge/demo-live-10b981)](https://modern-loaders.netlify.app/)
+
+### [**→ Browse all 212 loaders live**](https://modern-loaders.netlify.app/)
+
+Search by name, filter by family, tune size / speed / palette, and copy the JSX for any of them.
 
 </div>
 
@@ -108,7 +113,9 @@ VARIANTS.filter(v => v.group === "Skeletons")
 
 ## All 212 variants
 
-Expand a family to see its variants. Every id maps to a `.ldr--<id>` CSS class.
+Every id maps to a `.ldr--<id>` CSS class. The tables below are the full reference; to *see* them
+moving, use the [live gallery](https://modern-loaders.netlify.app/) — it renders every variant with
+your own size, speed, and colours, and copies the JSX for you.
 
 <details>
 <summary><b>Spinners</b> · 10 — Rings and arcs — the classic shape, modernised.</summary>
@@ -551,7 +558,7 @@ that they render a sensible static frame instead of disappearing.
 ```bash
 npm run dev          # showcase: search, 20 family filters, live size / speed / palette, detail sheet
 npm run build        # typecheck, then emit dist/ (ESM + CJS + .d.ts + CSS)
-npm run build:demo   # static showcase → dist-demo/
+npm run build:demo   # static showcase → dist-demo/ (deployed to modern-loaders.netlify.app)
 ```
 
 Adding a variant takes two edits: a `.ldr--<id>` block in `src/styles/`, and a row in
