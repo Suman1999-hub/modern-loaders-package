@@ -1,0 +1,280 @@
+/* ===================== Family: data ===================== */
+
+/* db-query — a scan running down the store and rows coming back */
+.ldr--db-query { width: calc(var(--size) * .95); height: var(--size); }
+.ldr--db-query::before {
+  content: ""; position: absolute; left: 4%; right: 4%; top: 6%; bottom: 6%;
+  border-radius: 50% / 14%;
+  border: max(2px, calc(var(--size) / 26)) solid var(--c1);
+  background:
+    linear-gradient(color-mix(in oklab, var(--c1) 40%, transparent) 0 0) center 26% / 92% max(2px, calc(var(--size) / 34)) no-repeat,
+    linear-gradient(color-mix(in oklab, var(--c1) 40%, transparent) 0 0) center 54% / 92% max(2px, calc(var(--size) / 34)) no-repeat,
+    color-mix(in oklab, var(--c1) 10%, transparent);
+}
+.ldr--db-query span:nth-child(1) {
+  position: absolute; left: 4%; right: 4%; top: 8%;
+  height: 16%;
+  border-radius: 50% / 40%;
+  background: color-mix(in oklab, var(--c3) 55%, transparent);
+  animation: ldr-query-scan calc(var(--speed) * 2.2) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-query-scan { 0%, 100% { translate: 0 0; } 50% { translate: 0 calc(var(--size) * .68); } }
+.ldr--db-query span:nth-child(n+2) {
+  position: absolute; right: 0; top: 46%;
+  width: 16%; height: 8%;
+  border-radius: 99px;
+  background: var(--c2);
+  animation: ldr-row-out calc(var(--speed) * 2.2) ease-out infinite;
+}
+@keyframes ldr-row-out {
+  0%, 44% { translate: -120% 0; opacity: 0; }
+  60%     { translate: 30% 0; opacity: 1; }
+  100%    { translate: 120% 0; opacity: 0; }
+}
+.ldr--db-query span:nth-child(3) { animation-delay: calc(var(--speed) * .18); }
+.ldr--db-query span:nth-child(4) { animation-delay: calc(var(--speed) * .36); }
+
+/* db-sync — two stores reconciling records in both directions */
+.ldr--db-sync { width: calc(var(--size) * 1.8); height: calc(var(--size) * .9); }
+.ldr--db-sync::before, .ldr--db-sync::after {
+  content: ""; position: absolute; top: 8%; bottom: 8%;
+  width: 26%;
+  border-radius: 50% / 16%;
+  border: max(2px, calc(var(--size) / 28)) solid var(--c1);
+  background: color-mix(in oklab, var(--c1) 12%, transparent);
+}
+.ldr--db-sync::before { left: 0; }
+.ldr--db-sync::after  { right: 0; border-color: var(--c3); }
+.ldr--db-sync span {
+  position: absolute; left: 28%;
+  width: 10%; height: 10%;
+  border-radius: 99px;
+  animation: ldr-reconcile var(--dur) cubic-bezier(.4, 0, .6, 1) infinite;
+}
+@keyframes ldr-reconcile {
+  0%   { transform: translateX(var(--from)); opacity: 0; }
+  18%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { transform: translateX(var(--to)); opacity: 0; }
+}
+.ldr--db-sync span:nth-child(1) { top: 26%; background: var(--c2); --from: 0%; --to: 380%; --dur: calc(var(--speed) * 1.6); }
+.ldr--db-sync span:nth-child(2) { top: 26%; background: var(--c2); --from: 0%; --to: 380%; --dur: calc(var(--speed) * 1.6); animation-delay: calc(var(--speed) * -.8); }
+.ldr--db-sync span:nth-child(3) { top: 62%; background: var(--c3); --from: 380%; --to: 0%; --dur: calc(var(--speed) * 2.1); }
+.ldr--db-sync span:nth-child(4) { top: 62%; background: var(--c3); --from: 380%; --to: 0%; --dur: calc(var(--speed) * 2.1); animation-delay: calc(var(--speed) * -1.05); }
+
+/* scatter-plot — samples landing, then the fit drawn through them */
+.ldr--scatter-plot {
+  width: calc(var(--size) * 1.4); height: var(--size);
+  border-left: max(2px, calc(var(--size) / 34)) solid color-mix(in oklab, var(--c1) 50%, transparent);
+  border-bottom: max(2px, calc(var(--size) / 34)) solid color-mix(in oklab, var(--c1) 50%, transparent);
+}
+.ldr--scatter-plot span {
+  position: absolute;
+  width: 11%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c2);
+  animation: ldr-sample calc(var(--speed) * 3) cubic-bezier(.3, 1.5, .5, 1) infinite;
+}
+@keyframes ldr-sample { 0%, 6% { scale: 0; opacity: 0; } 20%, 86% { scale: 1; opacity: 1; } 100% { scale: 0; opacity: 0; } }
+.ldr--scatter-plot span:nth-child(1) { left: 10%; bottom: 14%; animation-delay: calc(var(--speed) * .0); }
+.ldr--scatter-plot span:nth-child(2) { left: 26%; bottom: 30%; animation-delay: calc(var(--speed) * .12); }
+.ldr--scatter-plot span:nth-child(3) { left: 40%; bottom: 22%; animation-delay: calc(var(--speed) * .24); background: var(--c3); }
+.ldr--scatter-plot span:nth-child(4) { left: 54%; bottom: 48%; animation-delay: calc(var(--speed) * .36); background: var(--c3); }
+.ldr--scatter-plot span:nth-child(5) { left: 68%; bottom: 40%; animation-delay: calc(var(--speed) * .48); }
+.ldr--scatter-plot span:nth-child(6) { left: 82%; bottom: 66%; animation-delay: calc(var(--speed) * .6); }
+.ldr--scatter-plot::after {
+  content: ""; position: absolute; left: 6%; bottom: 16%;
+  width: 92%; height: max(2px, calc(var(--size) / 40));
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c3));
+  transform-origin: 0 50%;
+  rotate: -26deg;
+  animation: ldr-fit-line calc(var(--speed) * 3) ease-out infinite;
+}
+@keyframes ldr-fit-line { 0%, 56% { scale: 0 1; opacity: 0; } 74%, 88% { scale: 1 1; opacity: 1; } 100% { scale: 1 1; opacity: 0; } }
+
+/* spreadsheet — cells recalculating a row at a time */
+.ldr--spreadsheet {
+  width: calc(var(--size) * 1.4); height: var(--size);
+  display: grid;
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+  gap: max(1px, calc(var(--size) / 60));
+  border-radius: calc(var(--size) / 26);
+  overflow: hidden;
+  background: color-mix(in oklab, var(--c1) 30%, transparent);
+}
+.ldr--spreadsheet span {
+  background: color-mix(in oklab, var(--c1) 8%, transparent);
+  animation: ldr-cell-calc calc(var(--speed) * 2.8) steps(1, end) infinite;
+}
+@keyframes ldr-cell-calc {
+  0%, 8%   { background: color-mix(in oklab, var(--c1) 8%, transparent); }
+  12%      { background: var(--c2); }
+  18%, 88% { background: color-mix(in oklab, var(--c3) 55%, transparent); }
+  100%     { background: color-mix(in oklab, var(--c1) 8%, transparent); }
+}
+.ldr--spreadsheet span:nth-child(-n+4) { background: color-mix(in oklab, var(--c1) 40%, transparent); animation: none; }
+.ldr--spreadsheet span:nth-child(5)  { animation-delay: calc(var(--speed) * .0); }
+.ldr--spreadsheet span:nth-child(6)  { animation-delay: calc(var(--speed) * .12); }
+.ldr--spreadsheet span:nth-child(7)  { animation-delay: calc(var(--speed) * .24); }
+.ldr--spreadsheet span:nth-child(8)  { animation-delay: calc(var(--speed) * .36); }
+.ldr--spreadsheet span:nth-child(9)  { animation-delay: calc(var(--speed) * .48); }
+.ldr--spreadsheet span:nth-child(10) { animation-delay: calc(var(--speed) * .6); }
+.ldr--spreadsheet span:nth-child(11) { animation-delay: calc(var(--speed) * .72); }
+.ldr--spreadsheet span:nth-child(12) { animation-delay: calc(var(--speed) * .84); }
+.ldr--spreadsheet span:nth-child(13) { animation-delay: calc(var(--speed) * .96); }
+.ldr--spreadsheet span:nth-child(14) { animation-delay: calc(var(--speed) * 1.08); }
+.ldr--spreadsheet span:nth-child(15) { animation-delay: calc(var(--speed) * 1.2); }
+.ldr--spreadsheet span:nth-child(16) { animation-delay: calc(var(--speed) * 1.32); }
+
+/* file-scan — a page read line by line under the head */
+.ldr--file-scan { width: calc(var(--size) * .85); height: var(--size); }
+.ldr--file-scan::before {
+  content: ""; position: absolute; inset: 2% 6%;
+  clip-path: polygon(0 0, 72% 0, 100% 22%, 100% 100%, 0 100%);
+  background: color-mix(in oklab, var(--c1) 14%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 34)) color-mix(in oklab, var(--c1) 50%, transparent);
+}
+.ldr--file-scan span {
+  position: absolute; left: 16%;
+  height: 6%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 28%, transparent);
+  animation: ldr-parse-line calc(var(--speed) * 2.6) steps(1, end) infinite;
+}
+@keyframes ldr-parse-line {
+  0%, 16%  { background: color-mix(in oklab, var(--c1) 28%, transparent); }
+  22%, 88% { background: var(--c3); }
+  100%     { background: color-mix(in oklab, var(--c1) 28%, transparent); }
+}
+.ldr--file-scan span:nth-child(1) { top: 34%; width: 56%; animation-delay: calc(var(--speed) * .0); }
+.ldr--file-scan span:nth-child(2) { top: 46%; width: 68%; animation-delay: calc(var(--speed) * .2); }
+.ldr--file-scan span:nth-child(3) { top: 58%; width: 44%; animation-delay: calc(var(--speed) * .4); }
+.ldr--file-scan span:nth-child(4) { top: 70%; width: 62%; animation-delay: calc(var(--speed) * .6); }
+.ldr--file-scan::after {
+  content: ""; position: absolute; left: 2%; right: 2%; top: 28%;
+  height: max(2px, calc(var(--size) / 34));
+  background: var(--c2);
+  box-shadow: 0 0 calc(var(--size) / 8) var(--c2);
+  animation: ldr-read-head calc(var(--speed) * 2.6) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-read-head { 0%, 100% { translate: 0 0; opacity: 1; } 78% { translate: 0 calc(var(--size) * .46); opacity: 1; } 92% { opacity: 0; } }
+
+/* folder-scan — folders opened and counted one after another */
+.ldr--folder-scan { width: calc(var(--size) * 1.6); height: calc(var(--size) * .9); }
+.ldr--folder-scan span {
+  position: absolute; bottom: 14%;
+  width: 28%; height: 56%;
+  border-radius: 0 calc(var(--size) / 20) calc(var(--size) / 20) calc(var(--size) / 20);
+  background: linear-gradient(160deg, var(--c1), var(--c2));
+  animation: ldr-folder-open calc(var(--speed) * 3) cubic-bezier(.4, 0, .3, 1) infinite;
+}
+@keyframes ldr-folder-open {
+  0%, 8%   { transform: translateY(0) scale(1); filter: brightness(.7); }
+  22%      { transform: translateY(-22%) scale(1.08); filter: brightness(1.15); }
+  40%, 88% { transform: translateY(0) scale(1); filter: brightness(1); }
+  100%     { transform: translateY(0) scale(1); filter: brightness(.7); }
+}
+.ldr--folder-scan span::before {
+  content: ""; position: absolute; left: 0; top: -16%;
+  width: 46%; height: 20%;
+  border-radius: calc(var(--size) / 30) calc(var(--size) / 30) 0 0;
+  background: inherit;
+}
+.ldr--folder-scan span:nth-child(1) { left:  2%; animation-delay: calc(var(--speed) * .0); }
+.ldr--folder-scan span:nth-child(2) { left: 36%; animation-delay: calc(var(--speed) * .5); }
+.ldr--folder-scan span:nth-child(3) { left: 70%; animation-delay: calc(var(--speed) * 1.0); }
+
+/* cloud-sync — a device and the cloud keeping each other current */
+.ldr--cloud-sync { width: calc(var(--size) * 1.3); height: var(--size); }
+.ldr--cloud-sync::before {
+  content: ""; position: absolute; left: 20%; top: 4%;
+  width: 30%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 35%, transparent);
+  box-shadow:
+    calc(var(--size) * .3)  calc(var(--size) * .07) 0 calc(var(--size) * -.02) color-mix(in oklab, var(--c1) 35%, transparent),
+    calc(var(--size) * .15) calc(var(--size) * .13) 0 calc(var(--size) * .01)  color-mix(in oklab, var(--c1) 35%, transparent);
+}
+.ldr--cloud-sync::after {
+  content: ""; position: absolute; left: 26%; right: 26%; bottom: 2%;
+  height: 24%;
+  border-radius: calc(var(--size) / 16);
+  border: max(2px, calc(var(--size) / 30)) solid var(--c1);
+}
+.ldr--cloud-sync span {
+  position: absolute; left: 50%;
+  width: 10%; aspect-ratio: 1; margin-left: -5%;
+  border-radius: 50%;
+  animation: ldr-sync-shuttle var(--dur) cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes ldr-sync-shuttle {
+  0%   { transform: translate(var(--lane), var(--from)); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translate(var(--lane), var(--to)); opacity: 0; }
+}
+.ldr--cloud-sync span:nth-child(1) { top: 38%; background: var(--c3); --lane: -120%; --from: 180%; --to: -60%; --dur: calc(var(--speed) * 1.6); }
+.ldr--cloud-sync span:nth-child(2) { top: 38%; background: var(--c3); --lane: -120%; --from: 180%; --to: -60%; --dur: calc(var(--speed) * 1.6); animation-delay: calc(var(--speed) * -.8); }
+.ldr--cloud-sync span:nth-child(3) { top: 38%; background: var(--c2); --lane:  120%; --from: -60%; --to: 180%; --dur: calc(var(--speed) * 2); }
+.ldr--cloud-sync span:nth-child(4) { top: 38%; background: var(--c2); --lane:  120%; --from: -60%; --to: 180%; --dur: calc(var(--speed) * 2); animation-delay: calc(var(--speed) * -1); }
+
+/* backup — documents filed into the archive, which then seals */
+.ldr--backup { width: calc(var(--size) * 1.2); height: var(--size); overflow: hidden; }
+.ldr--backup::after {
+  content: ""; position: absolute; left: 12%; right: 12%; bottom: 4%;
+  height: 40%;
+  border-radius: calc(var(--size) / 16);
+  border: max(2px, calc(var(--size) / 26)) solid var(--c1);
+  background: color-mix(in oklab, var(--c1) 12%, transparent);
+  animation: ldr-seal calc(var(--speed) * 3) ease-out infinite;
+}
+@keyframes ldr-seal {
+  0%, 74% { border-color: var(--c1); background: color-mix(in oklab, var(--c1) 12%, transparent); }
+  84%, 96% { border-color: var(--c3); background: color-mix(in oklab, var(--c3) 25%, transparent); }
+  100% { border-color: var(--c1); background: color-mix(in oklab, var(--c1) 12%, transparent); }
+}
+.ldr--backup span {
+  position: absolute; left: 50%; top: 2%;
+  width: 26%; height: 30%; margin-left: -13%;
+  border-radius: calc(var(--size) / 26);
+  background: linear-gradient(160deg, #fff, color-mix(in oklab, var(--c2) 55%, #fff));
+  box-shadow: inset 0 0 0 max(1px, calc(var(--size) / 50)) var(--c2);
+  animation: ldr-file-in calc(var(--speed) * 3) cubic-bezier(.4, 0, .6, 1) infinite;
+}
+@keyframes ldr-file-in {
+  0%   { transform: translate(var(--dx), -120%) rotate(var(--rot)); opacity: 0; }
+  14%  { opacity: 1; }
+  60%  { transform: translate(0, 120%) rotate(0deg); opacity: 1; }
+  72%, 100% { transform: translate(0, 140%) rotate(0deg); opacity: 0; }
+}
+.ldr--backup span:nth-child(1) { --dx: -90%; --rot: -18deg; animation-delay: calc(var(--speed) * .0); }
+.ldr--backup span:nth-child(2) { --dx:  90%; --rot:  18deg; animation-delay: calc(var(--speed) * .5); }
+.ldr--backup span:nth-child(3) { --dx:   0%; --rot:   6deg; animation-delay: calc(var(--speed) * 1.0); }
+
+/* data-funnel — a wide intake narrowing to what actually gets through */
+.ldr--data-funnel { width: calc(var(--size) * 1.2); height: var(--size); }
+.ldr--data-funnel::before {
+  content: ""; position: absolute; inset: 6% 4% 22%;
+  clip-path: polygon(0 0, 100% 0, 62% 100%, 38% 100%);
+  background: color-mix(in oklab, var(--c1) 16%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) color-mix(in oklab, var(--c1) 45%, transparent);
+}
+.ldr--data-funnel span {
+  position: absolute; left: 50%; top: 4%;
+  width: 12%; aspect-ratio: 1; margin-left: -6%;
+  border-radius: 50%;
+  background: var(--c2);
+  animation: ldr-funnel-drop calc(var(--speed) * 2.4) cubic-bezier(.35, 0, .6, 1) infinite;
+}
+@keyframes ldr-funnel-drop {
+  0%   { transform: translate(var(--dx), -60%) scale(1); opacity: 0; }
+  16%  { opacity: 1; }
+  62%  { transform: translate(0, 380%) scale(.7); opacity: 1; }
+  100% { transform: translate(0, 640%) scale(.45); opacity: 0; }
+}
+.ldr--data-funnel span:nth-child(1) { --dx: -230%; animation-delay: calc(var(--speed) * .0); }
+.ldr--data-funnel span:nth-child(2) { --dx:   10%; animation-delay: calc(var(--speed) * .3); background: var(--c3); }
+.ldr--data-funnel span:nth-child(3) { --dx:  230%; animation-delay: calc(var(--speed) * .6); }
+.ldr--data-funnel span:nth-child(4) { --dx: -120%; animation-delay: calc(var(--speed) * .9); background: var(--c3); }
+.ldr--data-funnel span:nth-child(5) { --dx:  140%; animation-delay: calc(var(--speed) * 1.2); }

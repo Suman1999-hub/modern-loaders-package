@@ -1,0 +1,209 @@
+/* ===================== Family: physics ===================== */
+
+/* magnetic-field — flux running pole to pole */
+.ldr--magnetic-field { width: calc(var(--size) * 1.5); height: var(--size); }
+.ldr--magnetic-field::before, .ldr--magnetic-field::after {
+  content: ""; position: absolute; top: 50%;
+  width: 16%; height: 26%; margin-top: -13%;
+  border-radius: calc(var(--size) / 30);
+}
+.ldr--magnetic-field::before { left: 4%;  background: var(--c2); }
+.ldr--magnetic-field::after  { right: 4%; background: var(--c3); }
+.ldr--magnetic-field span {
+  position: absolute; left: 18%; right: 18%; top: 50%;
+  border: max(2px, calc(var(--size) / 40)) solid transparent;
+  border-top-color: var(--c1);
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, var(--c1), transparent) top / 200% max(2px, calc(var(--size) / 40)) no-repeat;
+  animation: ldr-flux calc(var(--speed) * 1.6) linear infinite;
+}
+@keyframes ldr-flux { 0% { background-position: -100% 0; } 100% { background-position: 200% 0; } }
+.ldr--magnetic-field span:nth-child(1) { height: 26%; margin-top: -13%; }
+.ldr--magnetic-field span:nth-child(2) { height: 52%; margin-top: -26%; animation-delay: calc(var(--speed) * -.4); }
+.ldr--magnetic-field span:nth-child(3) { height: 82%; margin-top: -41%; animation-delay: calc(var(--speed) * -.8); }
+.ldr--magnetic-field span:nth-child(4) { height: 26%; margin-top: -13%; rotate: 180deg; animation-delay: calc(var(--speed) * -.2); }
+.ldr--magnetic-field span:nth-child(5) { height: 52%; margin-top: -26%; rotate: 180deg; animation-delay: calc(var(--speed) * -.6); }
+.ldr--magnetic-field span:nth-child(6) { height: 82%; margin-top: -41%; rotate: 180deg; animation-delay: calc(var(--speed) * -1.0); }
+
+/* lightning — a bolt forking down and lighting the whole sky */
+.ldr--lightning { overflow: hidden; border-radius: calc(var(--size) / 12); }
+.ldr--lightning::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 20%, color-mix(in oklab, var(--c3) 55%, transparent), transparent 70%);
+  animation: ldr-sky-flash calc(var(--speed) * 1.9) steps(1, end) infinite;
+}
+@keyframes ldr-sky-flash { 0%, 14%, 100% { opacity: 0; } 18%, 30% { opacity: 1; } 36% { opacity: .35; } 42%, 66% { opacity: .8; } 74% { opacity: 0; } }
+.ldr--lightning span {
+  position: absolute; left: 50%; top: 0;
+  width: 46%; height: 100%; margin-left: -23%;
+  background: linear-gradient(var(--c3), var(--c2));
+  filter: drop-shadow(0 0 calc(var(--size) / 8) var(--c3));
+  animation: ldr-strike calc(var(--speed) * 1.9) steps(1, end) infinite;
+}
+@keyframes ldr-strike { 0%, 14%, 100% { opacity: 0; } 17%, 32% { opacity: 1; } 36% { opacity: .2; } 40%, 68% { opacity: 1; } 76% { opacity: 0; } }
+.ldr--lightning span:nth-child(1) { clip-path: polygon(56% 0, 22% 46%, 46% 46%, 14% 100%, 74% 40%, 48% 40%, 78% 0); }
+.ldr--lightning span:nth-child(2) {
+  clip-path: polygon(50% 30%, 30% 62%, 44% 62%, 26% 100%, 62% 58%, 46% 58%, 66% 30%);
+  animation-delay: calc(var(--speed) * .05);
+  opacity: .7;
+}
+
+/* electric-arc — a discharge jumping the gap and jittering */
+.ldr--electric-arc { width: calc(var(--size) * 1.5); height: calc(var(--size) * .8); }
+.ldr--electric-arc::before, .ldr--electric-arc::after {
+  content: ""; position: absolute; top: 50%;
+  width: 12%; height: 40%; margin-top: -20%;
+  border-radius: calc(var(--size) / 34);
+  background: linear-gradient(var(--c1), color-mix(in oklab, var(--c1) 60%, #000));
+}
+.ldr--electric-arc::before { left: 2%; }
+.ldr--electric-arc::after  { right: 2%; }
+.ldr--electric-arc span {
+  position: absolute; left: 14%; right: 14%; top: 50%;
+  height: 46%; margin-top: -23%;
+  background: var(--c3);
+  filter: drop-shadow(0 0 calc(var(--size) / 9) var(--c3));
+  animation: ldr-discharge calc(var(--speed) * .55) steps(1, end) infinite;
+}
+@keyframes ldr-discharge {
+  0%   { clip-path: polygon(0 50%, 18% 22%, 34% 62%, 52% 18%, 70% 58%, 86% 30%, 100% 50%, 86% 42%, 70% 70%, 52% 30%, 34% 74%, 18% 34%); opacity: 1; }
+  25%  { clip-path: polygon(0 50%, 16% 68%, 32% 26%, 50% 74%, 68% 24%, 84% 66%, 100% 50%, 84% 78%, 68% 36%, 50% 86%, 32% 38%, 16% 80%); opacity: .8; }
+  50%  { clip-path: polygon(0 50%, 20% 34%, 36% 70%, 54% 28%, 72% 66%, 88% 38%, 100% 50%, 88% 50%, 72% 78%, 54% 40%, 36% 82%, 20% 46%); opacity: 1; }
+  75%  { opacity: .35; }
+  100% { opacity: 1; }
+}
+.ldr--electric-arc span:nth-child(2) { opacity: .5; animation-delay: calc(var(--speed) * -.18); filter: drop-shadow(0 0 calc(var(--size) / 6) var(--c2)); background: var(--c2); }
+
+/* gravity-well — a mass denting the grid and dragging a body round */
+.ldr--gravity-well { overflow: hidden; border-radius: calc(var(--size) / 10); perspective: calc(var(--size) * 1.2); }
+.ldr--gravity-well::before {
+  content: ""; position: absolute; left: -60%; right: -60%; top: 18%; bottom: -50%;
+  background:
+    repeating-linear-gradient(90deg, color-mix(in oklab, var(--c1) 45%, transparent) 0 1px, transparent 1px calc(var(--size) / 7)),
+    repeating-linear-gradient(0deg,  color-mix(in oklab, var(--c1) 45%, transparent) 0 1px, transparent 1px calc(var(--size) / 7));
+  -webkit-mask: radial-gradient(circle at 50% 34%, transparent 0 8%, #000 34%);
+          mask: radial-gradient(circle at 50% 34%, transparent 0 8%, #000 34%);
+  transform: rotateX(66deg);
+  transform-origin: 50% 0;
+  animation: ldr-grid-pull calc(var(--speed) * 3) linear infinite;
+}
+@keyframes ldr-grid-pull { to { background-position: 0 calc(var(--size) / 7), 0 calc(var(--size) / 7); } }
+.ldr--gravity-well span:nth-child(1) {
+  position: absolute; left: 50%; top: 44%;
+  width: 22%; aspect-ratio: 1; margin: -11% 0 0 -11%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 32%, color-mix(in oklab, var(--c3) 50%, #fff) 0 16%, var(--c2) 55%, color-mix(in oklab, var(--c1) 60%, #000) 100%);
+  box-shadow: 0 0 calc(var(--size) / 6) color-mix(in oklab, var(--c2) 55%, transparent);
+}
+.ldr--gravity-well span:nth-child(2) {
+  position: absolute; left: 50%; top: 44%;
+  width: 60%; height: 26%; margin: -13% 0 0 -30%;
+  animation: ldr-well-orbit calc(var(--speed) * 1.8) linear infinite;
+}
+@keyframes ldr-well-orbit { to { rotate: 1turn; } }
+.ldr--gravity-well span:nth-child(2)::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 14%; aspect-ratio: 1; margin-top: -7%;
+  border-radius: 50%;
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 12) var(--c3);
+}
+
+/* interference — two sources and the pattern where they meet */
+.ldr--interference { overflow: hidden; border-radius: calc(var(--size) / 10); }
+.ldr--interference span {
+  position: absolute; top: 50%;
+  width: 180%; aspect-ratio: 1; margin-top: -90%;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle at 50% 50%,
+    color-mix(in oklab, var(--c1) 55%, transparent) 0 max(1px, calc(var(--size) / 40)),
+    transparent 0 calc(var(--size) / 8));
+  animation: ldr-source calc(var(--speed) * 2) linear infinite;
+}
+@keyframes ldr-source { 0% { scale: .2; opacity: 1; } 100% { scale: 1; opacity: .15; } }
+.ldr--interference span:nth-child(1) { left: -60%; }
+.ldr--interference span:nth-child(2) { right: -60%; background: repeating-radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--c3) 55%, transparent) 0 max(1px, calc(var(--size) / 40)), transparent 0 calc(var(--size) / 8)); }
+.ldr--interference span:nth-child(3) { left: -60%; animation-delay: calc(var(--speed) * -1); }
+.ldr--interference span:nth-child(4) { right: -60%; background: repeating-radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--c3) 55%, transparent) 0 max(1px, calc(var(--size) / 40)), transparent 0 calc(var(--size) / 8)); animation-delay: calc(var(--speed) * -1); }
+
+/* pendulum-wave — different lengths drifting in and out of phase */
+.ldr--pendulum-wave {
+  width: calc(var(--size) * 1.4); height: var(--size);
+  display: inline-flex; justify-content: space-between;
+}
+.ldr--pendulum-wave span {
+  position: relative;
+  width: max(1px, calc(var(--size) / 60));
+  background: color-mix(in oklab, var(--c1) 45%, transparent);
+  transform-origin: 50% 0;
+  animation: ldr-swing var(--dur) cubic-bezier(.45, 0, .55, 1) infinite alternate;
+}
+@keyframes ldr-swing { from { rotate: -30deg; } to { rotate: 30deg; } }
+.ldr--pendulum-wave span::after {
+  content: ""; position: absolute; left: 50%; bottom: 0;
+  width: calc(var(--size) / 8); aspect-ratio: 1; margin-left: calc(var(--size) / -16);
+  border-radius: 50%;
+  background: currentColor;
+}
+.ldr--pendulum-wave span:nth-child(1) { height: 92%; --dur: calc(var(--speed) * 1.00); color: var(--c1); }
+.ldr--pendulum-wave span:nth-child(2) { height: 84%; --dur: calc(var(--speed) * .94); color: color-mix(in oklab, var(--c1), var(--c2)); }
+.ldr--pendulum-wave span:nth-child(3) { height: 76%; --dur: calc(var(--speed) * .88); color: var(--c2); }
+.ldr--pendulum-wave span:nth-child(4) { height: 68%; --dur: calc(var(--speed) * .82); color: var(--c2); }
+.ldr--pendulum-wave span:nth-child(5) { height: 60%; --dur: calc(var(--speed) * .76); color: color-mix(in oklab, var(--c2), var(--c3)); }
+.ldr--pendulum-wave span:nth-child(6) { height: 52%; --dur: calc(var(--speed) * .70); color: var(--c3); }
+.ldr--pendulum-wave span:nth-child(7) { height: 44%; --dur: calc(var(--speed) * .64); color: var(--c3); }
+
+/* newton-disc — segments blurring toward white as the disc winds up */
+.ldr--newton-disc {
+  border-radius: 50%;
+  background: conic-gradient(var(--c1) 0 16.6%, var(--c2) 0 33.3%, var(--c3) 0 50%,
+                             var(--c1) 0 66.6%, var(--c2) 0 83.3%, var(--c3) 0);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) color-mix(in oklab, var(--c1) 40%, #fff);
+  animation: ldr-wind-up calc(var(--speed) * 4) cubic-bezier(.5, 0, .5, 1) infinite,
+             ldr-desaturate calc(var(--speed) * 4) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-wind-up { 0% { rotate: 0deg; } 50% { rotate: 2200deg; } 100% { rotate: 2400deg; } }
+@keyframes ldr-desaturate {
+  0%, 100% { filter: saturate(1) blur(0); }
+  50%      { filter: saturate(.06) blur(calc(var(--size) / 90)); }
+}
+.ldr--newton-disc::after {
+  content: ""; position: absolute; inset: 42%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 30%, #fff);
+}
+
+/* resonance — a string stepping up through its harmonics */
+.ldr--resonance { width: calc(var(--size) * 1.7); height: calc(var(--size) * .7); }
+.ldr--resonance::before, .ldr--resonance::after {
+  content: ""; position: absolute; top: 14%; bottom: 14%;
+  width: max(3px, calc(var(--size) / 18));
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 55%, transparent);
+}
+.ldr--resonance::before { left: 0; }
+.ldr--resonance::after  { right: 0; }
+.ldr--resonance span {
+  position: absolute; left: 3%; right: 3%; top: 0; bottom: 0;
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+  animation: ldr-mode calc(var(--speed) * 4.5) steps(1, end) infinite,
+             ldr-vibrate calc(var(--speed) * .18) ease-in-out infinite alternate;
+}
+@keyframes ldr-mode {
+  0%, 33%   { opacity: var(--m1, 0); }
+  34%, 66%  { opacity: var(--m2, 0); }
+  67%, 100% { opacity: var(--m3, 0); }
+}
+@keyframes ldr-vibrate { from { transform: scaleY(.5); } to { transform: scaleY(1); } }
+.ldr--resonance span:nth-child(1) {
+  --m1: 1;
+  clip-path: polygon(0 48%, 25% 16%, 50% 8%, 75% 16%, 100% 48%, 100% 52%, 75% 84%, 50% 92%, 25% 84%, 0 52%);
+}
+.ldr--resonance span:nth-child(2) {
+  --m2: 1;
+  clip-path: polygon(0 48%, 16% 14%, 34% 10%, 50% 48%, 66% 86%, 84% 90%, 100% 48%, 100% 52%, 84% 10%, 66% 14%, 50% 52%, 34% 90%, 16% 86%, 0 52%);
+}
+.ldr--resonance span:nth-child(3) {
+  --m3: 1;
+  clip-path: polygon(0 48%, 12% 14%, 25% 48%, 38% 86%, 50% 48%, 62% 12%, 75% 48%, 88% 88%, 100% 48%, 100% 52%, 88% 12%, 75% 52%, 62% 88%, 50% 52%, 38% 14%, 25% 52%, 12% 86%, 0 52%);
+}

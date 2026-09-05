@@ -1,0 +1,238 @@
+/* ===================== Family: ai ===================== */
+
+/* neural-net — layers firing left to right along lit connections */
+.ldr--neural-net { width: calc(var(--size) * 1.5); height: var(--size); }
+.ldr--neural-net span {
+  position: absolute;
+  width: 15%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c1);
+  animation: ldr-fire var(--dur, calc(var(--speed) * 1.8)) ease-in-out infinite;
+}
+@keyframes ldr-fire {
+  0%, 12%  { opacity: .22; scale: .72; box-shadow: 0 0 0 transparent; }
+  26%, 46% { opacity: 1; scale: 1.12; box-shadow: 0 0 calc(var(--size) / 8) currentColor; }
+  62%, 100% { opacity: .22; scale: .72; box-shadow: 0 0 0 transparent; }
+}
+.ldr--neural-net span::before {
+  content: ""; position: absolute; left: 90%; top: 50%;
+  width: var(--len, 220%); height: max(1px, calc(var(--size) / 46));
+  border-radius: 99px;
+  transform-origin: 0 50%;
+  rotate: var(--ang, 0deg);
+  background: linear-gradient(90deg, color-mix(in oklab, var(--c1) 30%, transparent), var(--c3), color-mix(in oklab, var(--c1) 30%, transparent));
+  background-size: 260% 100%;
+  animation: ldr-synapse-run calc(var(--speed) * 1.8) linear infinite;
+}
+@keyframes ldr-synapse-run { 0% { background-position: 160% 0; } 100% { background-position: -160% 0; } }
+.ldr--neural-net span:nth-child(1) { left: 2%;  top: 22%; color: var(--c1); --ang:  22deg; --len: 260%; }
+.ldr--neural-net span:nth-child(2) { left: 2%;  top: 62%; color: var(--c1); --ang: -22deg; --len: 260%; animation-delay: calc(var(--speed) * .1); }
+.ldr--neural-net span:nth-child(3) { left: 42%; top:  6%; color: var(--c2); background: var(--c2); --ang:  18deg; --len: 250%; animation-delay: calc(var(--speed) * .3); }
+.ldr--neural-net span:nth-child(4) { left: 42%; top: 42%; color: var(--c2); background: var(--c2); --ang:   0deg; --len: 250%; animation-delay: calc(var(--speed) * .4); }
+.ldr--neural-net span:nth-child(5) { left: 42%; top: 76%; color: var(--c2); background: var(--c2); --ang: -18deg; --len: 250%; animation-delay: calc(var(--speed) * .5); }
+.ldr--neural-net span:nth-child(6) { left: 84%; top: 22%; color: var(--c3); background: var(--c3); animation-delay: calc(var(--speed) * .7); }
+.ldr--neural-net span:nth-child(7) { left: 84%; top: 62%; color: var(--c3); background: var(--c3); animation-delay: calc(var(--speed) * .8); }
+.ldr--neural-net span:nth-child(6)::before,
+.ldr--neural-net span:nth-child(7)::before { content: none; }
+
+/* ai-think — thoughts rippling out inside a soft brain shape */
+.ldr--ai-think::before {
+  content: ""; position: absolute; inset: 8%;
+  border: max(2px, calc(var(--size) / 22)) solid var(--c1);
+  background: color-mix(in oklab, var(--c1) 10%, transparent);
+  animation: ldr-brain-morph calc(var(--speed) * 4) ease-in-out infinite;
+}
+@keyframes ldr-brain-morph {
+  0%, 100% { border-radius: 62% 38% 46% 54% / 54% 46% 54% 46%; }
+  33%      { border-radius: 42% 58% 62% 38% / 44% 62% 38% 56%; }
+  66%      { border-radius: 55% 45% 38% 62% / 62% 38% 62% 38%; }
+}
+.ldr--ai-think span {
+  position: absolute;
+  width: 16%; aspect-ratio: 1;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 40)) solid var(--c3);
+  animation: ldr-thought calc(var(--speed) * 2.2) ease-out infinite;
+}
+@keyframes ldr-thought { 0% { scale: .2; opacity: 1; } 100% { scale: 2.6; opacity: 0; } }
+.ldr--ai-think span:nth-child(1) { left: 28%; top: 30%; }
+.ldr--ai-think span:nth-child(2) { left: 54%; top: 46%; border-color: var(--c2); animation-delay: calc(var(--speed) * -.73); }
+.ldr--ai-think span:nth-child(3) { left: 36%; top: 60%; animation-delay: calc(var(--speed) * -1.46); }
+
+/* synapse — a signal jumping the cleft and lighting the far terminal */
+.ldr--synapse { width: calc(var(--size) * 1.6); height: calc(var(--size) * .7); }
+.ldr--synapse::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 40%; height: 26%; margin-top: -13%;
+  border-radius: 99px 0 0 99px;
+  background: linear-gradient(90deg, var(--c1), color-mix(in oklab, var(--c1) 60%, var(--c2)));
+}
+.ldr--synapse::after {
+  content: ""; position: absolute; right: 0; top: 50%;
+  width: 40%; height: 40%; margin-top: -20%;
+  border-radius: 50% 99px 99px 50%;
+  background: color-mix(in oklab, var(--c3) 30%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) var(--c3);
+  animation: ldr-receive calc(var(--speed) * 1.8) ease-out infinite;
+}
+@keyframes ldr-receive {
+  0%, 55% { background: color-mix(in oklab, var(--c3) 18%, transparent); scale: 1; }
+  70% { background: var(--c3); scale: 1.1; }
+  100% { background: color-mix(in oklab, var(--c3) 18%, transparent); scale: 1; }
+}
+.ldr--synapse span {
+  position: absolute; left: 38%; top: 50%;
+  width: 10%; aspect-ratio: 1; margin-top: -5%;
+  border-radius: 50%;
+  background: var(--c2);
+  box-shadow: 0 0 calc(var(--size) / 9) var(--c2);
+  animation: ldr-vesicle calc(var(--speed) * 1.8) cubic-bezier(.4, 0, .5, 1) infinite;
+}
+.ldr--synapse span:nth-child(2) { animation-delay: calc(var(--speed) * -.6); }
+.ldr--synapse span:nth-child(3) { animation-delay: calc(var(--speed) * -1.2); }
+@keyframes ldr-vesicle {
+  0%   { translate: 0 0; scale: .3; opacity: 0; }
+  20%  { scale: 1; opacity: 1; }
+  60%  { translate: 210% 0; scale: 1; opacity: 1; }
+  70%, 100% { translate: 230% 0; scale: .2; opacity: 0; }
+}
+
+/* ml-train — gradient descent rolling into the bottom of the bowl */
+.ldr--ml-train { width: calc(var(--size) * 1.4); height: var(--size); }
+.ldr--ml-train::before {
+  content: ""; position: absolute; left: 4%; right: 4%; top: 8%; bottom: 14%;
+  border: max(2px, calc(var(--size) / 26)) solid var(--c1);
+  border-top: none;
+  border-radius: 0 0 50% 50% / 0 0 68% 68%;
+  opacity: .55;
+}
+.ldr--ml-train::after {
+  content: ""; position: absolute; left: 4%; right: 4%; bottom: 12%;
+  height: max(1px, calc(var(--size) / 50));
+  background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--c1) 45%, transparent) 0 8%, transparent 8% 16%);
+}
+.ldr--ml-train span {
+  position: absolute; left: 50%; top: 12%;
+  width: 16%; aspect-ratio: 1; margin-left: -8%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 32%, #fff 0 16%, var(--c2) 55%, var(--c3) 100%);
+  animation: ldr-descend-x calc(var(--speed) * 3) cubic-bezier(.35, 0, .25, 1) infinite,
+             ldr-descend-y calc(var(--speed) * .55) cubic-bezier(.4, 0, .6, 1) infinite;
+}
+@keyframes ldr-descend-x { 0% { translate: -230% 0; } 100% { translate: 0 0; } }
+@keyframes ldr-descend-y {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(390%); }
+}
+.ldr--ml-train span:nth-child(2) {
+  width: 30%; height: 8%; margin-left: -15%; top: auto; bottom: 10%;
+  border-radius: 50%; background: color-mix(in oklab, var(--c1) 40%, transparent);
+  animation: ldr-descend-x calc(var(--speed) * 3) cubic-bezier(.35, 0, .25, 1) infinite;
+}
+
+/* token-stream — words landing one at a time as they are generated */
+.ldr--token-stream {
+  width: calc(var(--size) * 1.9); height: calc(var(--size) * .7);
+  display: flex; flex-wrap: wrap; align-content: center; gap: 5%;
+}
+.ldr--token-stream span {
+  height: 26%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c2));
+  animation: ldr-token-in calc(var(--speed) * 3) cubic-bezier(.3, 1.4, .5, 1) infinite;
+}
+@keyframes ldr-token-in {
+  0%, 4%   { transform: translateY(45%) scaleX(0); opacity: 0; }
+  14%, 84% { transform: translateY(0) scaleX(1); opacity: 1; }
+  96%, 100% { transform: translateY(0) scaleX(1); opacity: 0; }
+}
+.ldr--token-stream span { transform-origin: 0 50%; }
+.ldr--token-stream span:nth-child(1) { width: 22%; animation-delay: calc(var(--speed) * .0); }
+.ldr--token-stream span:nth-child(2) { width: 15%; animation-delay: calc(var(--speed) * .22); }
+.ldr--token-stream span:nth-child(3) { width: 30%; animation-delay: calc(var(--speed) * .44); }
+.ldr--token-stream span:nth-child(4) { width: 18%; animation-delay: calc(var(--speed) * .66); }
+.ldr--token-stream span:nth-child(5) { width: 26%; animation-delay: calc(var(--speed) * .88); background: linear-gradient(90deg, var(--c2), var(--c3)); }
+.ldr--token-stream span:nth-child(6) { width: 12%; animation-delay: calc(var(--speed) * 1.1); background: linear-gradient(90deg, var(--c2), var(--c3)); }
+.ldr--token-stream span:nth-child(7) { width: 34%; animation-delay: calc(var(--speed) * 1.32); background: linear-gradient(90deg, var(--c2), var(--c3)); }
+
+/* attention — a focus window sliding along the context */
+.ldr--attention {
+  width: calc(var(--size) * 1.9); height: calc(var(--size) * .6);
+  display: inline-flex; align-items: center; justify-content: space-between;
+}
+.ldr--attention span {
+  width: 10%; height: 48%;
+  border-radius: calc(var(--size) / 30);
+  background: color-mix(in oklab, var(--c1) 28%, transparent);
+  animation: ldr-attend calc(var(--speed) * 3.2) ease-in-out infinite;
+}
+@keyframes ldr-attend {
+  0%, 100% { background: color-mix(in oklab, var(--c1) 28%, transparent); scale: 1 1; }
+  8%  { background: var(--c3); scale: 1.35 1.7; }
+  20% { background: color-mix(in oklab, var(--c1) 28%, transparent); scale: 1 1; }
+}
+.ldr--attention span:nth-child(1) { animation-delay: calc(var(--speed) * .0); }
+.ldr--attention span:nth-child(2) { animation-delay: calc(var(--speed) * .4); }
+.ldr--attention span:nth-child(3) { animation-delay: calc(var(--speed) * .8); }
+.ldr--attention span:nth-child(4) { animation-delay: calc(var(--speed) * 1.2); }
+.ldr--attention span:nth-child(5) { animation-delay: calc(var(--speed) * 1.6); }
+.ldr--attention span:nth-child(6) { animation-delay: calc(var(--speed) * 2.0); }
+.ldr--attention span:nth-child(7) { animation-delay: calc(var(--speed) * 2.4); }
+.ldr--attention::after {
+  content: ""; position: absolute; top: 4%; bottom: 4%; left: -2%;
+  width: 18%;
+  border-radius: calc(var(--size) / 20);
+  border: max(1px, calc(var(--size) / 40)) solid var(--c2);
+  background: color-mix(in oklab, var(--c2) 12%, transparent);
+  animation: ldr-focus-window calc(var(--speed) * 3.2) ease-in-out infinite;
+}
+@keyframes ldr-focus-window { 0% { translate: 0 0; } 100% { translate: 480% 0; } }
+
+/* robot-eyes — a machine sweeping its gaze, blinking now and then */
+.ldr--robot-eyes { width: calc(var(--size) * 1.4); height: calc(var(--size) * .72); }
+.ldr--robot-eyes::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: calc(var(--size) / 6);
+  background: color-mix(in oklab, var(--c1) 16%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) color-mix(in oklab, var(--c1) 45%, transparent);
+}
+.ldr--robot-eyes span {
+  position: absolute; top: 26%;
+  width: 28%; height: 48%;
+  border-radius: calc(var(--size) / 12);
+  background: color-mix(in oklab, var(--c1) 30%, #000);
+  overflow: hidden;
+  animation: ldr-blink-lid calc(var(--speed) * 3.4) steps(1, end) infinite;
+}
+@keyframes ldr-blink-lid { 0%, 86%, 100% { scale: 1 1; } 90% { scale: 1 .1; } 94% { scale: 1 1; } }
+.ldr--robot-eyes span:nth-child(1) { left: 12%; }
+.ldr--robot-eyes span:nth-child(2) { right: 12%; }
+.ldr--robot-eyes span::after {
+  content: ""; position: absolute; top: 18%; bottom: 18%; left: 8%;
+  width: 34%;
+  border-radius: 99px;
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 10) var(--c3);
+  animation: ldr-gaze calc(var(--speed) * 2.2) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-gaze { 0%, 100% { translate: 0 0; } 50% { translate: 145% 0; } }
+
+/* embedding — scattered points settling into their clusters */
+.ldr--embedding span {
+  position: absolute; left: 50%; top: 50%;
+  width: 11%; aspect-ratio: 1; margin: -5.5% 0 0 -5.5%;
+  border-radius: 50%;
+  animation: ldr-cluster calc(var(--speed) * 3) cubic-bezier(.45, 0, .3, 1) infinite;
+}
+@keyframes ldr-cluster {
+  0%, 100% { transform: translate(var(--sx), var(--sy)) scale(.7); opacity: .45; }
+  46%, 72% { transform: translate(var(--cx), var(--cy)) scale(1); opacity: 1; }
+}
+.ldr--embedding span:nth-child(1) { background: var(--c1); --sx: -260%; --sy:  110%; --cx: -230%; --cy: -180%; }
+.ldr--embedding span:nth-child(2) { background: var(--c1); --sx:  190%; --sy: -230%; --cx: -160%; --cy: -230%; animation-delay: calc(var(--speed) * .05); }
+.ldr--embedding span:nth-child(3) { background: var(--c1); --sx:   30%; --sy:  260%; --cx: -200%; --cy: -110%; animation-delay: calc(var(--speed) * .1); }
+.ldr--embedding span:nth-child(4) { background: var(--c2); --sx: -230%; --sy: -180%; --cx:  220%; --cy: -160%; animation-delay: calc(var(--speed) * .15); }
+.ldr--embedding span:nth-child(5) { background: var(--c2); --sx:  250%; --sy:  180%; --cx:  160%; --cy: -230%; animation-delay: calc(var(--speed) * .2); }
+.ldr--embedding span:nth-child(6) { background: var(--c3); --sx: -140%; --sy:  240%; --cx:  -30%; --cy:  210%; animation-delay: calc(var(--speed) * .25); }
+.ldr--embedding span:nth-child(7) { background: var(--c3); --sx:  260%; --sy:  -60%; --cx:   50%; --cy:  250%; animation-delay: calc(var(--speed) * .3); }
+.ldr--embedding span:nth-child(8) { background: var(--c3); --sx:  -60%; --sy: -260%; --cx:  110%; --cy:  180%; animation-delay: calc(var(--speed) * .35); }

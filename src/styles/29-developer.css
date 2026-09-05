@@ -1,0 +1,243 @@
+/* ===================== Family: developer ===================== */
+
+/* code-compile — source rows collapsing into compiled blocks */
+.ldr--code-compile {
+  width: calc(var(--size) * 1.7); height: var(--size);
+  display: inline-flex; flex-direction: column; justify-content: space-evenly;
+}
+.ldr--code-compile span {
+  position: relative; height: 14%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), color-mix(in oklab, var(--c1) 55%, transparent));
+  transform-origin: 0 50%;
+  animation: ldr-compile-row calc(var(--speed) * 2.8) cubic-bezier(.5, 0, .3, 1) infinite;
+}
+@keyframes ldr-compile-row {
+  0%, 10%  { scale: 1 1; opacity: 1; }
+  40%, 84% { scale: .18 1; opacity: 1; }
+  100%     { scale: 1 1; opacity: 1; }
+}
+.ldr--code-compile span::after {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 100%;
+  border-radius: 99px;
+  background: var(--c3);
+  opacity: 0;
+  animation: ldr-compile-ok calc(var(--speed) * 2.8) steps(1, end) infinite;
+}
+@keyframes ldr-compile-ok { 0%, 40% { opacity: 0; } 44%, 84% { opacity: 1; } 100% { opacity: 0; } }
+.ldr--code-compile span:nth-child(1) { width: 88%; }
+.ldr--code-compile span:nth-child(2) { width: 64%; animation-delay: calc(var(--speed) * .16); }
+.ldr--code-compile span:nth-child(3) { width: 96%; animation-delay: calc(var(--speed) * .32); }
+.ldr--code-compile span:nth-child(4) { width: 72%; animation-delay: calc(var(--speed) * .48); }
+.ldr--code-compile span:nth-child(5) { width: 54%; animation-delay: calc(var(--speed) * .64); }
+.ldr--code-compile span:nth-child(1)::after { animation-delay: calc(var(--speed) * .0); }
+.ldr--code-compile span:nth-child(2)::after { animation-delay: calc(var(--speed) * .16); }
+.ldr--code-compile span:nth-child(3)::after { animation-delay: calc(var(--speed) * .32); }
+.ldr--code-compile span:nth-child(4)::after { animation-delay: calc(var(--speed) * .48); }
+.ldr--code-compile span:nth-child(5)::after { animation-delay: calc(var(--speed) * .64); }
+
+/* git-branch — work splitting off the trunk and merging back in */
+.ldr--git-branch { width: calc(var(--size) * 1.8); height: calc(var(--size) * .8); }
+.ldr--git-branch::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 68%;
+  height: max(2px, calc(var(--size) / 30));
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 55%, transparent);
+}
+.ldr--git-branch span:nth-child(1) {
+  position: absolute; left: 16%; right: 16%; top: 24%;
+  height: 46%;
+  border: max(2px, calc(var(--size) / 30)) solid var(--c2);
+  border-bottom: none;
+  border-radius: 99px 99px 0 0;
+  animation: ldr-branch-draw calc(var(--speed) * 3) ease-in-out infinite;
+}
+@keyframes ldr-branch-draw {
+  0%, 6%   { clip-path: inset(0 100% 0 0); }
+  46%, 82% { clip-path: inset(0 0 0 0); }
+  98%, 100% { clip-path: inset(0 0 0 0); opacity: 0; }
+}
+.ldr--git-branch span:nth-child(n+2) {
+  position: absolute; top: 68%;
+  width: 14%; aspect-ratio: 1; margin-top: -7%;
+  border-radius: 50%;
+  background: var(--c1);
+  animation: ldr-commit calc(var(--speed) * 3) cubic-bezier(.3, 1.5, .5, 1) infinite;
+}
+@keyframes ldr-commit { 0%, 8% { scale: 0; } 22%, 88% { scale: 1; } 100% { scale: 0; } }
+.ldr--git-branch span:nth-child(2) { left: 2%;  animation-delay: calc(var(--speed) * .0); }
+.ldr--git-branch span:nth-child(3) { left: 43%; top: 24%; background: var(--c2); animation-delay: calc(var(--speed) * .6); }
+.ldr--git-branch span:nth-child(4) { right: 2%; background: var(--c3); animation-delay: calc(var(--speed) * 1.5); }
+
+/* pipeline — a build moving through its stages */
+.ldr--pipeline {
+  width: calc(var(--size) * 1.9); height: calc(var(--size) * .6);
+  display: inline-flex; align-items: center; justify-content: space-between;
+}
+.ldr--pipeline::before {
+  content: ""; position: absolute; left: 8%; right: 8%; top: 50%;
+  height: max(2px, calc(var(--size) / 34));
+  background: color-mix(in oklab, var(--c1) 30%, transparent);
+}
+.ldr--pipeline span {
+  position: relative; z-index: 1;
+  width: 19%; height: 62%;
+  border-radius: calc(var(--size) / 18);
+  background: color-mix(in oklab, var(--c1) 16%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 34)) color-mix(in oklab, var(--c1) 45%, transparent);
+  animation: ldr-stage calc(var(--speed) * 3.2) ease-out infinite;
+}
+@keyframes ldr-stage {
+  0%, 8%   { background: color-mix(in oklab, var(--c1) 16%, transparent); scale: 1; }
+  16%      { background: var(--c2); scale: 1.14; }
+  28%, 88% { background: var(--c3); scale: 1; }
+  100%     { background: color-mix(in oklab, var(--c1) 16%, transparent); scale: 1; }
+}
+.ldr--pipeline span:nth-child(1) { animation-delay: calc(var(--speed) * .0); }
+.ldr--pipeline span:nth-child(2) { animation-delay: calc(var(--speed) * .55); }
+.ldr--pipeline span:nth-child(3) { animation-delay: calc(var(--speed) * 1.1); }
+.ldr--pipeline span:nth-child(4) { animation-delay: calc(var(--speed) * 1.65); }
+
+/* npm-install — packages dropping in and stacking up */
+.ldr--npm-install { width: calc(var(--size) * 1.1); height: var(--size); overflow: hidden; }
+.ldr--npm-install::after {
+  content: ""; position: absolute; left: 6%; right: 6%; bottom: 4%;
+  height: 52%;
+  border: max(2px, calc(var(--size) / 26)) solid var(--c1);
+  border-top: none;
+  border-radius: 0 0 calc(var(--size) / 12) calc(var(--size) / 12);
+}
+.ldr--npm-install span {
+  position: absolute; left: 50%;
+  width: 24%; height: 15%; margin-left: -12%;
+  border-radius: calc(var(--size) / 30);
+  background: linear-gradient(150deg, var(--c2), var(--c3));
+  animation: ldr-pkg-drop calc(var(--speed) * 2.8) cubic-bezier(.45, 0, .7, 1) infinite;
+}
+@keyframes ldr-pkg-drop {
+  0%   { translate: var(--x, 0) -120%; opacity: 0; rotate: -12deg; }
+  14%  { opacity: 1; }
+  55%, 92% { translate: var(--x, 0) var(--rest); opacity: 1; rotate: 0deg; }
+  100% { translate: var(--x, 0) var(--rest); opacity: 0; rotate: 0deg; }
+}
+.ldr--npm-install span:nth-child(1) { --x: -60%; --rest: 480%; animation-delay: calc(var(--speed) * .0); }
+.ldr--npm-install span:nth-child(2) { --x:  60%; --rest: 480%; animation-delay: calc(var(--speed) * .32); }
+.ldr--npm-install span:nth-child(3) { --x: -60%; --rest: 360%; animation-delay: calc(var(--speed) * .64); }
+.ldr--npm-install span:nth-child(4) { --x:  60%; --rest: 360%; animation-delay: calc(var(--speed) * .96); }
+.ldr--npm-install span:nth-child(5) { --x:   0%; --rest: 240%; animation-delay: calc(var(--speed) * 1.28); }
+
+/* container — image layers stacking, then the container coming up */
+.ldr--container { width: calc(var(--size) * 1.3); height: var(--size); }
+.ldr--container span {
+  position: absolute; left: 12%; right: 12%;
+  height: 15%;
+  border-radius: calc(var(--size) / 22);
+  background: linear-gradient(90deg, var(--c1), var(--c2));
+  transform-origin: 50% 100%;
+  animation: ldr-layer calc(var(--speed) * 3) cubic-bezier(.3, 1.3, .5, 1) infinite;
+}
+@keyframes ldr-layer {
+  0%, 6%   { transform: translateY(120%) scaleX(.5); opacity: 0; }
+  22%, 82% { transform: translateY(0) scaleX(1); opacity: 1; }
+  96%, 100% { transform: translateY(-40%) scaleX(.5); opacity: 0; }
+}
+.ldr--container span:nth-child(1) { bottom:  6%; animation-delay: calc(var(--speed) * .0); }
+.ldr--container span:nth-child(2) { bottom: 24%; animation-delay: calc(var(--speed) * .22); }
+.ldr--container span:nth-child(3) { bottom: 42%; animation-delay: calc(var(--speed) * .44); background: linear-gradient(90deg, var(--c2), var(--c3)); }
+.ldr--container span:nth-child(4) { bottom: 60%; animation-delay: calc(var(--speed) * .66); background: linear-gradient(90deg, var(--c2), var(--c3)); }
+.ldr--container::after {
+  content: ""; position: absolute; left: 30%; right: 30%; top: 4%;
+  height: 12%;
+  border-radius: 99px;
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 8) color-mix(in oklab, var(--c3) 60%, transparent);
+  animation: ldr-container-up calc(var(--speed) * 3) ease-out infinite;
+}
+@keyframes ldr-container-up { 0%, 78% { opacity: 0; scale: .4 1; } 88% { opacity: 1; scale: 1 1; } 100% { opacity: 0; scale: 1.2 1; } }
+
+/* k8s-pods — replicas retiring while their replacements come up */
+.ldr--k8s-pods {
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+  gap: calc(var(--size) / 12);
+}
+.ldr--k8s-pods span {
+  border-radius: calc(var(--size) / 8);
+  background: color-mix(in oklab, var(--c1) 25%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) var(--c1);
+  animation: ldr-pod-cycle calc(var(--speed) * 3.6) cubic-bezier(.4, 0, .3, 1) infinite;
+}
+@keyframes ldr-pod-cycle {
+  0%, 60%  { scale: 1; opacity: 1; box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) var(--c1); }
+  70%      { scale: .2; opacity: 0; }
+  78%      { scale: .2; opacity: 0; }
+  88%, 100% { scale: 1; opacity: 1; box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) var(--c3); }
+}
+.ldr--k8s-pods span:nth-child(1) { animation-delay: calc(var(--speed) * -.0); }
+.ldr--k8s-pods span:nth-child(2) { animation-delay: calc(var(--speed) * -.6); }
+.ldr--k8s-pods span:nth-child(3) { animation-delay: calc(var(--speed) * -1.2); }
+.ldr--k8s-pods span:nth-child(4) { animation-delay: calc(var(--speed) * -1.8); }
+.ldr--k8s-pods span:nth-child(5) { animation-delay: calc(var(--speed) * -2.4); }
+.ldr--k8s-pods span:nth-child(6) { animation-delay: calc(var(--speed) * -3.0); }
+
+/* bug-fix — a lens sweeping the file until the bad line goes green */
+.ldr--bug-fix {
+  width: calc(var(--size) * 1.7); height: var(--size);
+  display: inline-flex; flex-direction: column; justify-content: space-evenly;
+}
+.ldr--bug-fix span {
+  height: 12%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 30%, transparent);
+}
+.ldr--bug-fix span:nth-child(1) { width: 78%; }
+.ldr--bug-fix span:nth-child(2) { width: 54%; }
+.ldr--bug-fix span:nth-child(3) { width: 92%; animation: ldr-bad-line calc(var(--speed) * 3.2) steps(1, end) infinite; }
+@keyframes ldr-bad-line {
+  0%, 34%  { background: color-mix(in oklab, var(--c1) 30%, transparent); }
+  38%, 62% { background: var(--c2); }
+  66%, 100% { background: var(--c3); }
+}
+.ldr--bug-fix span:nth-child(4) { width: 66%; }
+.ldr--bug-fix span:nth-child(5) { width: 84%; }
+.ldr--bug-fix::after {
+  content: ""; position: absolute; left: 4%; top: 0;
+  width: 30%; aspect-ratio: 1;
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 24)) solid var(--c2);
+  background: color-mix(in oklab, var(--c2) 10%, transparent);
+  animation: ldr-lens-sweep calc(var(--speed) * 3.2) cubic-bezier(.5, 0, .4, 1) infinite;
+}
+@keyframes ldr-lens-sweep {
+  0%   { translate: 0 -12%; }
+  38%, 62% { translate: 150% 108%; }
+  100% { translate: 210% 250%; }
+}
+
+/* code-diff — a patch landing, removals out and additions in */
+.ldr--code-diff {
+  width: calc(var(--size) * 1.7); height: var(--size);
+  display: inline-flex; flex-direction: column; justify-content: space-evenly;
+}
+.ldr--code-diff span {
+  position: relative; height: 13%;
+  border-radius: calc(var(--size) / 34);
+  animation: ldr-diff-row calc(var(--speed) * 2.8) cubic-bezier(.4, 0, .3, 1) infinite;
+}
+@keyframes ldr-diff-row {
+  0%, 8%   { transform: translateX(var(--from)); opacity: 0; }
+  24%, 84% { transform: translateX(0); opacity: 1; }
+  100%     { transform: translateX(var(--from)); opacity: 0; }
+}
+.ldr--code-diff span::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 5%;
+  border-radius: 99px;
+  background: currentColor;
+}
+.ldr--code-diff span:nth-child(1) { width: 74%; color: var(--c3); background: color-mix(in oklab, var(--c3) 26%, transparent); --from: -30%; }
+.ldr--code-diff span:nth-child(2) { width: 90%; color: var(--c2); background: color-mix(in oklab, var(--c2) 26%, transparent); --from:  30%; animation-delay: calc(var(--speed) * .18); }
+.ldr--code-diff span:nth-child(3) { width: 58%; color: var(--c3); background: color-mix(in oklab, var(--c3) 26%, transparent); --from: -30%; animation-delay: calc(var(--speed) * .36); }
+.ldr--code-diff span:nth-child(4) { width: 82%; color: var(--c3); background: color-mix(in oklab, var(--c3) 26%, transparent); --from: -30%; animation-delay: calc(var(--speed) * .54); }
+.ldr--code-diff span:nth-child(5) { width: 66%; color: var(--c2); background: color-mix(in oklab, var(--c2) 26%, transparent); --from:  30%; animation-delay: calc(var(--speed) * .72); }
