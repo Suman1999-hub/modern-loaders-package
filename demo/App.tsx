@@ -38,7 +38,7 @@ async function copyText(text: string) {
 }
 
 /**
- * Cards only mount their loader once they are near the viewport. With 212 live
+ * Cards only mount their loader once they are near the viewport. With 336 live
  * CSS animations on one page that is the difference between a smooth scroll and
  * a stuttering one — and it costs no animation frames of its own.
  */
@@ -376,7 +376,7 @@ export function App() {
               <input
                 ref={search}
                 type="search"
-                placeholder="Search 212 loaders…"
+                placeholder={`Search ${VARIANTS.length} loaders…`}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />

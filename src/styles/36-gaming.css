@@ -1,0 +1,208 @@
+/* ===================== Family: gaming ===================== */
+
+/* health-bar — damage chipping away, then a heal */
+.ldr--health-bar { width: calc(var(--size) * 2); height: calc(var(--size) * .42); }
+.ldr--health-bar::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: calc(var(--size) / 16);
+  background: color-mix(in oklab, var(--c1) 20%, #000);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 26)) color-mix(in oklab, var(--c1) 55%, transparent);
+}
+.ldr--health-bar span {
+  position: absolute; inset: 14% 3%;
+  border-radius: calc(var(--size) / 24);
+  transform-origin: 0 50%;
+}
+.ldr--health-bar span:nth-child(1) {
+  background: color-mix(in oklab, var(--c2) 70%, #fff);
+  animation: ldr-chip calc(var(--speed) * 3.4) steps(1, end) infinite;
+}
+@keyframes ldr-chip {
+  0%, 10% { scale: 1 1; } 22% { scale: .78 1; } 40% { scale: .5 1; }
+  58% { scale: .22 1; } 74%, 100% { scale: 1 1; }
+}
+.ldr--health-bar span:nth-child(2) {
+  background: linear-gradient(90deg, var(--c3), color-mix(in oklab, var(--c3) 60%, var(--c2)));
+  animation: ldr-hp calc(var(--speed) * 3.4) cubic-bezier(.4, 0, .3, 1) infinite;
+}
+@keyframes ldr-hp {
+  0%, 6% { scale: 1 1; } 18%, 24% { scale: .78 1; } 36%, 42% { scale: .5 1; }
+  54%, 60% { scale: .22 1; } 78%, 100% { scale: 1 1; }
+}
+
+/* dice-roll — a die tumbling and coming to rest */
+.ldr--dice-roll { perspective: calc(var(--size) * 2.5); }
+.ldr--dice-roll span:nth-child(1) {
+  position: absolute; inset: 16%;
+  border-radius: calc(var(--size) / 8);
+  background: linear-gradient(150deg, #fff, color-mix(in oklab, var(--c1) 25%, #fff));
+  box-shadow: inset 0 0 0 max(1px, calc(var(--size) / 60)) color-mix(in oklab, var(--c1) 40%, transparent);
+  animation: ldr-tumble-die calc(var(--speed) * 2.4) cubic-bezier(.35, 0, .3, 1) infinite;
+}
+@keyframes ldr-tumble-die {
+  0%   { transform: rotate3d(1, 1, .4, 0deg) translateY(-40%); }
+  55%  { transform: rotate3d(1, 1, .4, 900deg) translateY(0); }
+  70%  { transform: rotate3d(1, 1, .4, 900deg) translateY(-14%); }
+  82%, 100% { transform: rotate3d(1, 1, .4, 900deg) translateY(0); }
+}
+.ldr--dice-roll span:nth-child(n+2) {
+  position: absolute;
+  width: 12%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c2);
+  animation: ldr-pip calc(var(--speed) * 2.4) steps(1, end) infinite;
+}
+@keyframes ldr-pip { 0%, 62% { opacity: 0; } 70%, 100% { opacity: 1; } }
+.ldr--dice-roll span:nth-child(2) { left: 28%; top: 28%; }
+.ldr--dice-roll span:nth-child(3) { left: 44%; top: 44%; background: var(--c3); }
+.ldr--dice-roll span:nth-child(4) { left: 60%; top: 60%; }
+
+/* level-up — the bar topping out and the badge landing */
+.ldr--level-up { width: calc(var(--size) * 1.8); height: calc(var(--size) * .9); }
+.ldr--level-up::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 10%;
+  height: 26%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 18%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) color-mix(in oklab, var(--c1) 45%, transparent);
+}
+.ldr--level-up span:nth-child(1) {
+  position: absolute; left: 1.5%; right: 1.5%; bottom: 13%;
+  height: 20%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+  transform-origin: 0 50%;
+  animation: ldr-xp calc(var(--speed) * 3) cubic-bezier(.5, 0, .3, 1) infinite;
+}
+@keyframes ldr-xp { 0%, 4% { scale: 0 1; } 62%, 84% { scale: 1 1; } 100% { scale: 0 1; } }
+.ldr--level-up span:nth-child(n+2) {
+  position: absolute; left: 50%; bottom: 40%;
+  width: 10%; aspect-ratio: 1; margin-left: -5%;
+  border-radius: 50%;
+  background: var(--c3);
+  animation: ldr-levelup-spark calc(var(--speed) * 3) cubic-bezier(.2, .8, .3, 1) infinite;
+}
+@keyframes ldr-levelup-spark {
+  0%, 62% { transform: rotate(var(--a)) translateY(0) scale(.2); opacity: 0; }
+  74%     { transform: rotate(var(--a)) translateY(-160%) scale(1); opacity: 1; }
+  100%    { transform: rotate(var(--a)) translateY(-300%) scale(.3); opacity: 0; }
+}
+.ldr--level-up span:nth-child(2) { --a: -50deg; }
+.ldr--level-up span:nth-child(3) { --a:   0deg; background: var(--c2); }
+.ldr--level-up span:nth-child(4) { --a:  50deg; }
+
+/* coin-collect — pickups spinning up into the counter */
+.ldr--coin-collect { width: calc(var(--size) * 1.5); height: var(--size); }
+.ldr--coin-collect::after {
+  content: ""; position: absolute; right: 2%; top: 6%;
+  width: 22%; aspect-ratio: 1;
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 26)) solid var(--c3);
+  animation: ldr-counter-tick calc(var(--speed) * 1.8) ease-out infinite;
+}
+@keyframes ldr-counter-tick { 0%, 64% { scale: 1; } 76% { scale: 1.25; } 100% { scale: 1; } }
+.ldr--coin-collect span {
+  position: absolute; left: 8%; bottom: 12%;
+  width: 20%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, color-mix(in oklab, var(--c2) 40%, #fff) 0 22%, var(--c2) 100%);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 30)) color-mix(in oklab, var(--c2) 50%, #fff);
+  animation: ldr-collect-x calc(var(--speed) * 1.8) cubic-bezier(.4, 0, .6, 1) infinite,
+             ldr-collect-spin calc(var(--speed) * .45) linear infinite;
+}
+@keyframes ldr-collect-x {
+  0%   { translate: 0 0; opacity: 0; scale: .6; }
+  16%  { opacity: 1; scale: 1; }
+  70%  { translate: 260% -180%; opacity: 1; scale: .8; }
+  100% { translate: 300% -230%; opacity: 0; scale: .3; }
+}
+@keyframes ldr-collect-spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+.ldr--coin-collect span:nth-child(2) { animation-delay: calc(var(--speed) * -.6), calc(var(--speed) * -.15); }
+.ldr--coin-collect span:nth-child(3) { animation-delay: calc(var(--speed) * -1.2), calc(var(--speed) * -.3); }
+
+/* chomp — a mouth working its way along the row */
+.ldr--chomp { width: calc(var(--size) * 1.9); height: calc(var(--size) * .6); }
+.ldr--chomp span:nth-child(1) {
+  position: absolute; left: 0; top: 50%;
+  width: 34%; aspect-ratio: 1; margin-top: -17%;
+  border-radius: 50%;
+  background: var(--c2);
+  animation: ldr-bite calc(var(--speed) * .5) ease-in-out infinite,
+             ldr-chomp-run calc(var(--speed) * 3) linear infinite;
+}
+/* The wedge is cut with clip-path rather than a conic angle: unregistered
+   custom properties do not interpolate, so an animated `from <angle>` would
+   simply jump. Polygons with a matching point count tween cleanly. */
+@keyframes ldr-bite {
+  0%, 100% { clip-path: polygon(50% 50%, 100% 47%, 100% 0, 0 0, 0 100%, 100% 100%, 100% 53%); }
+  50%      { clip-path: polygon(50% 50%, 100% 10%, 100% 0, 0 0, 0 100%, 100% 100%, 100% 90%); }
+}
+@keyframes ldr-chomp-run { 0% { translate: 0 0; } 100% { translate: 200% 0; } }
+.ldr--chomp span:nth-child(n+2) {
+  position: absolute; top: 50%;
+  width: 9%; aspect-ratio: 1; margin-top: -4.5%;
+  border-radius: 50%;
+  background: var(--c3);
+}
+.ldr--chomp span:nth-child(2) { left: 38%; animation: ldr-eat-2 calc(var(--speed) * 3) steps(1, end) infinite; }
+.ldr--chomp span:nth-child(3) { left: 54%; animation: ldr-eat-3 calc(var(--speed) * 3) steps(1, end) infinite; }
+.ldr--chomp span:nth-child(4) { left: 70%; animation: ldr-eat-4 calc(var(--speed) * 3) steps(1, end) infinite; }
+.ldr--chomp span:nth-child(5) { left: 86%; animation: ldr-eat-5 calc(var(--speed) * 3) steps(1, end) infinite; }
+@keyframes ldr-eat-2 { 0%, 22% { opacity: 1; } 23%, 100% { opacity: 0; } }
+@keyframes ldr-eat-3 { 0%, 42% { opacity: 1; } 43%, 100% { opacity: 0; } }
+@keyframes ldr-eat-4 { 0%, 62% { opacity: 1; } 63%, 100% { opacity: 0; } }
+@keyframes ldr-eat-5 { 0%, 82% { opacity: 1; } 83%, 100% { opacity: 0; } }
+
+/* sprite-march — a squad stepping along in formation */
+.ldr--sprite-march {
+  width: calc(var(--size) * 1.6); height: calc(var(--size) * .7);
+  display: inline-flex; align-items: flex-end; justify-content: space-between;
+}
+.ldr--sprite-march span {
+  position: relative;
+  width: 21%; height: 74%;
+  background: var(--c1);
+  clip-path: polygon(26% 0, 74% 0, 74% 24%, 100% 24%, 100% 62%, 74% 62%, 74% 100%, 56% 100%, 56% 80%, 44% 80%, 44% 100%, 26% 100%, 26% 62%, 0 62%, 0 24%, 26% 24%);
+  animation: ldr-march calc(var(--speed) * .7) steps(2, end) infinite;
+}
+@keyframes ldr-march { 0% { transform: translateY(0) scaleX(1); } 50% { transform: translateY(-22%) scaleX(-1); } 100% { transform: translateY(0) scaleX(1); } }
+.ldr--sprite-march span:nth-child(1) { animation-delay: calc(var(--speed) * .0); }
+.ldr--sprite-march span:nth-child(2) { background: var(--c2); animation-delay: calc(var(--speed) * -.12); }
+.ldr--sprite-march span:nth-child(3) { background: var(--c2); animation-delay: calc(var(--speed) * -.24); }
+.ldr--sprite-march span:nth-child(4) { background: var(--c3); animation-delay: calc(var(--speed) * -.36); }
+.ldr--sprite-march::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: max(2px, calc(var(--size) / 34));
+  background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--c1) 45%, transparent) 0 10%, transparent 10% 22%);
+  animation: ldr-march-ground calc(var(--speed) * .7) linear infinite;
+}
+@keyframes ldr-march-ground { to { background-position: calc(var(--size) * -.352) 0; } }
+
+/* mana-orb — a reservoir refilling behind glass */
+.ldr--mana-orb {
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 max(3px, calc(var(--size) / 14)) color-mix(in oklab, var(--c1) 55%, transparent),
+              0 0 calc(var(--size) / 5) color-mix(in oklab, var(--c3) 40%, transparent);
+  background: color-mix(in oklab, var(--c1) 12%, transparent);
+}
+.ldr--mana-orb span:nth-child(1) {
+  position: absolute; left: -50%; right: -50%; top: 0; bottom: 0;
+  border-radius: 42% 42% 0 0 / 16% 16% 0 0;
+  background: linear-gradient(color-mix(in oklab, var(--c3) 85%, #fff), var(--c1));
+  animation: ldr-mana-fill calc(var(--speed) * 3.4) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-mana-fill { 0% { translate: 0 96%; } 62%, 84% { translate: 0 12%; } 100% { translate: 0 96%; } }
+.ldr--mana-orb span:nth-child(2) {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 26%, rgba(255, 255, 255, .5), transparent 46%);
+}
+.ldr--mana-orb span:nth-child(3) {
+  position: absolute; left: 50%; bottom: 10%;
+  width: 12%; aspect-ratio: 1; margin-left: -6%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .7);
+  animation: ldr-mana-bubble calc(var(--speed) * 1.6) ease-in infinite;
+}
+@keyframes ldr-mana-bubble { 0% { translate: 0 0; opacity: 0; scale: .4; } 25% { opacity: .9; } 100% { translate: 30% -420%; opacity: 0; scale: 1; } }

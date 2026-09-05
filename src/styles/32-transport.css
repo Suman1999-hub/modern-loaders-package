@@ -1,0 +1,222 @@
+/* ===================== Family: transport ===================== */
+
+/* gps-locate — a pin dropping and the fix tightening around it */
+.ldr--gps-locate span:nth-child(1) {
+  position: absolute; left: 50%; top: 6%;
+  width: 38%; height: 54%; margin-left: -19%;
+  border-radius: 50% 50% 50% 50% / 42% 42% 62% 62%;
+  clip-path: polygon(50% 100%, 0 46%, 0 0, 100% 0, 100% 46%);
+  background: linear-gradient(160deg, var(--c2), var(--c1));
+  animation: ldr-pin-drop calc(var(--speed) * 2.2) cubic-bezier(.4, 1.5, .5, 1) infinite;
+}
+@keyframes ldr-pin-drop {
+  0%, 6%   { transform: translateY(-90%) scale(.6); opacity: 0; }
+  26%, 88% { transform: translateY(0) scale(1); opacity: 1; }
+  100%     { transform: translateY(-90%) scale(.6); opacity: 0; }
+}
+.ldr--gps-locate span:nth-child(1)::after {
+  content: ""; position: absolute; left: 50%; top: 28%;
+  width: 34%; aspect-ratio: 1; margin-left: -17%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 25%, #fff);
+}
+.ldr--gps-locate span:nth-child(n+2) {
+  position: absolute; left: 50%; bottom: 10%;
+  width: 60%; height: 22%; margin-left: -30%;
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 30)) solid var(--c3);
+  animation: ldr-fix-ring calc(var(--speed) * 2.2) ease-out infinite;
+}
+@keyframes ldr-fix-ring { 0%, 22% { scale: .2; opacity: 0; } 34% { opacity: .9; } 100% { scale: 1.3; opacity: 0; } }
+.ldr--gps-locate span:nth-child(3) { animation-delay: calc(var(--speed) * .35); }
+
+/* route-calc — a path being solved between two stops */
+.ldr--route-calc { width: calc(var(--size) * 1.5); height: var(--size); }
+.ldr--route-calc::before, .ldr--route-calc::after {
+  content: ""; position: absolute;
+  width: 16%; aspect-ratio: 1;
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 26)) solid var(--c1);
+  background: color-mix(in oklab, var(--c1) 20%, transparent);
+}
+.ldr--route-calc::before { left: 2%; bottom: 8%; }
+.ldr--route-calc::after  { right: 2%; top: 8%; border-color: var(--c3); }
+.ldr--route-calc span {
+  position: absolute;
+  height: max(2px, calc(var(--size) / 30));
+  border-radius: 99px;
+  background: repeating-linear-gradient(90deg, var(--c2) 0 28%, transparent 28% 50%);
+  transform-origin: 0 50%;
+  animation: ldr-route-leg calc(var(--speed) * 2.8) ease-out infinite;
+}
+@keyframes ldr-route-leg {
+  0%, 4%   { scale: 0 1; opacity: 0; }
+  26%, 86% { scale: 1 1; opacity: 1; }
+  100%     { scale: 0 1; opacity: 0; }
+}
+.ldr--route-calc span:nth-child(1) { left: 14%; bottom: 16%; width: 30%; rotate: 0deg; animation-delay: calc(var(--speed) * .0); }
+.ldr--route-calc span:nth-child(2) { left: 44%; bottom: 16%; width: 34%; rotate: -52deg; animation-delay: calc(var(--speed) * .32); }
+.ldr--route-calc span:nth-child(3) { left: 64%; bottom: 43%; width: 22%; rotate: 0deg; animation-delay: calc(var(--speed) * .64); }
+.ldr--route-calc span:nth-child(4) { left: 79%; bottom: 43%; width: 24%; rotate: -58deg; animation-delay: calc(var(--speed) * .96); }
+
+/* compass — a needle hunting and settling on north */
+.ldr--compass {
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 20)) solid color-mix(in oklab, var(--c1) 45%, transparent);
+  background: color-mix(in oklab, var(--c1) 8%, transparent);
+}
+.ldr--compass::before {
+  content: ""; position: absolute; inset: 4%;
+  border-radius: 50%;
+  background: repeating-conic-gradient(color-mix(in oklab, var(--c1) 50%, transparent) 0 1.5deg, transparent 1.5deg 30deg);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 12%), #000 calc(100% - 11%));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 12%), #000 calc(100% - 11%));
+}
+.ldr--compass span {
+  position: absolute; left: 50%; top: 16%; bottom: 16%;
+  width: 14%; margin-left: -7%;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  background: linear-gradient(var(--c2) 0 50%, color-mix(in oklab, var(--c1) 50%, #fff) 50% 100%);
+  animation: ldr-needle calc(var(--speed) * 3.2) cubic-bezier(.35, 1.4, .5, 1) infinite;
+}
+@keyframes ldr-needle {
+  0%   { rotate: -160deg; }
+  22%  { rotate: 40deg; }
+  40%  { rotate: -18deg; }
+  56%  { rotate: 10deg; }
+  70%, 92% { rotate: 0deg; }
+  100% { rotate: -160deg; }
+}
+.ldr--compass::after {
+  content: ""; position: absolute; left: 45%; top: 45%;
+  width: 10%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c3);
+}
+
+/* truck — a delivery run with the road moving underneath */
+.ldr--truck { width: calc(var(--size) * 1.7); height: var(--size); overflow: hidden; }
+.ldr--truck::before {
+  content: ""; position: absolute; left: 6%; top: 22%;
+  width: 46%; height: 42%;
+  border-radius: calc(var(--size) / 20);
+  background: linear-gradient(160deg, var(--c1), var(--c2));
+}
+.ldr--truck::after {
+  content: ""; position: absolute; left: 52%; top: 34%;
+  width: 30%; height: 30%;
+  clip-path: polygon(0 0, 62% 0, 100% 44%, 100% 100%, 0 100%);
+  background: linear-gradient(160deg, var(--c2), var(--c3));
+}
+.ldr--truck span:nth-child(-n+2) {
+  position: absolute; bottom: 18%;
+  width: 17%; aspect-ratio: 1;
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 24)) solid var(--c1);
+  background: color-mix(in oklab, var(--c1) 22%, transparent);
+  animation: ldr-wheel calc(var(--speed) * .6) linear infinite;
+}
+@keyframes ldr-wheel { to { rotate: 1turn; } }
+.ldr--truck span:nth-child(1) { left: 14%; }
+.ldr--truck span:nth-child(2) { left: 60%; }
+.ldr--truck span:nth-child(-n+2)::after {
+  content: ""; position: absolute; left: 50%; top: 8%; bottom: 8%;
+  width: max(2px, calc(var(--size) / 40)); margin-left: max(-1px, calc(var(--size) / -80));
+  background: var(--c1);
+}
+.ldr--truck span:nth-child(3) {
+  position: absolute; left: 0; right: 0; bottom: 8%;
+  height: max(2px, calc(var(--size) / 34));
+  background: repeating-linear-gradient(90deg, var(--c3) 0 12%, transparent 12% 26%);
+  animation: ldr-road calc(var(--speed) * .5) linear infinite;
+}
+@keyframes ldr-road { to { background-position: calc(var(--size) * -.44) 0; } }
+
+/* package-track — a parcel clearing each checkpoint on the way */
+.ldr--package-track { width: calc(var(--size) * 1.9); height: calc(var(--size) * .8); }
+.ldr--package-track::before {
+  content: ""; position: absolute; left: 6%; right: 6%; bottom: 26%;
+  height: max(2px, calc(var(--size) / 40));
+  background: color-mix(in oklab, var(--c1) 30%, transparent);
+}
+.ldr--package-track span:nth-child(-n+4) {
+  position: absolute; bottom: 20%;
+  width: 11%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 25%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 34)) color-mix(in oklab, var(--c1) 50%, transparent);
+  animation: ldr-checkpoint calc(var(--speed) * 3.2) ease-out infinite;
+}
+@keyframes ldr-checkpoint {
+  0%, 10%  { background: color-mix(in oklab, var(--c1) 25%, transparent); scale: 1; }
+  20%      { background: var(--c3); scale: 1.3; }
+  30%, 90% { background: var(--c3); scale: 1; }
+  100%     { background: color-mix(in oklab, var(--c1) 25%, transparent); scale: 1; }
+}
+.ldr--package-track span:nth-child(1) { left:  4%; animation-delay: calc(var(--speed) * .0); }
+.ldr--package-track span:nth-child(2) { left: 32%; animation-delay: calc(var(--speed) * .7); }
+.ldr--package-track span:nth-child(3) { left: 60%; animation-delay: calc(var(--speed) * 1.4); }
+.ldr--package-track span:nth-child(4) { left: 88%; animation-delay: calc(var(--speed) * 2.1); }
+.ldr--package-track span:nth-child(5) {
+  position: absolute; left: 3%; bottom: 44%;
+  width: 16%; height: 30%;
+  border-radius: calc(var(--size) / 34);
+  background: linear-gradient(150deg, var(--c1), var(--c2));
+  animation: ldr-parcel-move calc(var(--speed) * 3.2) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-parcel-move {
+  0%, 8%   { translate: 0 0; }
+  22%, 30% { translate: 175% 0; }
+  44%, 52% { translate: 350% 0; }
+  66%, 100% { translate: 525% 0; }
+}
+
+/* plane-path — a flight tracing its great circle between cities */
+.ldr--plane-path { width: calc(var(--size) * 1.7); height: var(--size); }
+.ldr--plane-path::before {
+  content: ""; position: absolute; left: 8%; right: 8%; top: 22%; bottom: 26%;
+  border: max(2px, calc(var(--size) / 40)) dashed color-mix(in oklab, var(--c1) 45%, transparent);
+  border-bottom: none; border-left: none; border-right: none;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+.ldr--plane-path::after {
+  content: ""; position: absolute; left: 4%; bottom: 20%;
+  width: 12%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c1);
+  box-shadow: calc(var(--size) * 1.42) 0 0 var(--c3);
+}
+.ldr--plane-path span {
+  position: absolute; left: 8%; right: 8%; top: 22%; bottom: 26%;
+  animation: ldr-flight calc(var(--speed) * 3) linear infinite;
+}
+@keyframes ldr-flight { 0% { rotate: -90deg; } 100% { rotate: 90deg; } }
+.ldr--plane-path span::before {
+  content: ""; position: absolute; left: 50%; top: -8%;
+  width: 18%; height: 18%; margin-left: -9%;
+  clip-path: polygon(50% 0, 100% 78%, 50% 60%, 0 78%);
+  background: var(--c2);
+  filter: drop-shadow(0 0 calc(var(--size) / 12) color-mix(in oklab, var(--c2) 60%, transparent));
+}
+
+/* traffic-light — the signal running its full phase */
+.ldr--traffic-light {
+  width: calc(var(--size) * .52); height: calc(var(--size) * 1.25);
+  display: inline-flex; flex-direction: column; justify-content: space-evenly; align-items: center;
+  border-radius: calc(var(--size) / 8);
+  border: max(2px, calc(var(--size) / 26)) solid color-mix(in oklab, var(--c1) 50%, transparent);
+  background: color-mix(in oklab, var(--c1) 12%, transparent);
+}
+.ldr--traffic-light span {
+  width: 62%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 18%, transparent);
+  animation: ldr-lamp calc(var(--speed) * 3.6) steps(1, end) infinite;
+}
+@keyframes ldr-lamp {
+  0%, 30%   { background: currentColor; box-shadow: 0 0 calc(var(--size) / 6) currentColor; }
+  31%, 100% { background: color-mix(in oklab, var(--c1) 18%, transparent); box-shadow: none; }
+}
+.ldr--traffic-light span:nth-child(1) { color: var(--c2); animation-delay: calc(var(--speed) * .0); }
+.ldr--traffic-light span:nth-child(2) { color: color-mix(in oklab, var(--c2), var(--c3)); animation-delay: calc(var(--speed) * 1.2); }
+.ldr--traffic-light span:nth-child(3) { color: var(--c3); animation-delay: calc(var(--speed) * 2.4); }

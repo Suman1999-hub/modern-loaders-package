@@ -2,7 +2,7 @@
 
 <h1>modern-loaders</h1>
 
-<p><b>212 ready-made loading animations for React.</b><br/>
+<p><b>336 ready-made loading animations for React.</b><br/>
 One component, pure CSS motion, zero runtime dependencies.</p>
 
 [![npm version](https://img.shields.io/npm/v/modern-loaders?style=flat-square&color=6366f1&label=npm)](https://www.npmjs.com/package/modern-loaders)
@@ -16,7 +16,7 @@ One component, pure CSS motion, zero runtime dependencies.</p>
 npm install modern-loaders
 ```
 
-[![Browse all 212 loaders live](https://img.shields.io/badge/%E2%86%92%20Browse%20all%20212%20loaders%20live-6366f1?style=for-the-badge&labelColor=6366f1)](https://modern-loaders.netlify.app/)
+[![Browse all 336 loaders live](https://img.shields.io/badge/%E2%86%92%20Browse%20all%20336%20loaders%20live-6366f1?style=for-the-badge&labelColor=6366f1)](https://modern-loaders.netlify.app/)
 
 </div>
 
@@ -24,7 +24,7 @@ npm install modern-loaders
 
 ## What is modern-loaders?
 
-A library of **212 loading animations** for React, all behind a single
+A library of **336 loading animations** for React, all behind a single
 `<Loader />` component.
 
 **The problem.** Every app needs loading states. Building them by hand means
@@ -37,7 +37,7 @@ thread and there is nothing to install alongside it.
 
 ### Why developers use it
 
-- **212 variants across 20 families** — spinners, dots, bars, shapes, progress, grids, pulses, organic, skeletons, dimensional, neon, liquid, glitch, particles, futuristic, elastic, minimal, gradient, kinetic, and premium.
+- **336 variants across 36 families** — abstract families (spinners, dots, bars, shapes, neon, liquid, glitch, particles…) plus concrete ones that match what your app is actually doing: medical, space, weather, technology, AI, communication, security, developer, data, finance, transport, food, creative, physics, gaming.
 - **Three props to learn.** `size`, `speed`, `colors`. Everything else has a sensible default.
 - **Zero dependencies.** ~4 kB of JS. All motion is CSS keyframes — no rAF loop, no JS on the animation path.
 - **Fully typed.** `variant` autocompletes every id, and a typo is a compile error.
@@ -107,7 +107,7 @@ Set the size, speed and colours:
 ```
 
 Not sure which one to pick?
-[**Browse all 212 in the live gallery →**](https://modern-loaders.netlify.app/)
+[**Browse all 336 in the live gallery →**](https://modern-loaders.netlify.app/)
 
 ---
 
@@ -117,7 +117,7 @@ Not sure which one to pick?
 - [Recipes](#recipes)
 - [Customization](#customization)
 - [API](#api)
-- [All 212 variants](#all-212-variants)
+- [All 336 variants](#all-336-variants)
 - [Accessibility](#accessibility)
 - [Bundle size](#bundle-size)
 - [Browser support](#browser-support)
@@ -255,7 +255,7 @@ directly for finer control.
 
 | prop | type | default | description |
 |---|---|---|---|
-| `variant` | `LoaderVariant` | `"aurora"` | Which loader to render — any of the 212 ids below. |
+| `variant` | `LoaderVariant` | `"aurora"` | Which loader to render — any of the 336 ids below. |
 | `size` | `number \| string` | `48` | Overall size. A number means pixels; strings pass through (`"3rem"`). |
 | `speed` | `number \| string` | `1` | Base duration. A number means seconds; lower is faster. |
 | `colors` | `string[]` | indigo / pink / cyan | One to three colours. Fewer are cycled, so a single colour gives a clean monochrome loader. |
@@ -269,9 +269,9 @@ passes straight through.
 | export | what it is |
 |---|---|
 | `Loader` | The component. |
-| `VARIANTS` | Manifest of all 212: `{ id, label, group, cells }`. |
-| `LOADER_VARIANTS` | Just the 212 ids, in display order. |
-| `GROUPS` | The 20 families: `{ name, description }`. |
+| `VARIANTS` | Manifest of all 336: `{ id, label, group, cells }`. |
+| `LOADER_VARIANTS` | Just the 336 ids, in display order. |
+| `GROUPS` | The 36 families: `{ name, description }`. |
 
 `Loader` is the main export. The original ten also have named wrappers, kept for
 backward compatibility with 1.0.x:
@@ -299,7 +299,7 @@ import type {
   VariantMeta,
 } from "modern-loaders";
 
-// a union of all 212 ids; typos fail to compile
+// a union of all 336 ids; typos fail to compile
 const variant: LoaderVariant = "aurora";
 
 // wrap Loader without re-declaring its props
@@ -310,7 +310,7 @@ function Busy(props: LoaderProps) {
 
 ---
 
-## All 212 variants
+## All 336 variants
 
 Every id maps to a `.ldr--<id>` CSS class. The tables below are the full
 reference; to *see* them moving, use the [live gallery](https://modern-loaders.netlify.app/) — it renders
@@ -688,6 +688,258 @@ every variant with your own size, speed and colours, and copies the JSX for you.
 
 </details>
 
+<details>
+<summary><b>Medical</b> · 8 — Physiology, diagnostics and the clinic.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `ecg` | a heart trace drawing itself across a monitor grid |
+| `vitals` | three traces running at three different rhythms |
+| `lungs` | a pair of lobes filling and emptying with the breath |
+| `capsule` | a pill parting to release its granules, then closing |
+| `syringe` | the plunger going down and a bead forming at the needle |
+| `microscope` | a field of view drifting in and out of focus |
+| `cell-divide` | one cell pinching in two, over and over |
+| `blood-flow` | corpuscles carried along a vessel |
+
+</details>
+
+<details>
+<summary><b>Space</b> · 8 — Astrophysics — discs, orbits, and things igniting.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `black-hole` | an accretion disc tilted around a lensed event horizon |
+| `eclipse` | one body crossing another, corona flaring at totality |
+| `star-birth` | a dust cloud collapsing, igniting, and dispersing |
+| `constellation` | stars joined by lines drawn one segment at a time |
+| `meteor-shower` | streaks raking across the sky on a shared diagonal |
+| `solar-system` | planets keeping their own year on nested orbits |
+| `rocket` | a climb with a flickering plume and stars falling past |
+| `pulsar` | twin beams raking round from a spinning neutron star |
+
+</details>
+
+<details>
+<summary><b>Nature</b> · 9 — Growing, burning, blowing and blooming.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `bloom-flower` | petals unfolding from a bud and closing again |
+| `sprout` | a seedling pushing up and unfurling two leaves |
+| `tree-grow` | a trunk throwing out branches, tip by tip |
+| `smoke` | puffs curling up and thinning out |
+| `tornado` | a funnel of debris touching down and swaying |
+| `wind` | gusts streaming past at their own pace |
+| `butterfly` | wings beating with a little perspective |
+| `honeycomb` | cells capped one after another |
+| `rainbow` | bands arcing in from the outside |
+
+</details>
+
+<details>
+<summary><b>Weather</b> · 7 — Sky conditions, from a clear sun to a full storm.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `cloud-form` | puffs gathering into one cloud, then breaking apart |
+| `storm` | a dark cloud dropping rain, lit from inside every few beats |
+| `fog` | layered banks sliding past each other |
+| `sun-clouds` | cloud cover drifting over a slow sun |
+| `frost` | a crystal growing its six arms and their side branches |
+| `sunbeam` | shafts of light swinging through a gap |
+| `thermometer` | the column climbing and falling back |
+
+</details>
+
+<details>
+<summary><b>Technology</b> · 9 — Hardware doing its job — power, radio, silicon, disks.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `battery` | cells charging in turn behind a travelling bolt |
+| `wifi` | arcs acquiring outward from the source |
+| `signal-tower` | a mast pushing rings out to both sides |
+| `cpu` | a die working away behind its pins |
+| `server-rack` | units blinking under a maintenance sweep |
+| `packets` | traffic queueing at one node and arriving at the other |
+| `data-transfer` | two devices trading rows in both directions at once |
+| `hard-drive` | a platter spinning under a seeking head |
+| `power-plug` | prongs seating into a socket and the line coming alive |
+
+</details>
+
+<details>
+<summary><b>AI</b> · 8 — Models thinking: layers, signals, tokens and clusters.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `neural-net` | layers firing left to right along lit connections |
+| `ai-think` | thoughts rippling out inside a soft brain shape |
+| `synapse` | a signal jumping the cleft and lighting the far terminal |
+| `ml-train` | gradient descent rolling into the bottom of the bowl |
+| `token-stream` | words landing one at a time as they are generated |
+| `attention` | a focus window sliding along the context |
+| `robot-eyes` | a machine sweeping its gaze, blinking now and then |
+| `embedding` | scattered points settling into their clusters |
+
+</details>
+
+<details>
+<summary><b>Communication</b> · 8 — Messages leaving, arriving, and being understood.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `message-send` | a bubble launching out of the composer |
+| `delivery-ticks` | sent, delivered, then read |
+| `envelope` | the flap lifting and the letter sliding out |
+| `bell` | a notification swinging in with its badge |
+| `chat-threads` | a conversation filling in, turn by turn |
+| `voice-wave` | a rendered clip with the playhead running over it |
+| `mic-listen` | a capsule picking up level rings |
+| `translate` | one script resolving into another |
+
+</details>
+
+<details>
+<summary><b>Security</b> · 8 — Locks, scans and ciphers doing their checks.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `padlock` | the shackle lifting clear and dropping back |
+| `fingerprint` | ridges read one pass at a time |
+| `face-scan` | a mesh mapping itself onto a face outline |
+| `qr-scan` | a code resolving under the reader |
+| `encrypt` | plaintext blocks scrambling into cipher behind a wavefront |
+| `key-turn` | a key going in and throwing the lock |
+| `otp-code` | a one-time code arriving digit by digit |
+| `vault` | a combination dial hunting for each number |
+
+</details>
+
+<details>
+<summary><b>Developer</b> · 8 — The inner loop: compile, branch, build, ship.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `code-compile` | source rows collapsing into compiled blocks |
+| `git-branch` | work splitting off the trunk and merging back in |
+| `pipeline` | a build moving through its stages |
+| `npm-install` | packages dropping in and stacking up |
+| `container` | image layers stacking, then the container coming up |
+| `k8s-pods` | replicas retiring while their replacements come up |
+| `bug-fix` | a lens sweeping the file until the bad line goes green |
+| `code-diff` | a patch landing, removals out and additions in |
+
+</details>
+
+<details>
+<summary><b>Data</b> · 9 — Stores queried, files parsed, records moved.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `db-query` | a scan running down the store and rows coming back |
+| `db-sync` | two stores reconciling records in both directions |
+| `scatter-plot` | samples landing, then the fit drawn through them |
+| `spreadsheet` | cells recalculating a row at a time |
+| `file-scan` | a page read line by line under the head |
+| `folder-scan` | folders opened and counted one after another |
+| `cloud-sync` | a device and the cloud keeping each other current |
+| `backup` | documents filed into the archive, which then seals |
+| `data-funnel` | a wide intake narrowing to what actually gets through |
+
+</details>
+
+<details>
+<summary><b>Finance</b> · 6 — Money changing hands and being checked.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `payment-card` | a card read, checked, and approved |
+| `coin-flip` | a coin turning end over end and settling |
+| `cart` | items dropped into the basket, one after another |
+| `receipt` | a slip printing out line by line |
+| `stock-candles` | a session printing candle by candle |
+| `money-transfer` | funds arcing from one account to the other |
+
+</details>
+
+<details>
+<summary><b>Transport</b> · 7 — Getting there: fixes, routes, wheels and wings.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `gps-locate` | a pin dropping and the fix tightening around it |
+| `route-calc` | a path being solved between two stops |
+| `compass` | a needle hunting and settling on north |
+| `truck` | a delivery run with the road moving underneath |
+| `package-track` | a parcel clearing each checkpoint on the way |
+| `plane-path` | a flight tracing its great circle between cities |
+| `traffic-light` | the signal running its full phase |
+
+</details>
+
+<details>
+<summary><b>Food</b> · 6 — Things brewing, baking, tossing and popping.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `coffee-brew` | the cup filling drip by drip |
+| `oven-bake` | a loaf rising behind the oven door |
+| `pizza-slices` | slices swinging back into a whole |
+| `pan-flip` | a toss, a turn, and a catch |
+| `blender` | the jug pulling everything into the vortex |
+| `toaster` | the slices browning and springing up |
+
+</details>
+
+<details>
+<summary><b>Creative</b> · 8 — Studio tools: pencils, brushes, lenses and type.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `pencil-draw` | a line laid down and rubbed out again |
+| `brush-stroke` | a loaded brush laying a wet band of colour |
+| `palette` | wells of paint, each lifted as it is picked up |
+| `camera-focus` | the iris stopping down and pulling focus |
+| `film-strip` | frames running past the gate |
+| `vinyl` | the record turning under the arm |
+| `book-flip` | pages turning one at a time |
+| `typeset` | glyphs settling into a headline and kerning true |
+
+</details>
+
+<details>
+<summary><b>Physics</b> · 8 — Fields, charge, gravity and standing waves.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `magnetic-field` | flux running pole to pole |
+| `lightning` | a bolt forking down and lighting the whole sky |
+| `electric-arc` | a discharge jumping the gap and jittering |
+| `gravity-well` | a mass denting the grid and dragging a body round |
+| `interference` | two sources and the pattern where they meet |
+| `pendulum-wave` | different lengths drifting in and out of phase |
+| `newton-disc` | segments blurring toward white as the disc winds up |
+| `resonance` | a string stepping up through its harmonics |
+
+</details>
+
+<details>
+<summary><b>Gaming</b> · 7 — HUD and pickup motion lifted from games.</summary>
+
+| variant | what it looks like |
+|---|---|
+| `health-bar` | damage chipping away, then a heal |
+| `dice-roll` | a die tumbling and coming to rest |
+| `level-up` | the bar topping out and the badge landing |
+| `coin-collect` | pickups spinning up into the counter |
+| `chomp` | a mouth working its way along the row |
+| `sprite-march` | a squad stepping along in formation |
+| `mana-orb` | a reservoir refilling behind glass |
+
+</details>
+
 ---
 
 ## Accessibility
@@ -702,13 +954,13 @@ every variant with your own size, speed and colours, and copies the JSX for you.
 
 | | raw | gzipped |
 |---|---|---|
-| JS | ~18 kB | **~4 kB** |
-| CSS (all 212 variants) | ~166 kB | **~24 kB** |
+| JS | ~29 kB | **~7 kB** |
+| CSS (all 336 variants) | ~321 kB | **~47 kB** |
 
 One caveat, stated plainly: **the CSS is not tree-shakeable.** Class-based
 styles cannot be dead-code eliminated, so importing a single variant still ships
-the sheet for all 212. At ~24 kB gzipped that is a fair trade for most apps, but
-it is real weight. If you need only a handful and every kilobyte counts, copy
+the sheet for all 336. At ~47 kB gzipped that is real weight, so if you only need
+a handful it is worth opting out: copy
 the specific `.ldr--*` blocks out of [`src/styles/`](./src/styles) into your own
 CSS and skip the package — each block is self-contained apart from the shared
 keyframes in [`00-base.css`](./src/styles/00-base.css).

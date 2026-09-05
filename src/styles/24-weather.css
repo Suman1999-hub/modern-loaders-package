@@ -1,0 +1,184 @@
+/* ===================== Family: weather ===================== */
+
+/* cloud-form — puffs gathering into one cloud, then breaking apart */
+.ldr--cloud-form span {
+  position: absolute;
+  aspect-ratio: 1; border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 62%, transparent);
+  filter: blur(calc(var(--size) / 60));
+  animation: ldr-gather calc(var(--speed) * 3.2) cubic-bezier(.45, 0, .4, 1) infinite;
+}
+@keyframes ldr-gather {
+  0%, 100% { transform: translate(var(--dx), var(--dy)) scale(.55); opacity: .35; }
+  45%, 68% { transform: translate(0, 0) scale(1); opacity: 1; }
+}
+.ldr--cloud-form span:nth-child(1) { left: 12%; top: 34%; width: 34%; --dx: -70%; --dy: -60%; }
+.ldr--cloud-form span:nth-child(2) { left: 33%; top: 24%; width: 42%; --dx:  10%; --dy: -90%; animation-delay: calc(var(--speed) * .08); }
+.ldr--cloud-form span:nth-child(3) { left: 56%; top: 34%; width: 32%; --dx:  80%; --dy: -50%; animation-delay: calc(var(--speed) * .16); }
+.ldr--cloud-form span:nth-child(4) { left: 24%; top: 46%; width: 52%; height: 26%; border-radius: 99px; aspect-ratio: auto; --dx: 0; --dy: 90%; animation-delay: calc(var(--speed) * .24); }
+
+/* storm — a dark cloud dropping rain, lit from inside every few beats */
+.ldr--storm { width: calc(var(--size) * 1.2); height: var(--size); }
+.ldr--storm::before {
+  content: ""; position: absolute; left: 10%; top: 12%;
+  width: 34%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 62%, #000);
+  box-shadow:
+    calc(var(--size) * .3) calc(var(--size) * .06) 0 calc(var(--size) * .01) color-mix(in oklab, var(--c1) 62%, #000),
+    calc(var(--size) * .16) calc(var(--size) * -.06) 0 calc(var(--size) * -.03) color-mix(in oklab, var(--c1) 62%, #000);
+  animation: ldr-storm-flash calc(var(--speed) * 2.6) steps(1, end) infinite;
+}
+@keyframes ldr-storm-flash {
+  0%, 40%, 100% { filter: brightness(1); }
+  44% { filter: brightness(2.6); }
+  47% { filter: brightness(1); }
+  51% { filter: brightness(2.2); }
+  55% { filter: brightness(1); }
+}
+.ldr--storm::after {
+  content: ""; position: absolute; left: 6%; right: 6%; top: 30%;
+  height: 18%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 62%, #000);
+}
+.ldr--storm span {
+  position: absolute; top: 48%;
+  width: max(2px, calc(var(--size) / 34)); height: 18%;
+  border-radius: 99px;
+  background: linear-gradient(transparent, var(--c3));
+  animation: ldr-storm-rain var(--dur) linear infinite;
+}
+@keyframes ldr-storm-rain { 0% { translate: 0 -30%; opacity: 0; } 20% { opacity: 1; } 100% { translate: 0 240%; opacity: 0; } }
+.ldr--storm span:nth-child(1) { left: 22%; --dur: calc(var(--speed) * .9); }
+.ldr--storm span:nth-child(2) { left: 42%; --dur: calc(var(--speed) * 1.2); animation-delay: calc(var(--speed) * -.4); }
+.ldr--storm span:nth-child(3) { left: 62%; --dur: calc(var(--speed) * 1.0); animation-delay: calc(var(--speed) * -.7); }
+.ldr--storm span:nth-child(4) {
+  left: 48%; top: 44%; width: 14%; height: 34%;
+  background: var(--c2); border-radius: 0;
+  clip-path: polygon(58% 0, 12% 52%, 46% 52%, 24% 100%, 88% 42%, 52% 42%);
+  animation: ldr-bolt-flash calc(var(--speed) * 2.6) steps(1, end) infinite;
+}
+@keyframes ldr-bolt-flash { 0%, 42%, 100% { opacity: 0; } 44%, 46% { opacity: 1; } 50%, 53% { opacity: .8; } 54% { opacity: 0; } }
+
+/* fog — layered banks sliding past each other */
+.ldr--fog { overflow: hidden; border-radius: calc(var(--size) / 12); }
+.ldr--fog span {
+  position: absolute; left: -30%; right: -30%;
+  height: 16%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--c1) 55%, transparent) 30%, color-mix(in oklab, var(--c3) 55%, transparent) 70%, transparent);
+  filter: blur(calc(var(--size) / 40));
+  animation: ldr-bank var(--dur) ease-in-out infinite;
+}
+@keyframes ldr-bank { 0%, 100% { transform: translateX(-16%); } 50% { transform: translateX(16%); } }
+.ldr--fog span:nth-child(1) { top: 12%; --dur: calc(var(--speed) * 3.4); }
+.ldr--fog span:nth-child(2) { top: 32%; --dur: calc(var(--speed) * 2.6); animation-direction: reverse; }
+.ldr--fog span:nth-child(3) { top: 52%; --dur: calc(var(--speed) * 4.2); }
+.ldr--fog span:nth-child(4) { top: 72%; --dur: calc(var(--speed) * 3.0); animation-direction: reverse; }
+
+/* sun-clouds — cloud cover drifting over a slow sun */
+.ldr--sun-clouds { width: calc(var(--size) * 1.3); height: var(--size); overflow: hidden; border-radius: calc(var(--size) / 12); }
+.ldr--sun-clouds::before {
+  content: ""; position: absolute; left: 30%; top: 14%;
+  width: 40%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 24%, var(--c2) 60%, var(--c1) 100%);
+  box-shadow: 0 0 calc(var(--size) / 5) color-mix(in oklab, var(--c2) 60%, transparent);
+  animation: ldr-spin calc(var(--speed) * 9) linear infinite;
+}
+.ldr--sun-clouds span {
+  position: absolute;
+  height: 22%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c3) 60%, #fff);
+  animation: ldr-drift-cloud var(--dur) linear infinite;
+}
+@keyframes ldr-drift-cloud { 0% { translate: -130% 0; } 100% { translate: 420% 0; } }
+.ldr--sun-clouds span:nth-child(1) { left: 0; top: 34%; width: 40%; --dur: calc(var(--speed) * 4); }
+.ldr--sun-clouds span:nth-child(2) { left: 0; top: 58%; width: 30%; --dur: calc(var(--speed) * 6); animation-delay: calc(var(--speed) * -2.4); opacity: .75; }
+.ldr--sun-clouds span:nth-child(3) { left: 0; top: 20%; width: 24%; height: 16%; --dur: calc(var(--speed) * 5); animation-delay: calc(var(--speed) * -1.2); opacity: .6; }
+
+/* frost — a crystal growing its six arms and their side branches */
+.ldr--frost span {
+  position: absolute; left: 50%; top: 50%;
+  width: max(2px, calc(var(--size) / 30)); height: 44%;
+  margin-left: max(-1px, calc(var(--size) / -60));
+  border-radius: 99px;
+  background: linear-gradient(var(--c3), var(--c1));
+  transform-origin: 50% 0;
+  animation: ldr-crystal calc(var(--speed) * 3) ease-out infinite;
+}
+@keyframes ldr-crystal {
+  0%, 4%   { scale: 1 0; opacity: 0; }
+  40%, 82% { scale: 1 1; opacity: 1; }
+  98%, 100% { scale: 1 0; opacity: 0; }
+}
+.ldr--frost span::before, .ldr--frost span::after {
+  content: ""; position: absolute; top: 38%;
+  width: 220%; height: 100%;
+  border-radius: 99px;
+  background: inherit;
+  transform-origin: 50% 0;
+  scale: .42;
+}
+.ldr--frost span::before { left: 50%; rotate: 42deg; }
+.ldr--frost span::after  { left: 50%; rotate: -42deg; }
+.ldr--frost span:nth-child(1) { rotate:   0deg; }
+.ldr--frost span:nth-child(2) { rotate:  60deg; animation-delay: calc(var(--speed) * .1); }
+.ldr--frost span:nth-child(3) { rotate: 120deg; animation-delay: calc(var(--speed) * .2); }
+.ldr--frost span:nth-child(4) { rotate: 180deg; animation-delay: calc(var(--speed) * .3); }
+.ldr--frost span:nth-child(5) { rotate: 240deg; animation-delay: calc(var(--speed) * .4); }
+.ldr--frost span:nth-child(6) { rotate: 300deg; animation-delay: calc(var(--speed) * .5); }
+
+/* sunbeam — shafts of light swinging through a gap */
+.ldr--sunbeam { overflow: hidden; border-radius: calc(var(--size) / 12); }
+.ldr--sunbeam::before {
+  content: ""; position: absolute; inset: -60%;
+  background: repeating-conic-gradient(from 0deg at 50% 0%,
+    color-mix(in oklab, var(--c2) 42%, transparent) 0 5deg,
+    transparent 5deg 16deg);
+  animation: ldr-beam-swing calc(var(--speed) * 4) ease-in-out infinite;
+}
+@keyframes ldr-beam-swing { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg); } }
+.ldr--sunbeam::after {
+  content: ""; position: absolute; left: 50%; top: -18%;
+  width: 44%; aspect-ratio: 1; margin-left: -22%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 30%, var(--c2) 70%, transparent);
+  filter: blur(calc(var(--size) / 30));
+  animation: ldr-glow-swell calc(var(--speed) * 2) ease-in-out infinite;
+}
+
+/* thermometer — the column climbing and falling back */
+.ldr--thermometer { width: calc(var(--size) * .5); height: calc(var(--size) * 1.3); }
+.ldr--thermometer::before {
+  content: ""; position: absolute; left: 50%; top: 2%; bottom: 16%;
+  width: 44%; margin-left: -22%;
+  border-radius: 99px;
+  border: max(1px, calc(var(--size) / 40)) solid color-mix(in oklab, var(--c1) 45%, transparent);
+  background: color-mix(in oklab, var(--c1) 10%, transparent);
+}
+.ldr--thermometer::after {
+  content: ""; position: absolute; left: 50%; bottom: 2%;
+  width: 68%; aspect-ratio: 1; margin-left: -34%;
+  border-radius: 50%;
+  background: var(--c2);
+  box-shadow: 0 0 calc(var(--size) / 8) color-mix(in oklab, var(--c2) 60%, transparent);
+}
+.ldr--thermometer span:nth-child(1) {
+  position: absolute; left: 50%; bottom: 14%;
+  width: 22%; margin-left: -11%; height: 74%;
+  border-radius: 99px;
+  background: linear-gradient(var(--c3), var(--c2));
+  transform-origin: 50% 100%;
+  animation: ldr-mercury-rise calc(var(--speed) * 3) cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes ldr-mercury-rise { 0%, 100% { scale: 1 .12; } 50% { scale: 1 1; } }
+.ldr--thermometer span:nth-child(2) {
+  position: absolute; right: 4%; top: 12%; bottom: 24%;
+  width: 26%;
+  background: repeating-linear-gradient(0deg,
+    color-mix(in oklab, var(--c1) 50%, transparent) 0 max(1px, calc(var(--size) / 60)),
+    transparent 0 calc(var(--size) / 9));
+}

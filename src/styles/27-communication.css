@@ -1,0 +1,228 @@
+/* ===================== Family: communication ===================== */
+
+/* message-send — a bubble launching out of the composer */
+.ldr--message-send { width: calc(var(--size) * 1.5); height: var(--size); overflow: hidden; }
+.ldr--message-send::after {
+  content: ""; position: absolute; left: 4%; right: 4%; bottom: 4%;
+  height: 24%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 18%, transparent);
+  box-shadow: inset 0 0 0 max(1px, calc(var(--size) / 44)) color-mix(in oklab, var(--c1) 40%, transparent);
+}
+.ldr--message-send span {
+  position: absolute; left: 10%; bottom: 10%;
+  width: 34%; height: 22%;
+  border-radius: 99px 99px 99px calc(var(--size) / 20);
+  background: linear-gradient(120deg, var(--c1), var(--c2));
+  animation: ldr-send-off calc(var(--speed) * 2) cubic-bezier(.35, 0, .5, 1) infinite;
+}
+@keyframes ldr-send-off {
+  0%, 12% { transform: translate(0, 0) scale(1); opacity: 0; }
+  20%     { transform: translate(0, 0) scale(1); opacity: 1; }
+  70%     { transform: translate(130%, -190%) scale(.7); opacity: 1; }
+  100%    { transform: translate(190%, -300%) scale(.35); opacity: 0; }
+}
+.ldr--message-send span:nth-child(2) { animation-delay: calc(var(--speed) * -.66); background: linear-gradient(120deg, var(--c2), var(--c3)); }
+.ldr--message-send span:nth-child(3) { animation-delay: calc(var(--speed) * -1.33); }
+
+/* delivery-ticks — sent, delivered, then read */
+.ldr--delivery-ticks { width: calc(var(--size) * 1.3); height: calc(var(--size) * .8); }
+.ldr--delivery-ticks span {
+  position: absolute; top: 50%;
+  width: 34%; height: 34%; margin-top: -17%;
+  clip-path: polygon(10% 52%, 0 64%, 38% 100%, 100% 18%, 88% 6%, 37% 74%);
+  animation: ldr-tick-in calc(var(--speed) * 3) ease-out infinite;
+}
+@keyframes ldr-tick-in {
+  0%, 8%   { opacity: 0; scale: .5; }
+  22%, 92% { opacity: 1; scale: 1; }
+  100%     { opacity: 0; scale: .5; }
+}
+.ldr--delivery-ticks span:nth-child(1) { left: 12%; background: var(--c1); }
+.ldr--delivery-ticks span:nth-child(2) { left: 34%; background: var(--c1); animation-delay: calc(var(--speed) * .8); }
+.ldr--delivery-ticks span:nth-child(3) {
+  left: 34%; background: var(--c3);
+  animation: ldr-tick-read calc(var(--speed) * 3) ease-out infinite;
+}
+@keyframes ldr-tick-read { 0%, 58% { opacity: 0; } 70%, 92% { opacity: 1; } 100% { opacity: 0; } }
+.ldr--delivery-ticks::after {
+  content: ""; position: absolute; left: 12%; top: 50%;
+  width: 56%; height: 34%; margin-top: -17%;
+  clip-path: polygon(10% 52%, 0 64%, 38% 100%, 100% 18%, 88% 6%, 37% 74%);
+  background: var(--c3);
+  opacity: 0;
+  animation: ldr-tick-read calc(var(--speed) * 3) ease-out infinite;
+}
+
+/* envelope — the flap lifting and the letter sliding out */
+.ldr--envelope { width: calc(var(--size) * 1.4); height: var(--size); perspective: calc(var(--size) * 2); }
+.ldr--envelope span:nth-child(1) {
+  position: absolute; left: 12%; right: 12%; bottom: 14%;
+  height: 44%;
+  border-radius: calc(var(--size) / 24);
+  background: linear-gradient(160deg, var(--c1), var(--c2));
+  z-index: 2;
+}
+.ldr--envelope span:nth-child(2) {
+  position: absolute; left: 12%; right: 12%; bottom: 54%;
+  height: 26%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(var(--c2), var(--c1));
+  transform-origin: 50% 0;
+  animation: ldr-flap calc(var(--speed) * 3) cubic-bezier(.5, 0, .4, 1) infinite;
+}
+@keyframes ldr-flap { 0%, 10% { transform: rotateX(0deg); } 40%, 78% { transform: rotateX(178deg); } 100% { transform: rotateX(0deg); } }
+.ldr--envelope span:nth-child(3) {
+  position: absolute; left: 22%; right: 22%; bottom: 24%;
+  height: 46%;
+  border-radius: calc(var(--size) / 30);
+  background: linear-gradient(color-mix(in oklab, var(--c3) 40%, #fff), #fff);
+  box-shadow: inset 0 0 0 max(1px, calc(var(--size) / 50)) color-mix(in oklab, var(--c1) 30%, transparent);
+  animation: ldr-letter calc(var(--speed) * 3) cubic-bezier(.4, 0, .3, 1) infinite;
+}
+@keyframes ldr-letter { 0%, 32% { translate: 0 40%; opacity: 0; } 56%, 76% { translate: 0 -34%; opacity: 1; } 100% { translate: 0 40%; opacity: 0; } }
+
+/* bell — a notification swinging in with its badge */
+.ldr--bell::before {
+  content: ""; position: absolute; left: 22%; right: 22%; top: 12%; bottom: 26%;
+  border-radius: 50% 50% 18% 18% / 68% 68% 18% 18%;
+  background: linear-gradient(160deg, var(--c1), var(--c2));
+  transform-origin: 50% 8%;
+  animation: ldr-ring-swing calc(var(--speed) * 1.3) cubic-bezier(.4, 0, .5, 1) infinite;
+}
+@keyframes ldr-ring-swing {
+  0%, 100% { transform: rotate(-16deg); }
+  50%      { transform: rotate(16deg); }
+}
+.ldr--bell::after {
+  content: ""; position: absolute; left: 42%; right: 42%; bottom: 16%;
+  height: 10%;
+  border-radius: 0 0 99px 99px;
+  background: var(--c1);
+  transform-origin: 50% -300%;
+  animation: ldr-ring-swing calc(var(--speed) * 1.3) cubic-bezier(.4, 0, .5, 1) infinite;
+  animation-delay: calc(var(--speed) * .08);
+}
+.ldr--bell span {
+  position: absolute; right: 12%; top: 8%;
+  width: 26%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 9) color-mix(in oklab, var(--c3) 70%, transparent);
+  animation: ldr-badge-pop calc(var(--speed) * 2.6) cubic-bezier(.3, 1.6, .5, 1) infinite;
+}
+@keyframes ldr-badge-pop { 0%, 30% { scale: 0; } 44%, 88% { scale: 1; } 100% { scale: 0; } }
+
+/* chat-threads — a conversation filling in, turn by turn */
+.ldr--chat-threads {
+  width: calc(var(--size) * 1.6); height: var(--size);
+  display: inline-flex; flex-direction: column; justify-content: space-evenly;
+}
+.ldr--chat-threads span {
+  height: 20%;
+  border-radius: 99px;
+  animation: ldr-bubble-in calc(var(--speed) * 3.2) cubic-bezier(.3, 1.5, .5, 1) infinite;
+}
+@keyframes ldr-bubble-in {
+  0%, 5%   { transform: scale(.2); opacity: 0; }
+  16%, 84% { transform: scale(1); opacity: 1; }
+  96%, 100% { transform: scale(.2); opacity: 0; }
+}
+.ldr--chat-threads span:nth-child(1) { width: 56%; align-self: flex-start; background: color-mix(in oklab, var(--c1) 30%, transparent); border-bottom-left-radius: calc(var(--size) / 18); transform-origin: 0 50%; }
+.ldr--chat-threads span:nth-child(2) { width: 46%; align-self: flex-end;   background: linear-gradient(90deg, var(--c1), var(--c2)); border-bottom-right-radius: calc(var(--size) / 18); transform-origin: 100% 50%; animation-delay: calc(var(--speed) * .5); }
+.ldr--chat-threads span:nth-child(3) { width: 68%; align-self: flex-start; background: color-mix(in oklab, var(--c1) 30%, transparent); border-bottom-left-radius: calc(var(--size) / 18); transform-origin: 0 50%; animation-delay: calc(var(--speed) * 1.0); }
+.ldr--chat-threads span:nth-child(4) { width: 38%; align-self: flex-end;   background: linear-gradient(90deg, var(--c2), var(--c3)); border-bottom-right-radius: calc(var(--size) / 18); transform-origin: 100% 50%; animation-delay: calc(var(--speed) * 1.5); }
+
+/* voice-wave — a rendered clip with the playhead running over it */
+.ldr--voice-wave { width: calc(var(--size) * 1.9); height: calc(var(--size) * .7); }
+.ldr--voice-wave::before {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(
+    0 46%, 5% 30%, 10% 58%, 15% 12%, 20% 70%, 25% 26%, 30% 62%, 35% 4%,
+    40% 76%, 45% 22%, 50% 66%, 55% 16%, 60% 72%, 65% 34%, 70% 56%, 75% 8%,
+    80% 68%, 85% 28%, 90% 60%, 95% 36%, 100% 48%,
+    100% 52%, 95% 64%, 90% 40%, 85% 72%, 80% 32%, 75% 92%, 70% 44%, 65% 66%,
+    60% 28%, 55% 84%, 50% 34%, 45% 78%, 40% 24%, 35% 96%, 30% 38%, 25% 74%,
+    20% 30%, 15% 88%, 10% 42%, 5% 70%, 0 54%);
+  background: color-mix(in oklab, var(--c1) 32%, transparent);
+}
+.ldr--voice-wave span:nth-child(1) {
+  position: absolute; inset: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: ldr-played calc(var(--speed) * 3) linear infinite;
+}
+@keyframes ldr-played { 0% { clip-path: inset(0 100% 0 0); } 96%, 100% { clip-path: inset(0 0 0 0); } }
+.ldr--voice-wave span:nth-child(1)::before {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(
+    0 46%, 5% 30%, 10% 58%, 15% 12%, 20% 70%, 25% 26%, 30% 62%, 35% 4%,
+    40% 76%, 45% 22%, 50% 66%, 55% 16%, 60% 72%, 65% 34%, 70% 56%, 75% 8%,
+    80% 68%, 85% 28%, 90% 60%, 95% 36%, 100% 48%,
+    100% 52%, 95% 64%, 90% 40%, 85% 72%, 80% 32%, 75% 92%, 70% 44%, 65% 66%,
+    60% 28%, 55% 84%, 50% 34%, 45% 78%, 40% 24%, 35% 96%, 30% 38%, 25% 74%,
+    20% 30%, 15% 88%, 10% 42%, 5% 70%, 0 54%);
+  background: linear-gradient(90deg, var(--c1), var(--c2) 55%, var(--c3));
+}
+.ldr--voice-wave span:nth-child(2) {
+  position: absolute; top: -6%; bottom: -6%; left: 0;
+  width: max(2px, calc(var(--size) / 34));
+  border-radius: 99px;
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 8) var(--c3);
+  animation: ldr-playhead calc(var(--speed) * 3) linear infinite;
+}
+@keyframes ldr-playhead { 0% { translate: 0 0; opacity: 1; } 96% { translate: calc(var(--size) * 1.88) 0; opacity: 1; } 97%, 100% { opacity: 0; } }
+
+/* mic-listen — a capsule picking up level rings */
+.ldr--mic-listen::before {
+  content: ""; position: absolute; left: 38%; right: 38%; top: 12%;
+  height: 44%;
+  border-radius: 99px;
+  background: linear-gradient(var(--c1), var(--c2));
+}
+.ldr--mic-listen::after {
+  content: ""; position: absolute; left: 46%; right: 46%; top: 62%;
+  height: 22%;
+  background: var(--c1);
+  box-shadow: 0 calc(var(--size) * .2) 0 calc(var(--size) * -.06) var(--c1);
+}
+.ldr--mic-listen span {
+  position: absolute; left: 50%; top: 34%;
+  width: 40%; aspect-ratio: 1; margin: -20% 0 0 -20%;
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 30)) solid transparent;
+  border-left-color: var(--c3);
+  border-right-color: var(--c3);
+  animation: ldr-level calc(var(--speed) * 1.6) ease-out infinite;
+}
+@keyframes ldr-level { 0% { scale: .6; opacity: 0; } 25% { opacity: 1; } 100% { scale: 1.9; opacity: 0; } }
+.ldr--mic-listen span:nth-child(2) { animation-delay: calc(var(--speed) * -.53); }
+.ldr--mic-listen span:nth-child(3) { animation-delay: calc(var(--speed) * -1.06); }
+
+/* translate — one script resolving into another */
+.ldr--translate { width: calc(var(--size) * 1.7); height: calc(var(--size) * .8); }
+.ldr--translate::after {
+  content: ""; position: absolute; left: 45%; top: 50%;
+  width: 10%; height: 22%; margin-top: -11%;
+  clip-path: polygon(0 30%, 62% 30%, 62% 0, 100% 50%, 62% 100%, 62% 70%, 0 70%);
+  background: var(--c2);
+  animation: ldr-arrow-nudge calc(var(--speed) * 2.4) ease-in-out infinite;
+}
+@keyframes ldr-arrow-nudge { 0%, 100% { translate: -20% 0; opacity: .5; } 50% { translate: 20% 0; opacity: 1; } }
+.ldr--translate span {
+  position: absolute;
+  height: 15%;
+  border-radius: 99px;
+  animation: ldr-glyph calc(var(--speed) * 2.4) steps(1, end) infinite;
+}
+@keyframes ldr-glyph {
+  0%, 45%   { width: var(--w1); opacity: 1; }
+  50%, 95%  { width: var(--w2); opacity: 1; }
+  100%      { width: var(--w1); }
+}
+.ldr--translate span:nth-child(1) { left: 4%; top: 22%; background: var(--c1); --w1: 32%; --w2: 20%; }
+.ldr--translate span:nth-child(2) { left: 4%; top: 44%; background: var(--c1); --w1: 22%; --w2: 34%; }
+.ldr--translate span:nth-child(3) { left: 4%; top: 66%; background: var(--c1); --w1: 28%; --w2: 16%; }
+.ldr--translate span:nth-child(4) { right: 4%; top: 22%; background: var(--c3); --w1: 18%; --w2: 30%; }
+.ldr--translate span:nth-child(5) { right: 4%; top: 44%; background: var(--c3); --w1: 30%; --w2: 20%; }
+.ldr--translate span:nth-child(6) { right: 4%; top: 66%; background: var(--c3); --w1: 14%; --w2: 32%; }

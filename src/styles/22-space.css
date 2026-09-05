@@ -1,0 +1,215 @@
+/* ===================== Family: space ===================== */
+
+/* black-hole — an accretion disc tilted around a lensed event horizon */
+.ldr--black-hole { border-radius: 50%; }
+.ldr--black-hole::before {
+  content: ""; position: absolute; inset: -6%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    transparent 0 6%, var(--c1) 16%, #fff 28%, var(--c3) 40%,
+    transparent 62%, var(--c2) 84%, transparent 96%);
+  -webkit-mask: radial-gradient(farthest-side, #0000 40%, #000 46%);
+          mask: radial-gradient(farthest-side, #0000 40%, #000 46%);
+  filter: blur(calc(var(--size) / 44));
+  rotate: x 68deg;
+  animation: ldr-bh-disc calc(var(--speed) * 1.8) linear infinite;
+}
+@keyframes ldr-bh-disc { to { transform: rotate(1turn); } }
+.ldr--black-hole::after {
+  content: ""; position: absolute; inset: 30%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 26%, #000);
+  box-shadow:
+    0 0 0 max(2px, calc(var(--size) / 30)) color-mix(in oklab, var(--c3) 80%, #fff),
+    0 0 calc(var(--size) / 5) color-mix(in oklab, var(--c2) 65%, transparent);
+  animation: ldr-bh-lens calc(var(--speed) * 2.6) ease-in-out infinite;
+}
+@keyframes ldr-bh-lens { 0%, 100% { scale: 1; } 50% { scale: 1.08; } }
+
+/* eclipse — one body crossing another, corona flaring at totality */
+.ldr--eclipse span:nth-child(1) {
+  position: absolute; inset: 16%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 26%, var(--c2) 60%, var(--c1) 100%);
+  box-shadow: 0 0 calc(var(--size) / 5) color-mix(in oklab, var(--c2) 70%, transparent);
+  animation: ldr-corona calc(var(--speed) * 3.4) ease-in-out infinite;
+}
+@keyframes ldr-corona {
+  0%, 30%, 70%, 100% { box-shadow: 0 0 calc(var(--size) / 6) color-mix(in oklab, var(--c2) 60%, transparent); }
+  50% { box-shadow: 0 0 calc(var(--size) / 2.4) color-mix(in oklab, var(--c3) 90%, transparent); }
+}
+.ldr--eclipse span:nth-child(2) {
+  position: absolute; inset: 16%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 30%, #000);
+  animation: ldr-transit calc(var(--speed) * 3.4) cubic-bezier(.45, 0, .55, 1) infinite;
+}
+@keyframes ldr-transit { 0% { translate: -145% 0; } 100% { translate: 145% 0; } }
+
+/* star-birth — a dust cloud collapsing, igniting, and dispersing */
+.ldr--star-birth span {
+  position: absolute; left: 50%; top: 50%;
+  width: 12%; aspect-ratio: 1; margin: -6% 0 0 -6%;
+  border-radius: 50%;
+  background: var(--c1);
+  filter: blur(calc(var(--size) / 60));
+  animation: ldr-collapse calc(var(--speed) * 3) cubic-bezier(.7, 0, .5, 1) infinite;
+}
+@keyframes ldr-collapse {
+  0%   { transform: rotate(var(--a)) translateY(-330%) scale(1); opacity: 0; }
+  20%  { opacity: .9; }
+  62%  { transform: rotate(calc(var(--a) + 200deg)) translateY(-20%) scale(.4); opacity: 1; }
+  75%, 100% { transform: rotate(calc(var(--a) + 260deg)) translateY(-20%) scale(0); opacity: 0; }
+}
+.ldr--star-birth span:nth-child(1) { --a:   0deg; }
+.ldr--star-birth span:nth-child(2) { --a:  72deg; background: var(--c2); animation-delay: calc(var(--speed) * -.12); }
+.ldr--star-birth span:nth-child(3) { --a: 144deg; animation-delay: calc(var(--speed) * -.24); }
+.ldr--star-birth span:nth-child(4) { --a: 216deg; background: var(--c3); animation-delay: calc(var(--speed) * -.36); }
+.ldr--star-birth span:nth-child(5) { --a: 288deg; animation-delay: calc(var(--speed) * -.48); }
+.ldr--star-birth::after {
+  content: ""; position: absolute; inset: 40%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 30%, var(--c3) 70%, transparent 100%);
+  animation: ldr-ignite-star calc(var(--speed) * 3) ease-out infinite;
+}
+@keyframes ldr-ignite-star {
+  0%, 55% { scale: 0; opacity: 0; }
+  70% { scale: 1.9; opacity: 1; }
+  100% { scale: .5; opacity: 0; }
+}
+
+/* constellation — stars joined by lines drawn one segment at a time */
+.ldr--constellation span {
+  position: absolute;
+  height: max(1px, calc(var(--size) / 46));
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c3) 75%, transparent);
+  transform-origin: 0 50%;
+  animation: ldr-draw-line calc(var(--speed) * 3.6) ease-in-out infinite;
+}
+@keyframes ldr-draw-line {
+  0%, 5% { scale: 0 1; opacity: 0; }
+  22%, 82% { scale: 1 1; opacity: 1; }
+  95%, 100% { scale: 1 1; opacity: 0; }
+}
+.ldr--constellation span::after {
+  content: ""; position: absolute; right: 0; top: 50%;
+  width: calc(var(--size) / 9); aspect-ratio: 1;
+  margin: calc(var(--size) / -18) calc(var(--size) / -18) 0 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 calc(var(--size) / 9) var(--c3);
+}
+.ldr--constellation span:nth-child(1) { left: 12%; top: 68%; width: 40%; rotate: -60deg; }
+.ldr--constellation span:nth-child(2) { left: 32%; top: 34%; width: 35%; rotate:  55deg; animation-delay: calc(var(--speed) * .3); }
+.ldr--constellation span:nth-child(3) { left: 52%; top: 62%; width: 42%; rotate: -61deg; animation-delay: calc(var(--speed) * .6); }
+.ldr--constellation span:nth-child(4) { left: 72%; top: 26%; width: 36%; rotate:  63deg; animation-delay: calc(var(--speed) * .9); }
+
+/* meteor-shower — streaks raking across the sky on a shared diagonal */
+.ldr--meteor-shower { overflow: hidden; border-radius: calc(var(--size) / 10); }
+.ldr--meteor-shower span {
+  position: absolute; top: -20%; left: 0;
+  width: 46%; height: max(2px, calc(var(--size) / 34));
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, var(--c1) 70%, #fff);
+  rotate: 38deg;
+  animation: ldr-meteor var(--dur) linear infinite;
+}
+@keyframes ldr-meteor {
+  0%   { transform: translate(-120%, -80%); opacity: 0; }
+  15%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translate(190%, 220%); opacity: 0; }
+}
+.ldr--meteor-shower span:nth-child(1) { top:  4%; --dur: calc(var(--speed) * 1.6); animation-delay: calc(var(--speed) * -.1); }
+.ldr--meteor-shower span:nth-child(2) { top: 26%; --dur: calc(var(--speed) * 2.1); background: linear-gradient(90deg, transparent, var(--c2) 70%, #fff); animation-delay: calc(var(--speed) * -.9); }
+.ldr--meteor-shower span:nth-child(3) { top: 48%; --dur: calc(var(--speed) * 1.3); animation-delay: calc(var(--speed) * -.5); }
+.ldr--meteor-shower span:nth-child(4) { top: 66%; --dur: calc(var(--speed) * 2.4); background: linear-gradient(90deg, transparent, var(--c3) 70%, #fff); animation-delay: calc(var(--speed) * -1.6); }
+.ldr--meteor-shower span:nth-child(5) { top: 84%; --dur: calc(var(--speed) * 1.8); animation-delay: calc(var(--speed) * -1.2); }
+
+/* solar-system — planets keeping their own year on nested orbits */
+.ldr--solar-system::after {
+  content: ""; position: absolute; inset: 40%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 22%, var(--c2) 55%, var(--c1) 100%);
+  box-shadow: 0 0 calc(var(--size) / 6) color-mix(in oklab, var(--c2) 70%, transparent);
+  animation: ldr-breathe calc(var(--speed) * 2) ease-in-out infinite;
+}
+.ldr--solar-system span {
+  position: absolute;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 60)) solid color-mix(in oklab, var(--c1) 26%, transparent);
+  animation: ldr-orbit-year var(--dur) linear infinite;
+}
+@keyframes ldr-orbit-year { to { rotate: 1turn; } }
+.ldr--solar-system span::before {
+  content: ""; position: absolute; top: calc(var(--size) / -22); left: 50%;
+  width: calc(var(--size) / 8); aspect-ratio: 1; margin-left: calc(var(--size) / -16);
+  border-radius: 50%;
+}
+.ldr--solar-system span:nth-child(1) { inset: 28%; --dur: calc(var(--speed) * 1.4); }
+.ldr--solar-system span:nth-child(1)::before { background: var(--c3); }
+.ldr--solar-system span:nth-child(2) { inset: 15%; --dur: calc(var(--speed) * 2.6); }
+.ldr--solar-system span:nth-child(2)::before { background: var(--c1); width: calc(var(--size) / 7); margin-left: calc(var(--size) / -14); }
+.ldr--solar-system span:nth-child(3) { inset: 1%;  --dur: calc(var(--speed) * 4.2); }
+.ldr--solar-system span:nth-child(3)::before { background: var(--c2); width: calc(var(--size) / 10); margin-left: calc(var(--size) / -20); }
+
+/* rocket — a climb with a flickering plume and stars falling past */
+.ldr--rocket { width: calc(var(--size) * .8); height: calc(var(--size) * 1.3); overflow: hidden; }
+.ldr--rocket::before {
+  content: ""; position: absolute; left: 50%; top: 16%;
+  width: 44%; height: 46%; margin-left: -22%;
+  clip-path: polygon(50% 0, 82% 34%, 82% 78%, 100% 100%, 62% 88%, 38% 88%, 0 100%, 18% 78%, 18% 34%);
+  background: linear-gradient(160deg, #fff, var(--c1) 45%, var(--c2));
+  animation: ldr-rocket-bob calc(var(--speed) * .7) ease-in-out infinite;
+}
+@keyframes ldr-rocket-bob { 0%, 100% { translate: 0 -3%; } 50% { translate: 0 3%; } }
+.ldr--rocket::after {
+  content: ""; position: absolute; left: 50%; top: 60%;
+  width: 24%; height: 26%; margin-left: -12%;
+  border-radius: 50% 50% 60% 60% / 30% 30% 90% 90%;
+  background: linear-gradient(var(--c3), var(--c2) 55%, transparent);
+  filter: blur(calc(var(--size) / 50));
+  animation: ldr-plume calc(var(--speed) * .28) ease-in-out infinite;
+}
+@keyframes ldr-plume { 0%, 100% { scale: .8 .7; opacity: .7; } 50% { scale: 1.15 1.25; opacity: 1; } }
+.ldr--rocket span {
+  position: absolute;
+  width: max(1px, calc(var(--size) / 46)); height: 16%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c3) 70%, transparent);
+  animation: ldr-star-pass var(--dur) linear infinite;
+}
+@keyframes ldr-star-pass { 0% { translate: 0 -140%; } 100% { translate: 0 700%; } }
+.ldr--rocket span:nth-child(1) { left: 12%; top: 0; --dur: calc(var(--speed) * .8); }
+.ldr--rocket span:nth-child(2) { left: 30%; top: 0; --dur: calc(var(--speed) * 1.2); animation-delay: calc(var(--speed) * -.5); }
+.ldr--rocket span:nth-child(3) { left: 72%; top: 0; --dur: calc(var(--speed) * .95); animation-delay: calc(var(--speed) * -.3); }
+.ldr--rocket span:nth-child(4) { left: 88%; top: 0; --dur: calc(var(--speed) * 1.4); animation-delay: calc(var(--speed) * -.8); }
+
+/* pulsar — twin beams raking round from a spinning neutron star */
+.ldr--pulsar { border-radius: 50%; }
+.ldr--pulsar::before {
+  content: ""; position: absolute; inset: -18%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    color-mix(in oklab, var(--c3) 75%, transparent) 0 5%, transparent 16% 50%,
+    color-mix(in oklab, var(--c2) 75%, transparent) 50% 55%, transparent 66%);
+  -webkit-mask: radial-gradient(farthest-side, #000 30%, rgba(0, 0, 0, .25) 100%);
+          mask: radial-gradient(farthest-side, #000 30%, rgba(0, 0, 0, .25) 100%);
+  filter: blur(calc(var(--size) / 40));
+  animation: ldr-spin calc(var(--speed) * 1.5) linear infinite;
+}
+.ldr--pulsar span {
+  position: absolute; inset: 34%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 32%, var(--c3) 70%, transparent);
+  animation: ldr-pulsar-beat calc(var(--speed) * .75) ease-in-out infinite;
+}
+.ldr--pulsar span:nth-child(2) {
+  inset: 20%;
+  background: none;
+  border: max(1px, calc(var(--size) / 40)) solid color-mix(in oklab, var(--c1) 45%, transparent);
+  animation: ldr-pulsar-ring calc(var(--speed) * 1.5) ease-out infinite;
+}
+@keyframes ldr-pulsar-beat { 0%, 100% { scale: .82; opacity: .8; } 50% { scale: 1.1; opacity: 1; } }
+@keyframes ldr-pulsar-ring { 0% { scale: .5; opacity: .9; } 100% { scale: 1.8; opacity: 0; } }

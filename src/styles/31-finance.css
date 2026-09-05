@@ -1,0 +1,188 @@
+/* ===================== Family: finance ===================== */
+
+/* payment-card — a card read, checked, and approved */
+.ldr--payment-card { width: calc(var(--size) * 1.6); height: var(--size); }
+.ldr--payment-card::before {
+  content: ""; position: absolute; inset: 12% 2%;
+  border-radius: calc(var(--size) / 12);
+  background: linear-gradient(140deg, var(--c1), var(--c2));
+  overflow: hidden;
+}
+.ldr--payment-card span:nth-child(1) {
+  position: absolute; left: 10%; top: 44%;
+  width: 18%; height: 22%;
+  border-radius: calc(var(--size) / 34);
+  background: linear-gradient(140deg, color-mix(in oklab, var(--c3) 60%, #fff), var(--c3));
+  box-shadow: inset 0 0 0 max(1px, calc(var(--size) / 60)) rgba(0, 0, 0, .25);
+}
+.ldr--payment-card span:nth-child(2) {
+  position: absolute; left: 34%; right: 10%; top: 68%;
+  height: 9%;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, .65);
+}
+.ldr--payment-card span:nth-child(3) {
+  position: absolute; inset: 12% 2%;
+  border-radius: calc(var(--size) / 12);
+  background: linear-gradient(100deg, transparent 40%, rgba(255, 255, 255, .55) 50%, transparent 60%);
+  background-size: 300% 100%;
+  animation: ldr-card-read calc(var(--speed) * 2.6) ease-in-out infinite;
+}
+@keyframes ldr-card-read { 0%, 100% { background-position: 130% 0; } 55%, 70% { background-position: -30% 0; } }
+.ldr--payment-card::after {
+  content: ""; position: absolute; right: 6%; top: 6%;
+  width: 26%; height: 26%;
+  clip-path: polygon(10% 52%, 0 64%, 38% 100%, 100% 18%, 88% 6%, 37% 74%);
+  background: var(--c3);
+  filter: drop-shadow(0 0 calc(var(--size) / 10) color-mix(in oklab, var(--c3) 60%, transparent));
+  animation: ldr-approved calc(var(--speed) * 2.6) cubic-bezier(.3, 1.6, .5, 1) infinite;
+}
+@keyframes ldr-approved { 0%, 68% { scale: 0; opacity: 0; } 80%, 94% { scale: 1; opacity: 1; } 100% { scale: 1.2; opacity: 0; } }
+
+/* coin-flip — a coin turning end over end and settling */
+.ldr--coin-flip { perspective: calc(var(--size) * 2.5); }
+.ldr--coin-flip span {
+  position: absolute; inset: 14%;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  animation: ldr-flip-coin calc(var(--speed) * 1.8) cubic-bezier(.4, 0, .5, 1) infinite;
+}
+.ldr--coin-flip span:nth-child(1) {
+  background: radial-gradient(circle at 36% 32%, color-mix(in oklab, var(--c2) 45%, #fff) 0 18%, var(--c2) 60%, color-mix(in oklab, var(--c2) 60%, #000) 100%);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 26)) color-mix(in oklab, var(--c2) 55%, #fff);
+}
+.ldr--coin-flip span:nth-child(2) {
+  background: radial-gradient(circle at 36% 32%, color-mix(in oklab, var(--c3) 45%, #fff) 0 18%, var(--c3) 60%, color-mix(in oklab, var(--c3) 60%, #000) 100%);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 26)) color-mix(in oklab, var(--c3) 55%, #fff);
+  transform: rotateX(180deg);
+}
+@keyframes ldr-flip-coin { 0% { transform: rotateX(var(--f, 0deg)); } 100% { transform: rotateX(calc(var(--f, 0deg) + 720deg)); } }
+.ldr--coin-flip span:nth-child(2) { --f: 180deg; }
+.ldr--coin-flip::after {
+  content: ""; position: absolute; left: 26%; right: 26%; bottom: 4%;
+  height: 7%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--c1) 40%, transparent);
+  animation: ldr-breathe calc(var(--speed) * .9) ease-in-out infinite;
+}
+
+/* cart — items dropped into the basket, one after another */
+.ldr--cart { width: calc(var(--size) * 1.3); height: var(--size); overflow: hidden; }
+.ldr--cart::before {
+  content: ""; position: absolute; left: 16%; right: 6%; bottom: 22%;
+  height: 40%;
+  clip-path: polygon(0 0, 100% 0, 84% 100%, 14% 100%);
+  background: color-mix(in oklab, var(--c1) 20%, transparent);
+  box-shadow: inset 0 0 0 max(2px, calc(var(--size) / 28)) var(--c1);
+}
+.ldr--cart::after {
+  content: ""; position: absolute; left: 26%; bottom: 6%;
+  width: 14%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c1);
+  box-shadow: calc(var(--size) * .42) 0 0 var(--c1);
+  animation: ldr-cart-roll calc(var(--speed) * 1.4) ease-in-out infinite;
+}
+@keyframes ldr-cart-roll { 0%, 100% { translate: -6% 0; } 50% { translate: 6% 0; } }
+.ldr--cart span {
+  position: absolute; left: 46%; top: 0;
+  width: 18%; height: 18%; margin-left: -9%;
+  border-radius: calc(var(--size) / 26);
+  background: linear-gradient(150deg, var(--c2), var(--c3));
+  animation: ldr-item-drop calc(var(--speed) * 2.4) cubic-bezier(.4, 0, .7, 1) infinite;
+}
+@keyframes ldr-item-drop {
+  0%   { transform: translate(var(--dx), -60%) rotate(var(--rot)); opacity: 0; }
+  16%  { opacity: 1; }
+  56%, 84% { transform: translate(var(--dx), 250%) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--dx), 250%) rotate(0deg); opacity: 0; }
+}
+.ldr--cart span:nth-child(1) { --dx: -60%; --rot: -22deg; animation-delay: calc(var(--speed) * .0); }
+.ldr--cart span:nth-child(2) { --dx:  40%; --rot:  20deg; animation-delay: calc(var(--speed) * .6); }
+.ldr--cart span:nth-child(3) { --dx: -10%; --rot:  10deg; animation-delay: calc(var(--speed) * 1.2); }
+
+/* receipt — a slip printing out line by line */
+.ldr--receipt { width: calc(var(--size) * .95); height: var(--size); overflow: hidden; }
+.ldr--receipt span:nth-child(1) {
+  position: absolute; left: 12%; right: 12%; top: 0;
+  height: 96%;
+  clip-path: polygon(0 0, 100% 0, 100% 94%, 88% 100%, 75% 94%, 62% 100%, 50% 94%, 38% 100%, 25% 94%, 12% 100%, 0 94%);
+  background: linear-gradient(color-mix(in oklab, var(--c3) 18%, #fff), #fff);
+  transform-origin: 50% 0;
+  animation: ldr-print-out calc(var(--speed) * 3) cubic-bezier(.4, 0, .3, 1) infinite;
+}
+@keyframes ldr-print-out { 0% { scale: 1 .04; } 62%, 88% { scale: 1 1; } 100% { scale: 1 .04; } }
+.ldr--receipt span:nth-child(n+2) {
+  position: absolute; left: 22%;
+  height: 5%;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--c1) 60%, transparent);
+  animation: ldr-print-line calc(var(--speed) * 3) steps(1, end) infinite;
+}
+@keyframes ldr-print-line { 0%, 12% { opacity: 0; } 20%, 88% { opacity: 1; } 100% { opacity: 0; } }
+.ldr--receipt span:nth-child(2) { top: 16%; width: 44%; animation-delay: calc(var(--speed) * .0); }
+.ldr--receipt span:nth-child(3) { top: 30%; width: 56%; animation-delay: calc(var(--speed) * .3); }
+.ldr--receipt span:nth-child(4) { top: 44%; width: 38%; animation-delay: calc(var(--speed) * .6); }
+.ldr--receipt span:nth-child(5) { top: 58%; width: 52%; animation-delay: calc(var(--speed) * .9); }
+.ldr--receipt span:nth-child(6) { top: 72%; width: 30%; background: var(--c2); animation-delay: calc(var(--speed) * 1.2); }
+
+/* stock-candles — a session printing candle by candle */
+.ldr--stock-candles {
+  width: calc(var(--size) * 1.6); height: var(--size);
+  display: inline-flex; align-items: center; justify-content: space-between;
+}
+.ldr--stock-candles span {
+  position: relative;
+  width: 11%;
+  border-radius: calc(var(--size) / 40);
+  transform-origin: 50% 100%;
+  animation: ldr-candle calc(var(--speed) * 2.6) cubic-bezier(.3, 1.4, .5, 1) infinite;
+}
+@keyframes ldr-candle {
+  0%, 6%   { transform: scaleY(0); opacity: 0; }
+  20%, 86% { transform: scaleY(1); opacity: 1; }
+  100%     { transform: scaleY(0); opacity: 0; }
+}
+.ldr--stock-candles span::before {
+  content: ""; position: absolute; left: 50%; top: -34%; bottom: -34%;
+  width: max(1px, calc(var(--size) / 50)); margin-left: max(-.5px, calc(var(--size) / -100));
+  background: inherit;
+}
+.ldr--stock-candles span:nth-child(1) { height: 30%; background: var(--c3); animation-delay: calc(var(--speed) * .0); }
+.ldr--stock-candles span:nth-child(2) { height: 46%; background: var(--c3); animation-delay: calc(var(--speed) * .16); }
+.ldr--stock-candles span:nth-child(3) { height: 24%; background: var(--c2); animation-delay: calc(var(--speed) * .32); }
+.ldr--stock-candles span:nth-child(4) { height: 58%; background: var(--c3); animation-delay: calc(var(--speed) * .48); }
+.ldr--stock-candles span:nth-child(5) { height: 38%; background: var(--c2); animation-delay: calc(var(--speed) * .64); }
+.ldr--stock-candles span:nth-child(6) { height: 72%; background: var(--c3); animation-delay: calc(var(--speed) * .8); }
+
+/* money-transfer — funds arcing from one account to the other */
+.ldr--money-transfer { width: calc(var(--size) * 1.8); height: calc(var(--size) * .9); }
+.ldr--money-transfer::before, .ldr--money-transfer::after {
+  content: ""; position: absolute; bottom: 8%;
+  width: 26%; aspect-ratio: 1;
+  border-radius: 50%;
+  border: max(2px, calc(var(--size) / 26)) solid var(--c1);
+  background: color-mix(in oklab, var(--c1) 12%, transparent);
+}
+.ldr--money-transfer::before { left: 0; }
+.ldr--money-transfer::after {
+  right: 0; border-color: var(--c3);
+  animation: ldr-account-credit calc(var(--speed) * 2) ease-out infinite;
+}
+@keyframes ldr-account-credit {
+  0%, 62% { background: color-mix(in oklab, var(--c1) 12%, transparent); scale: 1; }
+  76% { background: color-mix(in oklab, var(--c3) 34%, transparent); scale: 1.08; }
+  100% { background: color-mix(in oklab, var(--c1) 12%, transparent); scale: 1; }
+}
+.ldr--money-transfer span {
+  position: absolute; left: 22%; bottom: 26%;
+  width: 13%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, color-mix(in oklab, var(--c2) 40%, #fff) 0 20%, var(--c2) 100%);
+  animation: ldr-coin-x calc(var(--speed) * 2) linear infinite,
+             ldr-coin-arc calc(var(--speed) * 2) cubic-bezier(.3, 0, .7, 1) infinite;
+}
+@keyframes ldr-coin-x { 0% { translate: 0 0; opacity: 0; } 12% { opacity: 1; } 84% { opacity: 1; } 100% { translate: 340% 0; opacity: 0; } }
+@keyframes ldr-coin-arc { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-135%); } }
+.ldr--money-transfer span:nth-child(2) { animation-delay: calc(var(--speed) * -.66); }
+.ldr--money-transfer span:nth-child(3) { animation-delay: calc(var(--speed) * -1.33); }

@@ -1,0 +1,225 @@
+/* ===================== Family: medical ===================== */
+
+/* ecg — a heart trace drawing itself across a monitor grid */
+.ldr--ecg {
+  width: calc(var(--size) * 1.8); height: var(--size);
+  border-radius: calc(var(--size) / 14);
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(90deg, color-mix(in oklab, var(--c1) 15%, transparent) 0 1px, transparent 1px calc(var(--size) / 7)),
+    repeating-linear-gradient(0deg,  color-mix(in oklab, var(--c1) 15%, transparent) 0 1px, transparent 1px calc(var(--size) / 7)),
+    color-mix(in oklab, var(--c1) 7%, transparent);
+}
+.ldr--ecg span:nth-child(1) {
+  position: absolute; inset: 0;
+  animation: ldr-ecg-sweep calc(var(--speed) * 2.4) linear infinite;
+}
+@keyframes ldr-ecg-sweep { 0% { clip-path: inset(0 100% 0 0); } 94%, 100% { clip-path: inset(0 0 0 0); } }
+.ldr--ecg span:nth-child(1)::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--c1), var(--c2) 60%, var(--c3));
+  clip-path: polygon(
+    0 58%, 18% 58%, 24% 66%, 30% 52%, 34% 14%, 40% 88%, 46% 56%, 52% 58%,
+    62% 58%, 68% 46%, 74% 58%, 100% 58%,
+    100% 65%, 74% 65%, 68% 54%, 62% 65%, 52% 65%, 46% 64%, 40% 95%,
+    34% 22%, 30% 60%, 24% 73%, 18% 65%, 0 65%);
+}
+.ldr--ecg span:nth-child(2) {
+  position: absolute; top: 0; bottom: 0; left: 0;
+  width: max(2px, calc(var(--size) / 30));
+  background: var(--c3);
+  box-shadow: 0 0 calc(var(--size) / 6) var(--c3);
+  animation: ldr-ecg-head calc(var(--speed) * 2.4) linear infinite;
+}
+@keyframes ldr-ecg-head {
+  0% { translate: 0 0; opacity: 1; }
+  94% { translate: calc(var(--size) * 1.78) 0; opacity: 1; }
+  95%, 100% { translate: calc(var(--size) * 1.78) 0; opacity: 0; }
+}
+
+/* vitals — three traces running at three different rhythms */
+.ldr--vitals {
+  width: calc(var(--size) * 1.7); height: var(--size);
+  display: inline-flex; flex-direction: column; justify-content: space-evenly;
+}
+.ldr--vitals span {
+  position: relative; height: 22%;
+  background: linear-gradient(color-mix(in oklab, var(--c1) 28%, transparent) 0 0)
+              center / 100% max(1px, calc(var(--size) / 50)) no-repeat;
+}
+.ldr--vitals span::before {
+  content: ""; position: absolute; top: 50%; left: 0;
+  width: 13%; aspect-ratio: 1; margin-top: -6.5%;
+  border-radius: 50%;
+  animation: ldr-vitals-run var(--dur) linear infinite,
+             ldr-vitals-beat var(--dur) ease-in-out infinite;
+}
+@keyframes ldr-vitals-run  { 0% { translate: 0 0; } 100% { translate: 670% 0; } }
+@keyframes ldr-vitals-beat {
+  0%, 34%, 100% { transform: translateY(0) scale(.8); }
+  40% { transform: translateY(-150%) scale(1.15); }
+  46% { transform: translateY(90%) scale(.9); }
+  52% { transform: translateY(0) scale(.8); }
+}
+.ldr--vitals span:nth-child(1)::before { background: var(--c1); --dur: calc(var(--speed) * 1.4); }
+.ldr--vitals span:nth-child(2)::before { background: var(--c2); --dur: calc(var(--speed) * 2.2); }
+.ldr--vitals span:nth-child(3)::before { background: var(--c3); --dur: calc(var(--speed) * 3.1); }
+
+/* lungs — a pair of lobes filling and emptying with the breath */
+.ldr--lungs::before, .ldr--lungs::after {
+  content: ""; position: absolute; top: 26%; bottom: 8%;
+  width: 40%;
+  background: linear-gradient(var(--c2), var(--c1));
+  animation: ldr-breath calc(var(--speed) * 3) cubic-bezier(.42, 0, .5, 1) infinite;
+}
+.ldr--lungs::before { left: 4%;  border-radius: 60% 20% 45% 55% / 55% 30% 60% 45%; transform-origin: 100% 0; }
+.ldr--lungs::after  { right: 4%; border-radius: 20% 60% 55% 45% / 30% 55% 45% 60%; transform-origin: 0 0; }
+@keyframes ldr-breath { 0%, 100% { scale: .78 .8; opacity: .55; } 45% { scale: 1.06 1.08; opacity: 1; } }
+.ldr--lungs span {
+  position: absolute; left: 50%; top: 2%;
+  width: max(3px, calc(var(--size) / 16)); height: 34%;
+  margin-left: max(-1.5px, calc(var(--size) / -32));
+  border-radius: 99px;
+  background: var(--c3);
+}
+
+/* capsule — a pill parting to release its granules, then closing */
+.ldr--capsule { width: calc(var(--size) * 1.5); height: calc(var(--size) * .56); }
+.ldr--capsule span:nth-child(1), .ldr--capsule span:nth-child(2) {
+  position: absolute; top: 0; bottom: 0; width: 50%;
+  animation: ldr-capsule-part calc(var(--speed) * 2.4) cubic-bezier(.5, 0, .4, 1) infinite;
+}
+.ldr--capsule span:nth-child(1) {
+  left: 0; border-radius: 99px 0 0 99px;
+  background: linear-gradient(160deg, var(--c1), color-mix(in oklab, var(--c1) 70%, #000));
+  --dir: -1;
+}
+.ldr--capsule span:nth-child(2) {
+  right: 0; border-radius: 0 99px 99px 0;
+  background: linear-gradient(160deg, var(--c3), color-mix(in oklab, var(--c3) 70%, #000));
+  --dir: 1;
+}
+@keyframes ldr-capsule-part {
+  0%, 100% { translate: 0 0; }
+  40%, 62% { translate: calc(var(--dir) * 34%) 0; }
+}
+.ldr--capsule span:nth-child(n+3) {
+  position: absolute; top: 50%; left: 50%;
+  width: 9%; aspect-ratio: 1; margin: -4.5% 0 0 -4.5%;
+  border-radius: 50%; background: var(--c2);
+  animation: ldr-granule calc(var(--speed) * 2.4) ease-out infinite;
+}
+.ldr--capsule span:nth-child(3) { --a: -30deg; }
+.ldr--capsule span:nth-child(4) { --a:   0deg; animation-delay: calc(var(--speed) * .1); }
+.ldr--capsule span:nth-child(5) { --a:  30deg; animation-delay: calc(var(--speed) * .2); }
+@keyframes ldr-granule {
+  0%, 38%  { transform: rotate(var(--a)) translateY(0) scale(.3); opacity: 0; }
+  50%      { transform: rotate(var(--a)) translateY(-60%) scale(1); opacity: 1; }
+  72%, 100% { transform: rotate(var(--a)) translateY(-190%) scale(.4); opacity: 0; }
+}
+
+/* syringe — the plunger going down and a bead forming at the needle */
+.ldr--syringe { width: calc(var(--size) * 1.7); height: calc(var(--size) * .5); }
+.ldr--syringe::before {
+  content: ""; position: absolute; left: 8%; right: 26%; top: 12%; bottom: 12%;
+  border: max(1px, calc(var(--size) / 44)) solid color-mix(in oklab, var(--c1) 50%, transparent);
+  border-radius: calc(var(--size) / 22);
+  background: color-mix(in oklab, var(--c1) 8%, transparent);
+}
+.ldr--syringe::after {
+  content: ""; position: absolute; right: 4%; top: 50%;
+  width: 22%; height: max(2px, calc(var(--size) / 30)); margin-top: max(-1px, calc(var(--size) / -60));
+  background: color-mix(in oklab, var(--c1) 60%, transparent);
+}
+.ldr--syringe span:nth-child(1) {
+  position: absolute; left: 9%; top: 14%; bottom: 14%; right: 27%;
+  border-radius: calc(var(--size) / 26);
+  background: linear-gradient(90deg, var(--c2), var(--c3));
+  transform-origin: 100% 50%;
+  animation: ldr-plunge calc(var(--speed) * 2.6) cubic-bezier(.5, 0, .5, 1) infinite;
+}
+@keyframes ldr-plunge { 0%, 8% { scale: 1 1; } 70%, 100% { scale: .06 1; } }
+.ldr--syringe span:nth-child(2) {
+  position: absolute; right: 2%; top: 50%;
+  width: 8%; aspect-ratio: 1; margin-top: -4%;
+  border-radius: 50% 50% 60% 60% / 40% 40% 70% 70%;
+  background: var(--c3);
+  animation: ldr-syringe-drop calc(var(--speed) * 2.6) ease-in infinite;
+}
+@keyframes ldr-syringe-drop {
+  0%, 45% { scale: 0; opacity: 0; }
+  70% { scale: 1; opacity: 1; translate: 0 0; }
+  100% { scale: .7; opacity: 0; translate: 40% 190%; }
+}
+
+/* microscope — a field of view drifting in and out of focus */
+.ldr--microscope {
+  border-radius: 50%;
+  overflow: hidden;
+  border: calc(var(--size) / 12) solid color-mix(in oklab, var(--c1) 35%, transparent);
+  background: radial-gradient(circle, color-mix(in oklab, var(--c3) 12%, transparent), transparent 75%);
+  animation: ldr-focus calc(var(--speed) * 3) ease-in-out infinite;
+}
+@keyframes ldr-focus { 0%, 100% { filter: blur(calc(var(--size) / 26)); } 50% { filter: blur(0); } }
+.ldr--microscope span {
+  position: absolute;
+  width: 22%; aspect-ratio: 1;
+  border-radius: 46% 54% 60% 40% / 55% 45% 55% 45%;
+  background: color-mix(in oklab, var(--c2) 65%, transparent);
+  box-shadow: inset 0 0 0 max(1px, calc(var(--size) / 40)) var(--c2);
+  animation: ldr-specimen calc(var(--speed) * 5) linear infinite;
+}
+.ldr--microscope span:nth-child(1) { left: 10%; top: 20%; --dx:  120%; --dy:  180%; }
+.ldr--microscope span:nth-child(2) { left: 58%; top: 14%; --dx: -160%; --dy:  140%; width: 16%; }
+.ldr--microscope span:nth-child(3) { left: 24%; top: 62%; --dx:  190%; --dy: -120%; width: 18%; }
+.ldr--microscope span:nth-child(4) { left: 66%; top: 58%; --dx: -140%; --dy: -170%; width: 13%; }
+@keyframes ldr-specimen {
+  0%   { translate: 0 0; rotate: 0deg; }
+  100% { translate: var(--dx) var(--dy); rotate: 180deg; }
+}
+
+/* cell-divide — one cell pinching in two, over and over */
+.ldr--cell-divide span {
+  position: absolute; top: 50%; left: 50%;
+  width: 46%; aspect-ratio: 1; margin: -23% 0 0 -23%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, color-mix(in oklab, var(--c3) 55%, #fff) 0 14%, var(--c2) 55%, var(--c1) 100%);
+  animation: ldr-mitosis calc(var(--speed) * 2.8) cubic-bezier(.5, 0, .4, 1) infinite;
+}
+.ldr--cell-divide span:nth-child(1) { --dir: -1; }
+.ldr--cell-divide span:nth-child(2) { --dir:  1; }
+@keyframes ldr-mitosis {
+  0%, 18%  { translate: 0 0; scale: 1 1; }
+  42%      { translate: calc(var(--dir) * 12%) 0; scale: 1.14 .82; }
+  70%      { translate: calc(var(--dir) * 50%) 0; scale: .82 1.06; }
+  88%, 100% { translate: calc(var(--dir) * 52%) 0; scale: .78 .78; }
+}
+.ldr--cell-divide::after {
+  content: ""; position: absolute; inset: 30%;
+  border-radius: 50%;
+  border: max(1px, calc(var(--size) / 40)) dashed color-mix(in oklab, var(--c1) 45%, transparent);
+  animation: ldr-spin calc(var(--speed) * 6) linear infinite;
+}
+
+/* blood-flow — corpuscles carried along a vessel */
+.ldr--blood-flow {
+  width: calc(var(--size) * 1.8); height: calc(var(--size) * .46);
+  border-radius: 99px;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--c1) 12%, transparent);
+  box-shadow: inset 0 0 0 max(1px, calc(var(--size) / 50)) color-mix(in oklab, var(--c1) 30%, transparent);
+}
+.ldr--blood-flow span {
+  position: absolute; left: 0;
+  width: 15%; height: 62%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--c2) 55%, #000) 0 22%, var(--c2) 40%);
+  animation: ldr-corpuscle var(--dur) linear infinite,
+             ldr-tumble calc(var(--speed) * 2) linear infinite;
+}
+@keyframes ldr-corpuscle { 0% { translate: -120% var(--lane); } 100% { translate: 720% var(--lane); } }
+.ldr--blood-flow span:nth-child(1) { top: 19%; --lane:  0%;   --dur: calc(var(--speed) * 1.9); animation-delay: 0s, calc(var(--speed) * -.3); }
+.ldr--blood-flow span:nth-child(2) { top: 19%; --lane: -45%;  --dur: calc(var(--speed) * 1.5); animation-delay: calc(var(--speed) * -.6), calc(var(--speed) * -.9); }
+.ldr--blood-flow span:nth-child(3) { top: 19%; --lane:  48%;  --dur: calc(var(--speed) * 2.3); animation-delay: calc(var(--speed) * -1.1), calc(var(--speed) * -.1); }
+.ldr--blood-flow span:nth-child(4) { top: 19%; --lane: -20%;  --dur: calc(var(--speed) * 1.7); background: radial-gradient(circle, color-mix(in oklab, var(--c3) 50%, #000) 0 22%, var(--c3) 40%); animation-delay: calc(var(--speed) * -1.5), calc(var(--speed) * -1.2); }
+.ldr--blood-flow span:nth-child(5) { top: 19%; --lane:  22%;  --dur: calc(var(--speed) * 2.1); background: radial-gradient(circle, color-mix(in oklab, var(--c3) 50%, #000) 0 22%, var(--c3) 40%); animation-delay: calc(var(--speed) * -.9), calc(var(--speed) * -.5); }
